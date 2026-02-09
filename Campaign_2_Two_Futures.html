@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campaign 3 — What's At Stake</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Future A — aspirational (AARP Red) */
+  --teal: #E31837;
+  --teal-light: #FDF0F2;
+  --teal-dark: #B01229;
+  --teal-glow: rgba(227,24,55,.12);
+
+  /* Future B — cautionary (AARP Blue) */
+  --charcoal: #1C1C1E;
+  --slate: #2C2C2E;
+  --slate-mid: #3A3A3C;
+
+  /* The choice point / Future B accent */
+  --amber: #3E9CC5;
+  --amber-light: #E5F1F7;
+  --amber-glow: rgba(62,156,197,.12);
+
+  /* Shared */
+  --red: #E31837;
+  --dark: #111;
+  --mid: #4a4a4a;
+  --soft: #888;
+  --cream: #FAFAF7;
+  --wire-bg: #f0efec;
+  --wire-stroke: #c8c6c1;
+  --wire-fill: #e8e6e2;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--dark); overflow-x:hidden; }
+
+/* ========================================
+   HERO — The Fork
+   Centered. Two diverging path lines.
+   Centered hero with diverging paths.
+   ======================================== */
+.hero {
+  min-height: 100vh;
+  background: var(--charcoal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 60px 40px;
+}
+
+/* Diverging path lines */
+.hero-path { display:none !important;
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 2px; height: 0;
+  animation: pathGrow 1.2s ease forwards .6s;
+}
+
+.hero-path-left {
+  transform-origin: top center;
+  transform: rotate(-25deg);
+  background: linear-gradient(180deg, var(--teal) 0%, transparent 100%);
+}
+
+.hero-path-right {
+  transform-origin: top center;
+  transform: rotate(25deg);
+  background: linear-gradient(180deg, var(--amber) 0%, transparent 100%);
+}
+
+/* Fork dot at center */
+.hero-fork-dot { display:none !important;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  animation: fadeIn .4s ease forwards 1.6s;
+  z-index: 5;
+}
+
+/* Glow blobs */
+.hero-glow-a {
+  position: absolute;
+  top: 20%; left: 15%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--teal-glow) 0%, transparent 70%);
+  opacity: 0; animation: fadeIn 1.5s ease forwards .3s;
+}
+
+.hero-glow-b {
+  position: absolute;
+  bottom: 15%; right: 15%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%);
+  opacity: 0; animation: fadeIn 1.5s ease forwards .5s;
+}
+
+.hero-content {
+  position: relative; z-index: 3;
+  max-width: 700px;
+}
+
+.hero-label {
+  font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--amber); font-weight: 600; margin-bottom: 24px;
+  opacity:0; animation: fadeUp .7s ease forwards .2s;
+}
+
+.hero h1 {
+  font-family:'Fraunces',serif;
+  font-size: clamp(44px,6vw,78px);
+  font-weight: 800; color: #fff;
+  line-height: 1.06;
+  opacity:0; animation: fadeUp .7s ease forwards .35s;
+}
+
+/* The two futures in the title */
+.hero h1 .future-a { color: var(--teal); }
+.hero h1 .future-b { color: var(--amber); }
+
+.hero-sub {
+  font-size: 17px; color: rgba(255,255,255,.7);
+  margin-top: 22px; line-height: 1.65; max-width: 520px;
+  margin-left: auto; margin-right: auto;
+  opacity:0; animation: fadeUp .7s ease forwards .5s;
+}
+
+/* Two future pills */
+.hero-futures {
+  display: flex; justify-content: center; gap: 16px;
+  margin-top: 36px;
+  opacity:0; animation: fadeUp .7s ease forwards .7s;
+}
+
+.hero-pill {
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: .5px;
+}
+
+.hero-pill-a {
+  background: rgba(13,124,102,.15);
+  color: var(--teal);
+  border: 1px solid rgba(13,124,102,.25);
+}
+
+.hero-pill-b {
+  background: rgba(212,149,43,.12);
+  color: var(--amber);
+  border: 1px solid rgba(212,149,43,.2);
+}
+
+.hero-meta {
+  position: absolute;
+  bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 40px;
+  opacity:0; animation: fadeUp .7s ease forwards .9s;
+}
+
+.hero-meta-item { display: flex; flex-direction: column; gap: 4px; text-align: center; }
+.hero-meta-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.hero-meta-val { font-size: 13px; color: rgba(255,255,255,.75); font-weight: 500; }
+
+.scroll-hint {
+  position: absolute; bottom: 40px; right: 60px;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.15);
+  opacity:0; animation: fadeUp .7s ease forwards 1s;
+}
+.scroll-hint::after { content:' ↓'; animation: bounce 2s ease infinite; display:inline-block; }
+
+
+/* ===== DISCLAIMER ===== */
+.disclaimer-bar {
+  background: #000;
+  border-top: 3px solid var(--red);
+  border-bottom: 3px solid var(--red);
+  padding: 28px 80px;
+}
+.disclaimer-inner { display:flex; align-items:flex-start; gap:20px; max-width:860px; }
+.disclaimer-badge {
+  background:var(--red); color:#fff;
+  font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  padding:7px 16px; border-radius:3px; white-space:nowrap; flex-shrink:0;
+}
+.disclaimer-bar p { font-size:13px; color:#fff; line-height:1.7; }
+.disclaimer-bar strong { color:#fff; text-decoration:underline; text-decoration-color:var(--red); text-underline-offset:3px; }
+
+
+/* ===== SECTIONS ===== */
+.section { padding: 100px 80px; }
+.section-num { font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--amber); font-weight:600; margin-bottom:12px; }
+.section-title { font-family:'Fraunces',serif; font-size:clamp(28px,3.5vw,44px); font-weight:700; color:var(--dark); margin-bottom:12px; line-height:1.15; }
+.section-desc { font-size:16px; color:var(--soft); max-width:640px; line-height:1.65; margin-bottom:48px; }
+.section-divider { height:1px; background:linear-gradient(90deg, transparent, #ddd 20%, #ddd 80%, transparent); margin:0 80px; }
+
+
+/* ===== NARRATIVE ARC — Forking path ===== */
+.fork-arc {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,.06);
+  border: 1px solid #eee;
+}
+
+.fork-arc-origin {
+  background: var(--charcoal);
+  padding: 20px 16px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; gap: 6px;
+  min-width: 120px;
+  position: relative;
+}
+
+.fork-arc-origin::after {
+  content: ''; display:none;
+  color: #fff; font-size: 16px; z-index: 2;
+}
+
+.fork-arc-origin .fa-label {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.8); font-weight: 600;
+}
+
+.fork-arc-origin .fa-text {
+  font-size: 14px; font-weight: 600; color: #fff; line-height: 1.3;
+}
+
+.fork-arc-paths { flex: 1; display: flex; flex-direction: column; }
+
+.fork-arc-path {
+  flex: 1;
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 16px;
+}
+
+.fork-arc-path-a {
+  background: var(--teal-light);
+  border-bottom: 1px solid rgba(13,124,102,.1);
+}
+
+.fork-arc-path-b {
+  background: var(--amber-light);
+}
+
+.fap-badge {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  font-weight: 700; white-space: nowrap;
+}
+
+.fork-arc-path-a .fap-badge { color: var(--teal); }
+.fork-arc-path-b .fap-badge { color: var(--amber); }
+
+.fap-steps {
+  display: flex; gap: 8px; flex: 1; align-items: center;
+}
+
+.fap-step {
+  font-size: 13px; font-weight: 500; line-height: 1.3;
+  padding: 8px 12px; border-radius: 4px; flex: 1;
+  text-align: center;
+}
+
+.fork-arc-path-a .fap-step { background: rgba(13,124,102,.08); color: var(--teal-dark); }
+.fork-arc-path-b .fap-step { background: rgba(212,149,43,.1); color: #2A7A9E; }
+
+.fap-arrow { font-size: 14px; font-weight: 700; flex-shrink: 0; }
+.fork-arc-path-a .fap-arrow { color: var(--teal); }
+.fork-arc-path-b .fap-arrow { color: var(--amber); }
+
+.fork-arc-decision {
+  background: #fff;
+  padding: 16px 20px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; gap: 4px;
+  min-width: 130px;
+  border-left: 3px solid var(--amber);
+}
+
+.fork-arc-decision .fad-label {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 700;
+}
+
+.fork-arc-decision .fad-text {
+  font-family: 'Fraunces', serif;
+  font-size: 15px; font-weight: 700; color: var(--dark); line-height: 1.25;
+}
+
+
+/* ===== WIREFRAME + ANNOTATIONS ===== */
+.wireframe-stage {
+  background:var(--wire-bg); border-radius:16px;
+  padding:40px; position:relative; border:1px solid var(--wire-stroke);
+}
+.wireframe-stage::before {
+  content:attr(data-label);
+  position:absolute; top:-10px; left:24px;
+  background:var(--cream); padding:2px 12px;
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--soft); font-weight:600;
+}
+
+.annotations-panel {
+  margin-top:32px; padding:24px 28px;
+  background:#fff; border-radius:12px; border:1px solid #eee;
+}
+.annotations-panel h4 {
+  font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--soft); font-weight:600; margin-bottom:16px;
+}
+.annotation { display:flex; align-items:flex-start; gap:12px; padding:8px 0; border-bottom:1px solid #f5f5f5; }
+.annotation:last-child { border-bottom:none; }
+.ann-marker {
+  width:22px; height:22px; border-radius:50%;
+  background:var(--amber); color:#fff;
+  font-size:10px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.ann-text { font-size:13px; color:var(--mid); line-height:1.6; }
+.ann-text strong { color:var(--dark); }
+
+
+/* ========================================
+   TACTIC 1: INFOGRAPHIC
+   "Two Futures" — side-by-side columns
+   Wide two-column comparison.
+   This is a WIDE two-column comparison.
+   ======================================== */
+.futures-infographic {
+  max-width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,.06);
+}
+
+/* Header bar */
+.fi-header {
+  display: flex; align-items: stretch;
+}
+
+.fi-header-text {
+  flex: 1; background: var(--charcoal);
+  padding: 20px 24px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.fi-logo {
+  display:inline-block; background:var(--red); border-radius:2px;
+  padding:3px 8px; font-size:11px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:#fff; margin-bottom:8px; align-self:flex-start;
+}
+
+.fi-header-text h3 {
+  font-family:'Fraunces',serif; color:#fff; font-size:18px; font-weight:700; line-height:1.2;
+}
+
+.fi-header-text h3 .fa { color:var(--teal); }
+.fi-header-text h3 .fb { color:var(--amber); }
+
+.fi-header-text .sub { font-size:12px; color:rgba(255,255,255,.5); margin-top:4px; }
+
+.fi-header-img {
+  width: 180px; background: var(--slate);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:6px; border-left:1px dashed rgba(255,255,255,.1);
+}
+.fi-header-img .img-x {
+  width:50px; height:50px; border:1px dashed rgba(255,255,255,.15); border-radius:4px;
+  display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,.2); font-size:18px;
+}
+.fi-header-img span { font-size:11px; color:rgba(255,255,255,.2); letter-spacing:1.5px; text-transform:uppercase; font-weight:600; }
+
+/* The hook question */
+.fi-hook {
+  padding: 16px 24px;
+  text-align: center;
+  border-bottom: 1px solid #f0efec;
+}
+
+.fi-hook p {
+  font-family:'Fraunces',serif;
+  font-size: 18px; font-weight: 700; color: var(--dark); line-height: 1.3;
+}
+
+.fi-hook span { font-size: 12px; color: var(--soft); display: block; margin-top: 4px; }
+
+/* Column headers */
+.fi-col-headers {
+  display: grid; grid-template-columns: 1fr 3px 1fr;
+}
+
+.fi-col-header {
+  padding: 10px 16px;
+  text-align: center;
+}
+
+.fi-col-header-a { background: var(--teal); }
+.fi-col-header-b { background: var(--amber); }
+
+.fi-col-header h4 {
+  font-family:'Fraunces',serif;
+  font-size: 15px; font-weight: 700; color: #fff;
+}
+
+.fi-col-header span {
+  font-size: 11px; color: rgba(255,255,255,.7);
+}
+
+.fi-col-divider-h { background: #fff; }
+
+/* Comparison rows */
+.fi-comparison {
+  display: grid; grid-template-columns: 1fr 3px 1fr;
+}
+
+.fi-row-a, .fi-row-b {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0efec;
+}
+
+.fi-row-a { background: var(--teal-light); }
+.fi-row-b { background: var(--amber-light); }
+
+.fi-row-divider { background: var(--wire-fill); }
+
+.fi-row-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 4px;
+}
+
+.fi-row-a .fi-row-label { color: var(--teal); }
+.fi-row-b .fi-row-label { color: var(--amber); }
+
+.fi-row-stat {
+  font-family:'Fraunces',serif;
+  font-size: 18px; font-weight: 800;
+}
+
+.fi-row-a .fi-row-stat { color: var(--teal-dark); }
+.fi-row-b .fi-row-stat { color: #2A7A9E; }
+
+.fi-row-desc {
+  font-size: 12px; line-height: 1.4; margin-top: 2px;
+}
+
+.fi-row-a .fi-row-desc { color: var(--teal-dark); opacity: .6; }
+.fi-row-b .fi-row-desc { color: #2A7A9E; opacity: .6; }
+
+/* Decision band */
+.fi-decision {
+  background: var(--charcoal);
+  padding: 14px 24px;
+  text-align: center;
+}
+
+.fi-decision .fd-label {
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--amber); font-weight: 700; margin-bottom: 4px;
+}
+
+.fi-decision p {
+  font-family:'Fraunces',serif;
+  font-size: 15px; color: #fff; font-weight: 700; line-height: 1.3;
+}
+
+/* Principles as choices */
+.fi-choices {
+  padding: 14px 20px 18px;
+}
+
+.fi-choices-header {
+  text-align: center; margin-bottom: 10px;
+}
+
+.fi-choices-header h4 {
+  font-family:'Fraunces',serif;
+  font-size: 16px; font-weight: 700; color: var(--dark);
+}
+
+.fi-choices-header p { font-size: 12px; color: var(--soft); margin-top: 2px; }
+
+.fi-choice-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.fi-choice-card {
+  border-radius: 6px;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #eee;
+  position: relative;
+}
+
+.fi-choice-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; border-radius: 6px 6px 0 0;
+}
+
+.fi-choice-card:nth-child(odd)::before { background: var(--teal); }
+.fi-choice-card:nth-child(even)::before { background: var(--amber); }
+
+.fi-choice-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--charcoal); color: #fff;
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 4px;
+}
+
+.fi-choice-name {
+  font-size: 11px; font-weight: 700; color: var(--dark); line-height: 1.2;
+}
+
+.fi-choice-desc {
+  font-size: 10px; color: var(--soft); line-height: 1.3; margin-top: 2px;
+}
+
+/* CTA + footer */
+.fi-cta {
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+  padding: 12px 24px; text-align: center;
+}
+.fi-cta p { font-size: 13px; color: rgba(255,255,255,.9); font-weight: 600; }
+
+.fi-footer {
+  background: var(--charcoal); padding: 8px 24px; text-align: center;
+}
+.fi-footer span { font-size: 10px; color: rgba(255,255,255,.4); letter-spacing: 1px; }
+
+
+/* ========================================
+   TACTIC 2: LINKEDIN CAROUSEL
+   Paired comparison slides — A vs B
+   Alternates between Future A/B panels.
+   This alternates between Future A/B panels.
+   ======================================== */
+.carousel-wire {
+  display:flex; gap:16px; overflow-x:auto;
+  padding:8px 4px 16px; scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.carousel-wire::-webkit-scrollbar { height:4px; }
+.carousel-wire::-webkit-scrollbar-track { background:var(--wire-fill); border-radius:2px; }
+.carousel-wire::-webkit-scrollbar-thumb { background:var(--amber); border-radius:2px; }
+
+.c-slide {
+  min-width:260px; max-width:260px; aspect-ratio:1/1.15;
+  border-radius:8px; overflow:hidden; scroll-snap-align:start;
+  flex-shrink:0; display:flex; flex-direction:column;
+  box-shadow:0 2px 12px rgba(0,0,0,.08); position:relative;
+}
+
+.c-slide-num {
+  position:absolute; bottom:8px; right:10px;
+  font-size:9px; font-weight:600; color:rgba(255,255,255,.2);
+}
+.c-slide-num.dk { color:rgba(0,0,0,.12); }
+
+/* Slide: fork hook */
+.cs-fork {
+  flex: 1; display: flex; flex-direction: column;
+  background: var(--charcoal);
+  justify-content: center; align-items: center;
+  text-align: center; padding: 24px; gap: 16px;
+}
+
+.cs-fork-paths {
+  display: flex; gap: 12px;
+}
+
+.cs-fork-path {
+  width: 3px; height: 40px;
+  border-radius: 2px;
+}
+
+.cs-fork-path-a { background: var(--teal); transform: rotate(-15deg); }
+.cs-fork-path-b { background: var(--amber); transform: rotate(15deg); }
+
+.cs-fork h4 {
+  font-family:'Fraunces',serif;
+  color: #fff; font-size: 20px; font-weight: 700; line-height: 1.2;
+}
+
+.cs-fork h4 .fa { color: var(--teal); }
+.cs-fork h4 .fb { color: var(--amber); }
+
+.cs-fork .cs-sub {
+  font-size: 11px; color: rgba(255,255,255,.35); line-height: 1.5;
+}
+
+/* Slide: Future A panel */
+.cs-future-a {
+  background: var(--teal); flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: 24px; gap: 10px;
+}
+
+.cs-future-a .cs-label {
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,.5); font-weight: 600;
+}
+
+.cs-future-a h4 {
+  font-family:'Fraunces',serif;
+  color: #fff; font-size: 16px; font-weight: 700; line-height: 1.3;
+}
+
+.cs-future-a .cs-list {
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+.cs-future-a .cs-list-item {
+  display: flex; align-items: flex-start; gap: 6px;
+  font-size: 10px; color: rgba(255,255,255,.7); line-height: 1.4;
+}
+
+.cs-future-a .cs-list-item::before {
+  content: '✓'; color: #fff; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+
+/* Slide: Future B panel */
+.cs-future-b {
+  background: var(--charcoal); flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: 24px; gap: 10px;
+  border-left: 3px solid var(--amber);
+}
+
+.cs-future-b .cs-label {
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--amber); font-weight: 600;
+}
+
+.cs-future-b h4 {
+  font-family:'Fraunces',serif;
+  color: #fff; font-size: 16px; font-weight: 700; line-height: 1.3;
+}
+
+.cs-future-b .cs-list {
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+.cs-future-b .cs-list-item {
+  display: flex; align-items: flex-start; gap: 6px;
+  font-size: 10px; color: rgba(255,255,255,.4); line-height: 1.4;
+}
+
+.cs-future-b .cs-list-item::before {
+  content: '✗'; color: var(--amber); font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+
+/* Slide: Decision quote */
+.cs-quote {
+  background: var(--charcoal); flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 28px; text-align: center; gap: 10px;
+}
+
+.cs-quote .cs-q-mark {
+  font-family:'Fraunces',serif;
+  font-size: 48px; color: var(--amber); line-height: 1; opacity: .4;
+}
+
+.cs-quote blockquote {
+  font-family:'Fraunces',serif;
+  font-size: 14px; color: #fff; font-weight: 600;
+  font-style: italic; line-height: 1.4;
+}
+
+.cs-quote cite {
+  font-size: 9px; color: rgba(255,255,255,.25); font-style: normal;
+}
+
+/* Slide: "The Choice" principle */
+.cs-choice {
+  background: #fff; flex: 1; display: flex; flex-direction: column;
+}
+
+.cs-choice-header {
+  display: flex; align-items: stretch;
+}
+
+.cs-choice-header-a {
+  flex: 1; background: var(--teal);
+  padding: 8px 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.cs-choice-header-b {
+  flex: 1; background: var(--amber);
+  padding: 8px 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.cs-choice-header .cch-badge {
+  font-size: 7px; letter-spacing: 1.5px; text-transform: uppercase;
+  font-weight: 700; color: rgba(255,255,255,.7);
+}
+
+.cs-choice-header .cch-text {
+  font-size: 9px; color: #fff; font-weight: 600; line-height: 1.2;
+}
+
+.cs-choice-body {
+  flex: 1; padding: 14px 18px;
+  display: flex; flex-direction: column; justify-content: center; gap: 8px;
+}
+
+.cs-choice-num {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.cs-choice-badge {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--charcoal); color: #fff;
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+.cs-choice-title {
+  font-family:'Fraunces',serif;
+  font-size: 13px; font-weight: 700; color: var(--dark); line-height: 1.25;
+}
+
+.cs-choice-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 700; }
+
+.cs-choice-text { font-size: 10px; color: var(--mid); line-height: 1.55; }
+
+.cs-choice-formal {
+  font-size: 9px; color: var(--soft); line-height: 1.45;
+  padding-left: 10px; border-left: 2px solid var(--teal-light);
+}
+
+/* Slide: CTA */
+.cs-cta {
+  background: var(--charcoal); flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 24px; text-align: center; gap: 14px;
+}
+
+.cs-cta .cc-label {
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); font-weight: 600;
+}
+
+.cs-cta h4 {
+  font-family:'Fraunces',serif;
+  color: #fff; font-size: 16px; font-weight: 700; line-height: 1.3;
+}
+
+.cs-cta h4 .fa { color: var(--teal); }
+
+.cs-cta .cc-btn {
+  display:inline-block; background:var(--teal); color:#fff;
+  font-size:9px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+  padding:8px 20px; border-radius:4px;
+}
+
+.cs-cta .cc-url { font-size:9px; color:rgba(255,255,255,.2); }
+
+
+/* ========================================
+   TACTIC 3: PPT
+   Two-row diverging layout
+   3-column grid layout.
+   This shows slides in 2 rows that
+   split from a shared origin.
+   ======================================== */
+.ppt-diverge-wrap {
+  padding: 32px 0 16px;
+}
+
+.ppt-diverge {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.ppt-slide {
+  aspect-ratio:16/9;
+  border-radius:5px; overflow:hidden;
+  display:flex; flex-direction:column;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+  border:1px solid #eee; position:relative;
+  background:#fff;
+}
+
+.ppt-label {
+  position:absolute; top:-18px; left:0;
+  font-size:10px; color:var(--soft); font-weight:500; white-space:nowrap;
+}
+
+.ppt-connector {
+  display:none;
+}
+
+/* PPT types */
+.ppt-dark {
+  background:var(--charcoal); justify-content:center; align-items:center;
+  padding:12px; text-align:center;
+}
+.ppt-dark .pm-logo { width:24px; height:7px; background:var(--red); border-radius:1px; margin:0 auto 6px; }
+.ppt-dark h5 { font-family:'Fraunces',serif; color:#fff; font-size:14px; font-weight:700; line-height:1.25; }
+.ppt-dark h5 .fa { color:var(--teal); }
+.ppt-dark h5 .fb { color:var(--amber); }
+.ppt-dark p { font-size:10px; color:rgba(255,255,255,.4); margin-top:3px; }
+
+.ppt-teal {
+  background:var(--teal); justify-content:center; align-items:center;
+  padding:10px; text-align:center;
+}
+.ppt-teal h5 { font-family:'Fraunces',serif; font-size:14px; font-weight:700; color:#fff; line-height:1.25; }
+.ppt-teal p { font-size:10px; color:rgba(255,255,255,.6); margin-top:2px; }
+
+.ppt-amber {
+  background:var(--amber); justify-content:center; align-items:center;
+  padding:10px; text-align:center;
+}
+.ppt-amber h5 { font-family:'Fraunces',serif; font-size:14px; font-weight:700; color:#fff; line-height:1.25; }
+.ppt-amber p { font-size:10px; color:rgba(255,255,255,.6); margin-top:2px; }
+
+.ppt-split-futures {
+  display:grid; grid-template-columns:1fr 1fr;
+}
+
+.ppt-sf-a {
+  background:var(--teal-light); display:flex; align-items:center; justify-content:center;
+  padding:6px; text-align:center;
+}
+.ppt-sf-a span { font-size:10px; color:var(--teal-dark); font-weight:600; line-height:1.2; }
+
+.ppt-sf-b {
+  background:var(--amber-light); display:flex; align-items:center; justify-content:center;
+  padding:6px; text-align:center;
+}
+.ppt-sf-b span { font-size:10px; color:#2A7A9E; font-weight:600; line-height:1.2; }
+
+.ppt-content { padding:12px 16px; }
+.ppt-content .pc-heading {
+  font-size:12px; font-weight:700; color:var(--dark);
+  margin-bottom:3px; padding-bottom:2px;
+  border-bottom:2px solid var(--amber); display:inline-block;
+}
+.ppt-content .pc-sub { font-size:10px; color:var(--soft); line-height:1.4; }
+
+.ppt-lines { display:flex; flex-direction:column; gap:2px; margin-top:3px; }
+.ppt-line { height:2px; background:var(--wire-fill); border-radius:1px; }
+.ppt-line:nth-child(odd) { width:90%; }
+.ppt-line:nth-child(even) { width:65%; }
+
+.ppt-principle-s {
+  padding:10px 14px; display:flex; flex-direction:column;
+  border-top:3px solid var(--teal);
+}
+.ppt-principle-s .pp-head { display:flex; align-items:center; gap:4px; margin-bottom:3px; }
+.ppt-principle-s .pp-badge {
+  width:18px; height:18px; border-radius:50%;
+  background:var(--charcoal); color:#fff;
+  font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center;
+}
+.ppt-principle-s .pp-name { font-size:12px; font-weight:700; color:var(--dark); }
+.ppt-principle-s .pp-label { font-size:10px; color:var(--amber); font-weight:600; letter-spacing:.5px; }
+
+
+/* ========================================
+   TACTIC 4: WEBPAGE
+   Split-screen diverging scroll
+   Split-screen diverging scroll.
+   This uses side-by-side panels that
+   diverge then converge at principles.
+   ======================================== */
+.web-wire {
+  max-width:640px; margin:0 auto;
+  background:#fff; border-radius:10px;
+  overflow:hidden; box-shadow:0 6px 32px rgba(0,0,0,.08);
+}
+
+.web-browser {
+  background:#e8e6e2; padding:8px 14px;
+  display:flex; align-items:center; gap:10px;
+}
+.web-dots { display:flex; gap:5px; }
+.web-dot { width:8px; height:8px; border-radius:50%; background:#d4d2cd; }
+.web-url {
+  font-size:9px; color:var(--soft); flex:1;
+  background:#fff; padding:4px 10px; border-radius:4px;
+}
+
+/* Hero */
+.web-hero {
+  background:var(--charcoal); padding:28px 24px; text-align:center;
+}
+.web-hero .wh-label { font-size:8px; letter-spacing:3px; text-transform:uppercase; color:var(--amber); font-weight:600; margin-bottom:8px; }
+.web-hero h3 { font-family:'Fraunces',serif; font-size:20px; font-weight:700; color:#fff; line-height:1.2; }
+.web-hero h3 .fa { color:var(--teal); }
+.web-hero h3 .fb { color:var(--amber); }
+.web-hero .wh-sub { font-size:9px; color:rgba(255,255,255,.3); margin-top:6px; }
+
+/* Fork intro */
+.web-fork-intro {
+  padding:18px 24px;
+  text-align:center;
+  border-bottom:1px solid #f0efec;
+}
+.web-fork-intro p {
+  font-family:'Fraunces',serif;
+  font-size:14px; font-weight:600; color:var(--dark); line-height:1.4;
+}
+.web-fork-intro span { font-size:10px; color:var(--soft); display:block; margin-top:4px; }
+
+/* Side-by-side futures panels */
+.web-futures {
+  display:grid; grid-template-columns:1fr 1fr;
+}
+
+.web-future-a {
+  background:var(--teal);
+  padding:18px 16px;
+  display:flex; flex-direction:column; gap:8px;
+}
+
+.web-future-b {
+  background:var(--charcoal);
+  padding:18px 16px;
+  display:flex; flex-direction:column; gap:8px;
+  border-left:2px solid var(--amber);
+}
+
+.wf-label {
+  font-size:8px; letter-spacing:2px; text-transform:uppercase; font-weight:700;
+}
+.web-future-a .wf-label { color:rgba(255,255,255,.5); }
+.web-future-b .wf-label { color:var(--amber); }
+
+.wf-headline {
+  font-family:'Fraunces',serif;
+  font-size:13px; font-weight:700; color:#fff; line-height:1.3;
+}
+
+.wf-item {
+  display:flex; align-items:flex-start; gap:5px;
+  font-size:9px; line-height:1.4;
+}
+
+.web-future-a .wf-item { color:rgba(255,255,255,.7); }
+.web-future-b .wf-item { color:rgba(255,255,255,.4); }
+
+.wf-item::before { flex-shrink:0; font-weight:700; margin-top:1px; }
+.web-future-a .wf-item::before { content:'✓'; color:#fff; }
+.web-future-b .wf-item::before { content:'✗'; color:var(--amber); }
+
+/* Decision section */
+.web-decision {
+  background:var(--charcoal);
+  padding:16px 24px; text-align:center;
+}
+.web-decision .wd-label {
+  font-size:8px; letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--amber); font-weight:700; margin-bottom:4px;
+}
+.web-decision p {
+  font-family:'Fraunces',serif;
+  font-size:13px; color:#fff; font-weight:600; line-height:1.35;
+}
+
+/* Science section */
+.web-section {
+  padding:18px 24px; border-bottom:1px solid #f0efec;
+}
+.web-section .ws-label { font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--amber); font-weight:700; margin-bottom:6px; }
+.web-section h4 { font-family:'Fraunces',serif; font-size:14px; font-weight:700; color:var(--dark); line-height:1.3; margin-bottom:6px; }
+.web-section p { font-size:10px; color:var(--mid); line-height:1.6; }
+
+/* Quote */
+.web-quote {
+  background:var(--charcoal); padding:18px 24px; text-align:center;
+}
+.web-quote blockquote {
+  font-family:'Fraunces',serif; font-size:13px; color:var(--amber);
+  font-weight:600; font-style:italic; line-height:1.4;
+}
+.web-quote cite { display:block; margin-top:6px; font-size:8px; color:rgba(255,255,255,.25); font-style:normal; }
+
+/* Video */
+.web-video {
+  margin:12px 20px; border-radius:8px; overflow:hidden;
+  height:160px; background:var(--charcoal); position:relative;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  border:1px solid rgba(255,255,255,.08);
+  background-image: linear-gradient(135deg, rgba(255,255,255,.02) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.02) 50%, rgba(255,255,255,.02) 75%, transparent 75%);
+  background-size: 20px 20px;
+}
+.web-video::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at center, rgba(227,24,55,.08) 0%, transparent 60%);
+  pointer-events:none;
+}
+.web-video-btn {
+  width:48px; height:48px; border-radius:50%; background:var(--red);
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:#fff; position:relative; z-index:2;
+  box-shadow: 0 4px 20px rgba(227,24,55,.3);
+}
+.web-video span { font-size:9px; color:rgba(255,255,255,.4); letter-spacing:1.5px; text-transform:uppercase; font-weight:600; position:relative; z-index:2; }
+
+/* Principles — "The Choices" */
+.web-principles {
+  padding:18px 24px;
+}
+.web-pr-header { margin-bottom:14px; }
+.web-pr-label { font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--amber); font-weight:700; margin-bottom:4px; }
+.web-pr-title { font-family:'Fraunces',serif; font-size:16px; font-weight:700; color:var(--dark); line-height:1.25; }
+.web-pr-sub { font-size:10px; color:var(--soft); margin-top:4px; line-height:1.5; }
+
+.web-pr-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+.web-pr-card {
+  background:#fff; border:1px solid #eee; border-radius:8px;
+  padding:0 14px 12px; overflow:hidden;
+  position:relative;
+}
+
+/* Teal/amber alternating top borders */
+.web-pr-card:nth-child(odd) { border-top:3px solid var(--teal); }
+.web-pr-card:nth-child(even) { border-top:3px solid var(--amber); }
+
+.web-pr-img {
+  width:calc(100% + 28px); margin:0 -14px 10px;
+  height:50px; background:#f5f4f1; border-bottom:1px dashed #d4d2cd;
+  display:flex; align-items:center; justify-content:center; gap:4px;
+}
+.web-pr-img .x-icon {
+  width:20px; height:20px; border:1px dashed #c8c6c1; border-radius:3px;
+  display:flex; align-items:center; justify-content:center; color:#bbb; font-size:10px;
+}
+.web-pr-img span { font-size:10px; color:#bbb; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; }
+
+.web-pr-head { display:flex; align-items:center; gap:6px; margin-bottom:6px; }
+
+.web-pr-num {
+  width:20px; height:20px; border-radius:50%;
+  background:var(--charcoal); color:#fff;
+  font-size:9px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+
+.web-pr-name { font-size:11px; font-weight:700; color:var(--dark); line-height:1.2; }
+.web-pr-label-sm { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--amber); font-weight:700; margin-bottom:3px; }
+.web-pr-desc { font-size:9px; color:var(--mid); line-height:1.5; }
+
+.web-pr-futures-row {
+  display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-top:8px;
+}
+.web-pr-fa, .web-pr-fb {
+  padding:5px 6px; border-radius:3px; font-size:11px; line-height:1.3;
+}
+.web-pr-fa { background:var(--teal-light); color:var(--teal-dark); }
+.web-pr-fb { background:var(--amber-light); color:#2A7A9E; }
+.web-pr-fa strong, .web-pr-fb strong { display:block; font-size:10px; letter-spacing:1px; text-transform:uppercase; margin-bottom:1px; }
+
+/* CTA */
+.web-cta {
+  background:linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+  padding:16px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.web-cta p { font-size:11px; color:#fff; font-weight:600; }
+.web-cta-btns { display:flex; gap:8px; }
+.web-cta-btn {
+  display:inline-block; background:#fff; color:var(--teal-dark);
+  font-size:8px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+  padding:6px 14px; border-radius:3px; white-space:nowrap;
+}
+
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes bounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(6px); } }
+@keyframes pathGrow { from { height:0; } to { height:300px; } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:1000px) {
+  .section { padding:60px 40px; }
+  .section-divider { margin:0 40px; }
+  .fork-arc { flex-direction:column; }
+  .fork-arc-origin { min-width:auto; }
+  .fork-arc-origin::after { display:none; }
+  .fap-steps { flex-direction:column; }
+  .fi-comparison { grid-template-columns:1fr; }
+  .fi-col-headers { grid-template-columns:1fr; }
+  .fi-col-divider-h, .fi-row-divider { display:none; }
+  .fi-choice-grid { grid-template-columns:1fr 1fr; }
+  .disclaimer-bar { padding:16px 32px; }
+  .disclaimer-inner { flex-direction:column; gap:8px; }
+  .web-futures { grid-template-columns:1fr; }
+  .web-pr-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO — The Fork ==================== -->
+<section class="hero">
+  <div class="hero-glow-a"></div>
+  <div class="hero-glow-b"></div>
+  <div class="hero-path hero-path-left"></div>
+  <div class="hero-path hero-path-right"></div>
+  <div class="hero-fork-dot"></div>
+
+  <div class="hero-content">
+    <div class="hero-label">Campaign 2 of 4</div>
+    <h1><span class="future-a">Two Futures.</span><br><span class="future-b">One Choice.</span></h1>
+    <p class="hero-sub">Geroscience breakthroughs are coming. They'll either transform aging for everyone — or deepen the divide between those who benefit and those left behind. The six principles determine which future we get.</p>
+    <div class="hero-futures">
+      <div class="hero-pill hero-pill-a">Future A → Healthspan for all</div>
+      <div class="hero-pill hero-pill-b">Future B → Healthspan for the few</div>
+    </div>
+  </div>
+
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Source</span>
+      <span class="hero-meta-val">The Journal, Vol. 16</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Authors</span>
+      <span class="hero-meta-val">Debra Whitman & Dr. Erwin Tan</span>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll to explore</div>
+</section>
+
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-bar">
+  <div class="disclaimer-inner">
+    <div class="disclaimer-badge">For AARP Team</div>
+    <p>These are <strong>interactive concept wireframes only</strong> — not final designs. Colors, branding, fonts, and graphics are placeholders. All content, copy, photography, illustration, and iconography are representative and will be refined collaboratively with the AARP team. Best viewed on desktop or tablet.</p>
+  </div>
+</div>
+
+
+<!-- NARRATIVE ARC — Forking path -->
+<section class="section" style="padding-bottom:40px;">
+  <div class="section-num">Narrative Structure</div>
+  <div class="section-title">The Diverging Path</div>
+  <div class="section-desc">The audience encounters two possible futures — then discovers that the six principles are what determine which one we get. Every format presents the same fork:</div>
+
+  <div class="fork-arc">
+    <div class="fork-arc-origin">
+      <div class="fa-label">Today</div>
+      <div class="fa-text">Geroscience breakthroughs are coming</div>
+    </div>
+    <div class="fork-arc-paths">
+      <div class="fork-arc-path fork-arc-path-a">
+        <div class="fap-badge">Future A</div>
+        <div class="fap-steps">
+          <div class="fap-step">Principles adopted globally</div>
+          <div class="fap-arrow">→</div>
+          <div class="fap-step">Access, equity, affordability</div>
+          <div class="fap-arrow">→</div>
+          <div class="fap-step">Healthspan for all</div>
+        </div>
+      </div>
+      <div class="fork-arc-path fork-arc-path-b">
+        <div class="fap-badge">Future B</div>
+        <div class="fap-steps">
+          <div class="fap-step">Status quo continues</div>
+          <div class="fap-arrow">→</div>
+          <div class="fap-step">Research for the few</div>
+          <div class="fap-arrow">→</div>
+          <div class="fap-step">Gaps widen globally</div>
+        </div>
+      </div>
+    </div>
+    <div class="fork-arc-decision">
+      <div class="fad-label">What Decides</div>
+      <div class="fad-text">AARP's 6 Principles</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 1: INFOGRAPHIC ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 01</div>
+  <div class="section-title">Infographic — "Two Futures"</div>
+  <div class="section-desc">A side-by-side comparison infographic — not a vertical scroll. The left column shows Future A (principles adopted), the right shows Future B (status quo). Same data points, radically different outcomes. The layout IS the argument: two futures, one choice. The layout IS the argument: two futures, one choice.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — Two Futures Infographic">
+    <div class="futures-infographic">
+
+      <div class="fi-header">
+        <div class="fi-header-text">
+          <div class="fi-logo">AARP Logo</div>
+          <h3><span class="fa">Two Futures.</span> <span class="fb">One Choice.</span></h3>
+          <div class="sub">What's at stake in the geroscience revolution</div>
+        </div>
+        <div class="fi-header-img">
+          <div class="img-x">✕</div>
+          <span>Image</span>
+        </div>
+      </div>
+
+      <div class="fi-hook">
+        <p>Geroscience breakthroughs are coming.<br>The question isn't if — it's who benefits.</p>
+        <span>The same data. Two very different outcomes.</span>
+      </div>
+
+      <!-- Column headers -->
+      <div class="fi-col-headers">
+        <div class="fi-col-header fi-col-header-a"><h4>Future A: For Everyone</h4><span>If we adopt the principles</span></div>
+        <div class="fi-col-divider-h"></div>
+        <div class="fi-col-header fi-col-header-b"><h4>Future B: For the Few</h4><span>If we don't</span></div>
+      </div>
+
+      <!-- Row 1: Access -->
+      <div class="fi-comparison">
+        <div class="fi-row-a">
+          <div class="fi-row-label">Access to Trials</div>
+          <div class="fi-row-stat">40+ countries</div>
+          <div class="fi-row-desc">Clinical trials distributed globally</div>
+        </div>
+        <div class="fi-row-divider"></div>
+        <div class="fi-row-b">
+          <div class="fi-row-label">Access to Trials</div>
+          <div class="fi-row-stat">12 nations</div>
+          <div class="fi-row-desc">Concentrated in wealthy countries</div>
+        </div>
+      </div>
+
+      <!-- Row 2: Healthspan -->
+      <div class="fi-comparison">
+        <div class="fi-row-a">
+          <div class="fi-row-label">Healthy Years Added</div>
+          <div class="fi-row-stat">Global gains</div>
+          <div class="fi-row-desc">Healthspan increases worldwide</div>
+        </div>
+        <div class="fi-row-divider"></div>
+        <div class="fi-row-b">
+          <div class="fi-row-label">Healthy Years Added</div>
+          <div class="fi-row-stat">Selective gains</div>
+          <div class="fi-row-desc">Benefits limited to wealthy populations</div>
+        </div>
+      </div>
+
+      <!-- Row 3: Affordability -->
+      <div class="fi-comparison">
+        <div class="fi-row-a">
+          <div class="fi-row-label">Therapy Pricing</div>
+          <div class="fi-row-stat">Accessible</div>
+          <div class="fi-row-desc">Priced for global health systems</div>
+        </div>
+        <div class="fi-row-divider"></div>
+        <div class="fi-row-b">
+          <div class="fi-row-label">Therapy Pricing</div>
+          <div class="fi-row-stat">$4,500+/yr</div>
+          <div class="fi-row-desc">Only affordable in wealthy nations</div>
+        </div>
+      </div>
+
+      <!-- Row 4: Disparity -->
+      <div class="fi-comparison">
+        <div class="fi-row-a">
+          <div class="fi-row-label">Global Health Gaps</div>
+          <div class="fi-row-stat">Narrowing</div>
+          <div class="fi-row-desc">Disparities decrease across borders</div>
+        </div>
+        <div class="fi-row-divider"></div>
+        <div class="fi-row-b">
+          <div class="fi-row-label">Global Health Gaps</div>
+          <div class="fi-row-stat">Widening</div>
+          <div class="fi-row-desc">New science deepens existing inequality</div>
+        </div>
+      </div>
+
+      <!-- Decision band -->
+      <div class="fi-decision">
+        <div class="fd-label">What Determines Which Future We Get?</div>
+        <p>Six principles. The difference between Future A and Future B.</p>
+      </div>
+
+      <!-- Principles as choices -->
+      <div class="fi-choices">
+        <div class="fi-choices-header">
+          <h4>Six Principles to Choose Future A</h4>
+          <p>Each one closes a specific gap between the two futures.</p>
+        </div>
+        <div class="fi-choice-grid">
+          <div class="fi-choice-card"><div class="fi-choice-num">1</div><div class="fi-choice-name">Recognize &amp; Affirm Aging as a Natural Process</div><div class="fi-choice-desc">Not a disease. Should not contribute to ageism but increase opportunities for people to live the way they want as they age.</div></div>
+          <div class="fi-choice-card"><div class="fi-choice-num">2</div><div class="fi-choice-name">Increase Healthspan</div><div class="fi-choice-desc">Primary intention: increase the years of life in good health, not just total years. Lifespan gains are a welcome secondary benefit.</div></div>
+          <div class="fi-choice-card"><div class="fi-choice-num">3</div><div class="fi-choice-name">Ensure Access &amp; Equity</div><div class="fi-choice-desc">Who benefits and who is left behind? Advances must be inclusive and beneficial for all — decrease, not increase, disparities.</div></div>
+          <div class="fi-choice-card"><div class="fi-choice-num">4</div><div class="fi-choice-name">Ensure Affordability for Individuals &amp; the System</div><div class="fi-choice-desc">Costs must not be burdensome or limit access. Financial assistance must ensure affordability. Must produce savings and improve system sustainability.</div></div>
+          <div class="fi-choice-card"><div class="fi-choice-num">5</div><div class="fi-choice-name">Ensure Transparency</div><div class="fi-choice-desc">Consumer voices elevated. Needs of all populations considered in defining clinically relevant outcomes. Policymaking must be transparent and ensure meaningful changes in people's lives.</div></div>
+          <div class="fi-choice-card"><div class="fi-choice-num">6</div><div class="fi-choice-name">Utilize an Integrated Approach</div><div class="fi-choice-desc">Achievements must be fully integrated in, and remain part of, larger country-level efforts to address social determinants of health and longevity.</div></div>
+        </div>
+      </div>
+
+      <div class="fi-cta"><p>Choose Future A. → aarpinternational.org/the-journal</p></div>
+      <div class="fi-footer"><span>By Debra Whitman & Dr. Erwin Tan · The Journal, Vol. 16 · AARP 2025</span></div>
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>Side-by-side comparison format</strong> — A wide, two-column comparison where the layout itself makes the argument. Red (aspirational) vs blue (cautionary) — the reader sees both futures simultaneously.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>Same data points, different outcomes</strong> — Each row compares the same dimension (access, healthspan, pricing, gaps) under two scenarios. The reader doesn't need explanation — the contrast does the work.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>Principles as a 3×2 choice grid, not a list</strong> — Compact choice cards with alternating red/blue top borders — reinforcing that each principle is a decision between the two futures.</div></div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 2: LINKEDIN CAROUSEL ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 02</div>
+  <div class="section-title">LinkedIn Carousel</div>
+  <div class="section-desc">A 12-slide carousel that alternates between Future A (teal) and Future B (amber/dark) panels. The reader experiences both futures before encountering the principles. Includes fork hook, paired future cards, ✓/✗ outcome lists, and "The Choice" principle cards with dual-header design.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — LinkedIn Carousel (12 slides)">
+    <div class="carousel-wire">
+
+      <!-- 1: Fork hook -->
+      <div class="c-slide">
+        <div class="cs-fork">
+          <div class="cs-fork-paths">
+            <div class="cs-fork-path cs-fork-path-a"></div>
+            <div class="cs-fork-path cs-fork-path-b"></div>
+          </div>
+          <h4><span class="fa">Two futures.</span><br><span class="fb">One choice.</span></h4>
+          <div class="cs-sub">Geroscience breakthroughs are coming. They'll either transform aging for everyone — or only for the few.</div>
+        </div>
+        <span class="c-slide-num">1/12</span>
+      </div>
+
+      <!-- 2: Future A -->
+      <div class="c-slide">
+        <div class="cs-future-a">
+          <div class="cs-label">Future A</div>
+          <h4>Geroscience works for everyone</h4>
+          <div class="cs-list">
+            <div class="cs-list-item">Clinical trials in 40+ countries</div>
+            <div class="cs-list-item">Therapies priced for global reach</div>
+            <div class="cs-list-item">Healthy years increase worldwide</div>
+            <div class="cs-list-item">Health gaps narrow across borders</div>
+          </div>
+        </div>
+        <span class="c-slide-num">2/12</span>
+      </div>
+
+      <!-- 3: Future B -->
+      <div class="c-slide">
+        <div class="cs-future-b">
+          <div class="cs-label">Future B</div>
+          <h4>Geroscience works for the few</h4>
+          <div class="cs-list">
+            <div class="cs-list-item">Trials concentrated in 12 wealthy nations</div>
+            <div class="cs-list-item">Therapies priced for wealthy markets only</div>
+            <div class="cs-list-item">80% of global aging excluded from benefits</div>
+            <div class="cs-list-item">New science deepens existing inequality</div>
+          </div>
+        </div>
+        <span class="c-slide-num">3/12</span>
+      </div>
+
+      <!-- 4: Decision quote -->
+      <div class="c-slide">
+        <div class="cs-quote">
+          <div class="cs-q-mark">"</div>
+          <blockquote>Should not be limited to a wealthy few.</blockquote>
+          <cite>— AARP Geroscience Principles</cite>
+        </div>
+        <span class="c-slide-num">4/12</span>
+      </div>
+
+      <!-- 5: The bridge -->
+      <div class="c-slide">
+        <div class="cs-fork" style="gap:12px;">
+          <h4 style="font-size:15px;">The science doesn't decide which future we get.<br><span class="fb">Policy does.</span></h4>
+          <div class="cs-sub">Six principles. The difference between Future A and Future B.</div>
+        </div>
+        <span class="c-slide-num">5/12</span>
+      </div>
+
+      <!-- 6-11: "The Choice" — ALL 6 principles -->
+
+      <!-- P1: Aging as Natural -->
+      <div class="c-slide">
+        <div class="cs-choice">
+          <div class="cs-choice-header">
+            <div class="cs-choice-header-a"><div class="cch-badge">A:</div><div class="cch-text">Aging honored, opportunity expanded</div></div>
+            <div class="cs-choice-header-b"><div class="cch-badge">B:</div><div class="cch-text">Aging treated as disease, ageism deepens</div></div>
+          </div>
+          <div class="cs-choice-body">
+            <div class="cs-choice-num"><div class="cs-choice-badge">1</div><div class="cs-choice-title">Recognize &amp; Affirm Aging as a Natural Process</div></div>
+            <div class="cs-choice-label">The Choice</div>
+            <div class="cs-choice-text">Aging is natural, not a disease. Geroscience should expand opportunities, not fuel ageism.</div>
+          </div>
+        </div>
+        <span class="c-slide-num dk">6/12</span>
+      </div>
+
+      <!-- P2: Increase Healthspan -->
+      <div class="c-slide">
+        <div class="cs-choice">
+          <div class="cs-choice-header">
+            <div class="cs-choice-header-a"><div class="cch-badge">A:</div><div class="cch-text">More healthy years for all</div></div>
+            <div class="cs-choice-header-b"><div class="cch-badge">B:</div><div class="cch-text">More years — but not healthier ones</div></div>
+          </div>
+          <div class="cs-choice-body">
+            <div class="cs-choice-num"><div class="cs-choice-badge">2</div><div class="cs-choice-title">Increase Healthspan</div></div>
+            <div class="cs-choice-label">The Choice</div>
+            <div class="cs-choice-text">The goal is more healthy years, not just more years. Lifespan gains are a welcome bonus.</div>
+          </div>
+        </div>
+        <span class="c-slide-num dk">7/12</span>
+      </div>
+
+      <!-- P3: Access & Equity -->
+      <div class="c-slide">
+        <div class="cs-choice">
+          <div class="cs-choice-header">
+            <div class="cs-choice-header-a"><div class="cch-badge">A:</div><div class="cch-text">Inclusive, beneficial for all</div></div>
+            <div class="cs-choice-header-b"><div class="cch-badge">B:</div><div class="cch-text">Who benefits? Who is left behind?</div></div>
+          </div>
+          <div class="cs-choice-body">
+            <div class="cs-choice-num"><div class="cs-choice-badge">3</div><div class="cs-choice-title">Ensure Access &amp; Equity</div></div>
+            <div class="cs-choice-label">The Choice</div>
+            <div class="cs-choice-text">Who benefits and who gets left behind? Advances must be inclusive and reduce disparities, not widen them.</div>
+          </div>
+        </div>
+        <span class="c-slide-num dk">8/12</span>
+      </div>
+
+      <!-- P4: Affordability -->
+      <div class="c-slide">
+        <div class="cs-choice">
+          <div class="cs-choice-header">
+            <div class="cs-choice-header-a"><div class="cch-badge">A:</div><div class="cch-text">Affordable, system-sustaining</div></div>
+            <div class="cs-choice-header-b"><div class="cch-badge">B:</div><div class="cch-text">Burdensome costs, limited access</div></div>
+          </div>
+          <div class="cs-choice-body">
+            <div class="cs-choice-num"><div class="cs-choice-badge">4</div><div class="cs-choice-title">Ensure Affordability for Individuals &amp; the System</div></div>
+            <div class="cs-choice-label">The Choice</div>
+            <div class="cs-choice-text">Costs must not limit access. Interventions should be affordable for all and improve health system sustainability.</div>
+          </div>
+        </div>
+        <span class="c-slide-num dk">9/12</span>
+      </div>
+
+      <!-- P5: Transparency -->
+      <div class="c-slide">
+        <div class="cs-choice">
+          <div class="cs-choice-header">
+            <div class="cs-choice-header-a"><div class="cch-badge">A:</div><div class="cch-text">All voices heard, outcomes meaningful</div></div>
+            <div class="cs-choice-header-b"><div class="cch-badge">B:</div><div class="cch-text">Decisions behind closed doors</div></div>
+          </div>
+          <div class="cs-choice-body">
+            <div class="cs-choice-num"><div class="cs-choice-badge">5</div><div class="cs-choice-title">Ensure Transparency</div></div>
+            <div class="cs-choice-label">The Choice</div>
+            <div class="cs-choice-text">Consumer voices must shape what counts as progress. Policymaking must be transparent and publicly accountable.</div>
+          </div>
+        </div>
+        <span class="c-slide-num dk">10/12</span>
+      </div>
+
+      <!-- P6: Integrated Approach -->
+      <div class="c-slide">
+        <div class="cs-choice">
+          <div class="cs-choice-header">
+            <div class="cs-choice-header-a"><div class="cch-badge">A:</div><div class="cch-text">Connected to social determinants</div></div>
+            <div class="cs-choice-header-b"><div class="cch-badge">B:</div><div class="cch-text">Siloed in research labs</div></div>
+          </div>
+          <div class="cs-choice-body">
+            <div class="cs-choice-num"><div class="cs-choice-badge">6</div><div class="cs-choice-title">Utilize an Integrated Approach</div></div>
+            <div class="cs-choice-label">The Choice</div>
+            <div class="cs-choice-text">Breakthroughs must integrate into broader national efforts addressing social determinants of health.</div>
+          </div>
+        </div>
+        <span class="c-slide-num dk">11/12</span>
+      </div>
+
+      <!-- 12: CTA -->
+      <div class="c-slide">
+        <div class="cs-cta">
+          <div class="cc-label">All 6 Principles</div>
+          <h4>Choose<br><span class="fa">Future A.</span></h4>
+          <div class="cc-btn">Read the Framework</div>
+          <div class="cc-url">aarpinternational.org/the-journal</div>
+        </div>
+        <span class="c-slide-num">12/12</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>Paired future slides (2+3)</strong> — The reader swipes from Future A (aspirational, ✓ checkmarks) to Future B (cautionary, ✗ marks). The contrast is instant — two consecutive slides, two completely different outcomes.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>"The Choice" principle cards with dual headers</strong> — Each principle slide has a split teal/amber header showing both futures. Below: the principle that determines which future we get. Each principle is framed as the deciding factor between the two futures.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>"Choose Future A" CTA</strong> — An action-oriented CTA that echoes the campaign's core metaphor. The reader has seen both futures — now they're asked to choose.</div></div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 3: PPT ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 03</div>
+  <div class="section-title">PowerPoint Deck</div>
+  <div class="section-desc">A 15-slide advocacy deck in a 3-column grid. The first half presents both futures; the second half shows how each principle determines which future we get. Includes split-panel future comparisons and teal-bordered principle slides.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — PPT Deck (15 slides)">
+    <div class="ppt-diverge-wrap">
+      <div class="ppt-diverge">
+
+        <div class="ppt-slide ppt-dark"><span class="ppt-label">1 — Title</span><div class="pm-logo"></div><h5><span class="fa">Two Futures.</span><br><span class="fb">One Choice.</span></h5><p>What's at stake in the geroscience revolution</p></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-teal"><span class="ppt-label">2 — Future A</span><h5>Future A:<br>For Everyone</h5><p>Global access. Affordable therapies. Healthy years worldwide.</p></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-amber"><span class="ppt-label">3 — Future B</span><h5>Future B:<br>For the Few</h5><p>Research concentrated. Gaps widen. 80% excluded.</p></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-split-futures"><span class="ppt-label">4 — Comparison</span><div class="ppt-sf-a"><span>✓ Trials in 40+ countries<br>✓ Healthspan gains global<br>✓ Gaps narrowing</span></div><div class="ppt-sf-b"><span>✗ 12 wealthy nations only<br>✗ Benefits for the few<br>✗ Inequality deepens</span></div></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-dark"><span class="ppt-label">5 — The Science</span><div style="font-size:10px;color:var(--amber);letter-spacing:2px;font-weight:600;margin-bottom:4px;">THE SCIENCE</div><h5>What is Geroscience?</h5><p>Delay, prevent, reverse diseases of aging. Trials underway.</p></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-content"><span class="ppt-label">6 — The Trajectory</span><div class="pc-heading">Current Trajectory</div><div class="pc-sub">Where research is vs. where aging is happening. 80% in LMICs.</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-dark"><span class="ppt-label">7 — The Risk</span><div style="font-size:10px;color:var(--amber);letter-spacing:2px;font-weight:600;margin-bottom:4px;">THE RISK</div><h5>"Should not be<br>limited to a<br>wealthy few."</h5></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-dark"><span class="ppt-label">8 — Framework</span><div style="font-size:10px;color:var(--amber);letter-spacing:2px;font-weight:600;margin-bottom:4px;">THE CHOICE</div><h5>Six principles that<br>determine which<br><span class="fa">future we get</span></h5></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-principle-s"><span class="ppt-label">9 — P1</span><div class="pp-head"><div class="pp-badge">1</div><span class="pp-name">Aging as Natural Process</span></div><div class="pp-label">FUTURE A IF WE CHOOSE THIS</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-principle-s"><span class="ppt-label">10 — P2</span><div class="pp-head"><div class="pp-badge">2</div><span class="pp-name">Increase Healthspan</span></div><div class="pp-label">FUTURE A IF WE CHOOSE THIS</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-principle-s"><span class="ppt-label">11 — P3</span><div class="pp-head"><div class="pp-badge">3</div><span class="pp-name">Ensure Access & Equity</span></div><div class="pp-label">FUTURE A IF WE CHOOSE THIS</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-principle-s"><span class="ppt-label">12 — P4</span><div class="pp-head"><div class="pp-badge">4</div><span class="pp-name">Ensure Affordability</span></div><div class="pp-label">FUTURE A IF WE CHOOSE THIS</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-principle-s"><span class="ppt-label">13 — P5</span><div class="pp-head"><div class="pp-badge">5</div><span class="pp-name">Ensure Transparency</span></div><div class="pp-label">FUTURE A IF WE CHOOSE THIS</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-principle-s"><span class="ppt-label">14 — P6</span><div class="pp-head"><div class="pp-badge">6</div><span class="pp-name">Integrated Approach</span></div><div class="pp-label">FUTURE A IF WE CHOOSE THIS</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+        <div class="ppt-connector"></div>
+
+        <div class="ppt-slide ppt-dark"><span class="ppt-label">15 — CTA</span><div style="font-size:10px;color:var(--amber);letter-spacing:2px;font-weight:600;margin-bottom:4px;">WHAT'S AT STAKE</div><h5>Choose<br><span class="fa">Future A.</span></h5><div style="margin-top:6px;background:var(--teal);padding:2px 6px;border-radius:2px;font-size:9px;color:#fff;font-weight:700;letter-spacing:1px;">READ THE FRAMEWORK</div></div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>Slides 2+3 are paired futures</strong> — Future A slide immediately followed by Future B slide. In a presentation, these appear as a deliberate juxtaposition — the audience sees both possibilities back-to-back.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>Slide 4: split-panel comparison</strong> — A split-panel slide showing ✓/✗ outcomes side by side. The audience sees both futures in a single frame — the comparison makes the stakes immediately clear.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>Teal top-border on principle slides</strong> — Each principle slide has a teal (Future A) accent, signaling: this principle takes us toward the aspirational future. The color coding connects each principle back to the two-futures framework.</div></div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 4: WEBPAGE ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 04</div>
+  <div class="section-title">Webpage / Digital Experience</div>
+  <div class="section-desc">A split-screen digital experience where the user encounters both futures side by side — teal panel vs dark panel — before the page converges at the principles. New components: paired future panels with ✓/✗ lists, dual-future mini-cards on each principle, and a "Choose Future A" CTA. The split-screen format makes the comparison visceral and immediate.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — Webpage (scroll experience)">
+    <div class="web-wire">
+      <div class="web-browser">
+        <div class="web-dots"><div class="web-dot"></div><div class="web-dot"></div><div class="web-dot"></div></div>
+        <div class="web-url">aarpinternational.org/.../whats-at-stake</div>
+      </div>
+
+      <!-- Hero -->
+      <div class="web-hero">
+        <div class="wh-label">AARP Geroscience Principles · Campaign 2 of 4</div>
+        <h3><span class="fa">Two Futures.</span> <span class="fb">One Choice.</span></h3>
+        <div class="wh-sub">By Debra Whitman and Dr. Erwin Tan</div>
+      </div>
+
+      <!-- Fork intro -->
+      <div class="web-fork-intro">
+        <p>Geroscience breakthroughs are coming.<br>The question isn't if — it's who benefits.</p>
+        <span>The same science. Two very different outcomes depending on the choices we make.</span>
+      </div>
+
+      <!-- SIDE-BY-SIDE FUTURES -->
+      <div class="web-futures">
+        <div class="web-future-a">
+          <div class="wf-label">Future A: For Everyone</div>
+          <div class="wf-headline">If we adopt the principles</div>
+          <div class="wf-item">Clinical trials in 40+ countries</div>
+          <div class="wf-item">Therapies priced for global health systems</div>
+          <div class="wf-item">Healthy years increase worldwide</div>
+          <div class="wf-item">Health disparities narrow across borders</div>
+          <div class="wf-item">Communities have a voice in decisions</div>
+        </div>
+        <div class="web-future-b">
+          <div class="wf-label">Future B: For the Few</div>
+          <div class="wf-headline">If we maintain the status quo</div>
+          <div class="wf-item">Research concentrated in 12 wealthy nations</div>
+          <div class="wf-item">Therapies priced for wealthy markets only</div>
+          <div class="wf-item">80% of global aging excluded from benefits</div>
+          <div class="wf-item">New science deepens existing inequality</div>
+          <div class="wf-item">Decisions made behind closed doors</div>
+        </div>
+      </div>
+
+      <!-- Decision -->
+      <div class="web-decision">
+        <div class="wd-label">What Determines Which Future We Get?</div>
+        <p>The science doesn't decide. Policy does. Here are six principles that tip the balance.</p>
+      </div>
+
+      <!-- Science context -->
+      <div class="web-section">
+        <div class="ws-label">The Science</div>
+        <h4>What is geroscience?</h4>
+        <p>A field aiming to delay, prevent, alleviate, or reverse diseases of aging. The first clinical trials are already underway. The goal: more healthy years, not just more years. But without intentional choices, only the privileged few will benefit.</p>
+      </div>
+
+      <!-- Quote -->
+      <div class="web-quote">
+        <blockquote>"Should not be limited to a wealthy few."</blockquote>
+        <cite>— AARP Geroscience Principles</cite>
+      </div>
+
+      <!-- Video -->
+      <div class="web-video">
+        <div class="web-video-btn">▶</div>
+        <span>Video: Debra Whitman & Dr. Erwin Tan on What's At Stake</span>
+      </div>
+
+      <!-- Principles — "The Choices" -->
+      <div class="web-principles">
+        <div class="web-pr-header">
+          <div class="web-pr-label">The Choices</div>
+          <div class="web-pr-title">Six Principles That Determine Which Future We Get</div>
+          <div class="web-pr-sub">Each principle closes a specific gap between Future A and Future B.</div>
+        </div>
+        <div class="web-pr-grid">
+          <div class="web-pr-card">
+            <div class="web-pr-img"><div class="x-icon">✕</div><span>Image</span></div>
+            <div class="web-pr-head"><div class="web-pr-num">1</div><div class="web-pr-name">Recognize &amp; Affirm Aging as a Natural Process</div></div>
+            <div class="web-pr-label-sm">The Choice</div>
+            <div class="web-pr-desc">Geroscience should recognize that aging is a natural process, not a disease. It should not contribute to ageism but should instead increase opportunities for people to live the way they want as they age.</div>
+            <div class="web-pr-futures-row">
+              <div class="web-pr-fa"><strong>Future A</strong>Aging honored across cultures. Science supports, not stigmatizes.</div>
+              <div class="web-pr-fb"><strong>Future B</strong>Aging treated as disease. Ageism deepens globally.</div>
+            </div>
+          </div>
+          <div class="web-pr-card">
+            <div class="web-pr-img"><div class="x-icon">✕</div><span>Image</span></div>
+            <div class="web-pr-head"><div class="web-pr-num">2</div><div class="web-pr-name">Increase Healthspan</div></div>
+            <div class="web-pr-label-sm">The Choice</div>
+            <div class="web-pr-desc">The primary intention of geroscience is to increase healthspan — the years of life that a person is in good health — rather than just the total years of life. Potential increases in lifespan are a welcome secondary gain.</div>
+            <div class="web-pr-futures-row">
+              <div class="web-pr-fa"><strong>Future A</strong>Healthy years increase for people in every country.</div>
+              <div class="web-pr-fb"><strong>Future B</strong>More years of life — but only for the wealthy. More years of disability for others.</div>
+            </div>
+          </div>
+          <div class="web-pr-card">
+            <div class="web-pr-img"><div class="x-icon">✕</div><span>Image</span></div>
+            <div class="web-pr-head"><div class="web-pr-num">3</div><div class="web-pr-name">Ensure Access &amp; Equity</div></div>
+            <div class="web-pr-label-sm">The Choice</div>
+            <div class="web-pr-desc">Geroscience should help address the profound question of health disparities. Who will have access to and benefit from the emerging medical innovations of geroscience, and who will be left behind? Scientific advances must be inclusive and beneficial for all and must decrease rather than increase disparities.</div>
+            <div class="web-pr-futures-row">
+              <div class="web-pr-fa"><strong>Future A</strong>Trials in 40+ countries. Life expectancy gaps narrow.</div>
+              <div class="web-pr-fb"><strong>Future B</strong>Trials in 12 wealthy nations. Gaps widen further.</div>
+            </div>
+          </div>
+          <div class="web-pr-card">
+            <div class="web-pr-img"><div class="x-icon">✕</div><span>Image</span></div>
+            <div class="web-pr-head"><div class="web-pr-num">4</div><div class="web-pr-name">Ensure Affordability for Individuals &amp; the System</div></div>
+            <div class="web-pr-label-sm">The Choice</div>
+            <div class="web-pr-desc">The costs of geroscience interventions should not be burdensome to consumers or limit access to care. Sufficient financial assistance should be available to ensure affordability for all. These interventions, if meaningful and accessible, should produce cost savings, or at least a good cost-benefit proposition, and improve the financial sustainability of health care systems.</div>
+            <div class="web-pr-futures-row">
+              <div class="web-pr-fa"><strong>Future A</strong>Therapies priced for global health systems. Cost savings realized.</div>
+              <div class="web-pr-fb"><strong>Future B</strong>Therapies priced for wealthy markets. New inequality driver.</div>
+            </div>
+          </div>
+          <div class="web-pr-card">
+            <div class="web-pr-img"><div class="x-icon">✕</div><span>Image</span></div>
+            <div class="web-pr-head"><div class="web-pr-num">5</div><div class="web-pr-name">Ensure Transparency</div></div>
+            <div class="web-pr-label-sm">The Choice</div>
+            <div class="web-pr-desc">Consumer voices must be elevated so the needs and concerns of all populations are taken into consideration when determining what constitutes a clinically relevant outcome. Policymaking must be transparent and engage the public to ensure that the outcomes represent meaningful changes in people's lives.</div>
+            <div class="web-pr-futures-row">
+              <div class="web-pr-fa"><strong>Future A</strong>Affected communities at the table. Public engagement drives policy.</div>
+              <div class="web-pr-fb"><strong>Future B</strong>Decisions behind closed doors. Wealthy institutions decide for everyone.</div>
+            </div>
+          </div>
+          <div class="web-pr-card">
+            <div class="web-pr-img"><div class="x-icon">✕</div><span>Image</span></div>
+            <div class="web-pr-head"><div class="web-pr-num">6</div><div class="web-pr-name">Utilize an Integrated Approach</div></div>
+            <div class="web-pr-label-sm">The Choice</div>
+            <div class="web-pr-desc">Achievements in geroscience must be fully integrated in, and remain part of, larger country-level efforts to address social determinants of health and longevity.</div>
+            <div class="web-pr-futures-row">
+              <div class="web-pr-fa"><strong>Future A</strong>Connected to poverty, racism, infrastructure in every nation.</div>
+              <div class="web-pr-fb"><strong>Future B</strong>Siloed in research labs. Disconnected from lived reality.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="web-cta">
+        <p>Choose Future A.</p>
+        <div class="web-cta-btns">
+          <div class="web-cta-btn">Take Action</div>
+          <div class="web-cta-btn" style="background:rgba(255,255,255,.15);color:#fff;">Download Assets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>Side-by-side future panels with ✓/✗ lists</strong> — The page literally splits in two. Aspirational on the left (✓ marks), cautionary on the right (✗ marks). The reader sees both futures simultaneously — the layout IS the argument.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>Dual-future mini-cards on every principle</strong> — Each principle card has a teal/amber row at the bottom showing what happens under each future. "Future A: Trials in 40+ countries" vs "Future B: Trials in 12 nations." The comparison is embedded in every single card. </div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>Alternating teal/amber card borders</strong> — Odd-numbered principles have teal top borders; even-numbered have amber. This visual rhythm reinforces that every principle is a choice between two futures.</div></div>
+    <div class="annotation"><div class="ann-marker">4</div><div class="ann-text"><strong>"Choose Future A" CTA</strong> — An action verb paired with the campaign's core metaphor. The entire page builds to this moment of decision.</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section style="background:var(--charcoal);padding:60px 80px;text-align:center;">
+  <p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:12px;">Campaign 2 of 4</p>
+  <p style="font-family:'Fraunces',serif;font-size:28px;color:#fff;font-weight:700;margin-bottom:8px;">Two Futures. One Choice.</p>
+  <p style="font-size:15px;color:rgba(255,255,255,.6);max-width:500px;margin:0 auto;line-height:1.6;">The same science. The same breakthroughs. Two possible outcomes — depending on what we choose.</p>
+</section>
+
+</body>
+</html>

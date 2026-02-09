@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campaign 3 — The Countdown</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #E31837;
+  --red-light: #FDF0F2;
+  --red-glow: rgba(227,24,55,.15);
+  --blue: #3E9CC5;
+  --blue-light: #E5F1F7;
+  --blue-dark: #2A7A9E;
+  --green: #2EAD6B;
+  --green-light: #E8F7EF;
+  --yellow: #D4952B;
+  --yellow-light: #FBF3E4;
+  --dark: #0F0F11;
+  --panel: #1A1A1E;
+  --panel-light: #222226;
+  --border: #2E2E33;
+  --mid: #4a4a4a;
+  --soft: #888;
+  --cream: #FAFAF7;
+  --wire-bg: #f0efec;
+  --wire-stroke: #c8c6c1;
+  --wire-fill: #e8e6e2;
+  --sans: 'DM Sans', sans-serif;
+  --serif: 'Fraunces', serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--sans); background:var(--cream); color:var(--dark); overflow-x:hidden; }
+
+
+/* ========================================
+   HERO — Mission Control Countdown
+   Dark, centered, giant countdown display
+   Pulsing red glow. Urgency.
+   ======================================== */
+.hero {
+  min-height: 100vh;
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 60px 40px;
+}
+
+/* Scan lines overlay */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255,255,255,.01) 2px,
+    rgba(255,255,255,.01) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Red glow pulse */
+.hero-glow {
+  position: absolute;
+  top: 30%; left: 50%; transform: translateX(-50%);
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--red-glow) 0%, transparent 65%);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.hero-content { position: relative; z-index: 3; max-width: 700px; }
+
+.hero-label {
+  font-size: 11px; letter-spacing: 6px; text-transform: uppercase;
+  color: var(--red); font-weight: 600; margin-bottom: 28px;
+  opacity:0; animation: fadeUp .7s ease forwards .2s;
+}
+
+/* Giant countdown number */
+.hero-countdown {
+  font-family: var(--sans);
+  font-size: clamp(80px, 14vw, 160px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -4px;
+  opacity:0; animation: fadeUp .7s ease forwards .3s;
+}
+
+.hero-countdown .t-label {
+  font-size: clamp(16px, 2.5vw, 24px);
+  color: var(--red);
+  letter-spacing: 8px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.hero-countdown .years {
+  position: relative;
+}
+
+.hero-countdown .blink {
+  animation: blink 1s step-end infinite;
+  color: var(--red);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700; color: rgba(255,255,255,.6);
+  line-height: 1.3; margin-top: 20px;
+  opacity:0; animation: fadeUp .7s ease forwards .5s;
+}
+
+.hero-sub {
+  font-family: var(--sans);
+  font-size: 13px; color: rgba(255,255,255,.7);
+  margin-top: 16px; line-height: 1.7; max-width: 520px;
+  margin-left: auto; margin-right: auto;
+  opacity:0; animation: fadeUp .7s ease forwards .65s;
+}
+
+/* Status bar */
+.hero-status {
+  margin-top: 36px;
+  display: flex; gap: 20px; justify-content: center;
+  opacity:0; animation: fadeUp .7s ease forwards .8s;
+}
+
+.hero-status-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+}
+
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.status-dot.red { background: var(--red); box-shadow: 0 0 8px var(--red-glow); animation: pulse 2s ease infinite; }
+.status-dot.yellow { background: var(--yellow); }
+.status-dot.green { background: var(--green); }
+
+.hero-status-item span { color: rgba(255,255,255,.7); }
+
+.hero-meta {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 40px;
+  opacity:0; animation: fadeUp .7s ease forwards .95s;
+}
+.hero-meta-item { display: flex; flex-direction: column; gap: 4px; text-align: center; }
+.hero-meta-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.hero-meta-val { font-size: 12px; color: rgba(255,255,255,.75); font-weight: 500; }
+
+.scroll-hint {
+  position: absolute; bottom: 40px; right: 60px;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.12);
+  opacity:0; animation: fadeUp .7s ease forwards 1s;
+}
+.scroll-hint::after { content:' ↓'; animation: bounce 2s ease infinite; display:inline-block; }
+
+
+/* ===== DISCLAIMER ===== */
+.disclaimer-bar {
+  background: #000; border-top: 3px solid var(--red); border-bottom: 3px solid var(--red);
+  padding: 28px 80px;
+}
+.disclaimer-inner { display:flex; align-items:flex-start; gap:20px; max-width:860px; }
+.disclaimer-badge { background:var(--red); color:#fff; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:7px 16px; border-radius:3px; white-space:nowrap; flex-shrink:0; }
+.disclaimer-bar p { font-size:13px; color:#fff; line-height:1.7; font-family:var(--sans); }
+.disclaimer-bar strong { color:#fff; text-decoration:underline; text-decoration-color:var(--red); text-underline-offset:3px; }
+
+
+/* ===== SECTIONS ===== */
+.section { padding: 100px 80px; }
+.section-num { font-size:11px; letter-spacing:5px; text-transform:uppercase; color:var(--red); font-weight:600; margin-bottom:12px; }
+.section-title { font-family:var(--serif); font-size:clamp(28px,3.5vw,44px); font-weight:700; color:var(--dark); margin-bottom:12px; line-height:1.15; }
+.section-desc { font-size:14px; color:var(--soft); max-width:640px; line-height:1.7; margin-bottom:48px; }
+.section-divider { height:1px; background:linear-gradient(90deg, transparent, #ddd 20%, #ddd 80%, transparent); margin:0 80px; }
+
+
+/* ===== NARRATIVE ARC — Mission Timeline ===== */
+.mission-timeline {
+  display: flex; align-items: stretch;
+  margin-bottom: 48px; border-radius: 12px; overflow: hidden;
+  background: var(--dark); border: 1px solid var(--border);
+}
+
+.mt-phase {
+  flex: 1; padding: 18px 14px; text-align: center;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+
+.mt-phase::after {
+  content: '→'; position: absolute; right: -4px; top: 50%; transform: translateY(-50%);
+  color: var(--red); font-size: 12px; font-weight: 700; z-index: 2;
+}
+.mt-phase:last-child::after { display: none; }
+
+.mt-phase-label {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,.7); font-weight: 600;
+}
+
+.mt-phase-title {
+  font-size: 16px; font-weight: 600; color: #fff; line-height: 1.3;
+}
+
+.mt-phase-sub { font-size: 12px; color: rgba(255,255,255,.7); line-height: 1.3; }
+
+.mt-phase.active { background: rgba(227,24,55,.08); }
+.mt-phase.active .mt-phase-label { color: var(--red); }
+
+
+/* ===== WIREFRAME + ANNOTATIONS ===== */
+.wireframe-stage {
+  background:var(--wire-bg); border-radius:16px;
+  padding:40px; position:relative; border:1px solid var(--wire-stroke);
+}
+.wireframe-stage::before {
+  content:attr(data-label);
+  position:absolute; top:-10px; left:24px;
+  background:var(--cream); padding:2px 12px;
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--soft); font-weight:600;
+}
+
+.annotations-panel {
+  margin-top:32px; padding:24px 28px;
+  background:#fff; border-radius:12px; border:1px solid #eee;
+}
+.annotations-panel h4 {
+  font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--soft); font-weight:600; margin-bottom:16px;
+}
+.annotation { display:flex; align-items:flex-start; gap:12px; padding:8px 0; border-bottom:1px solid #f5f5f5; }
+.annotation:last-child { border-bottom:none; }
+.ann-marker {
+  width:22px; height:22px; border-radius:50%;
+  background:var(--red); color:#fff;
+  font-size:10px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.ann-text { font-size:13px; color:var(--mid); line-height:1.6; }
+.ann-text strong { color:var(--dark); }
+
+
+/* ========================================
+   TACTIC 1: INFOGRAPHIC
+   Vertical countdown timeline with milestones
+   and progress bars. Mission checklist format.
+   ======================================== */
+.countdown-infographic {
+  max-width: 440px; margin: 0 auto;
+  background: #fff; border-radius: 8px;
+  overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  border: 1px solid #e0e0e0;
+}
+
+.ci-header {
+  display: flex; align-items: stretch;
+}
+
+.ci-header-text {
+  flex: 1; padding: 20px 20px 16px;
+  background: #fff;
+}
+
+.ci-logo {
+  display:inline-block; background:var(--red); border-radius:2px;
+  padding:3px 8px; font-size:7px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:#fff; margin-bottom:8px;
+}
+
+.ci-header-text h3 {
+  font-family:var(--serif); color:var(--dark); font-size:18px; font-weight:700; line-height:1.2;
+}
+
+.ci-header-text .sub { font-size:9px; color:var(--soft); margin-top:4px; }
+
+.ci-header-img {
+  width:140px; background:#f5f5f3;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  border-left:1px dashed #ddd;
+}
+.ci-header-img .img-x {
+  width:45px; height:45px; border:1px dashed #ccc; border-radius:4px;
+  display:flex; align-items:center; justify-content:center;
+  color:#bbb; font-size:16px;
+}
+.ci-header-img span { font-size:6px; color:#bbb; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; }
+
+/* Countdown display */
+.ci-countdown-bar {
+  background: var(--dark);
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: none;
+  border-bottom: none;
+}
+
+.ci-cb-left {
+  font-size: 9px; color: rgba(255,255,255,.3); letter-spacing: 2px; text-transform: uppercase;
+}
+
+.ci-cb-countdown {
+  font-family: var(--sans); font-size: 18px; font-weight: 700; color: #fff;
+  letter-spacing: 2px;
+}
+
+.ci-cb-countdown .colon { color: var(--red); animation: blink 1s step-end infinite; }
+
+.ci-cb-right { display: flex; align-items: center; gap: 6px; }
+.ci-cb-right .status-dot { width: 6px; height: 6px; }
+.ci-cb-right span { font-size: 8px; color: var(--red); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
+
+/* Timeline */
+.ci-timeline { padding: 16px 0; }
+
+.ci-milestone {
+  display: flex; align-items: stretch;
+  padding: 0 20px;
+  position: relative;
+}
+
+/* Vertical timeline line */
+.ci-milestone::before {
+  content: '';
+  position: absolute; left: 38px; top: 0; bottom: 0;
+  width: 2px; background: #e0e0e0;
+}
+
+.ci-milestone:last-child::before { display: none; }
+
+.ci-ms-marker {
+  width: 36px; display: flex; flex-direction: column; align-items: center;
+  padding-top: 10px; flex-shrink: 0; position: relative; z-index: 2;
+}
+
+.ci-ms-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid var(--red); background: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.ci-ms-dot-inner {
+  width: 6px; height: 6px; border-radius: 50; background: var(--red);
+}
+
+.ci-ms-content {
+  flex: 1; padding: 8px 0 16px 14px;
+}
+
+.ci-ms-num {
+  font-size: 7px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 3px;
+}
+
+.ci-ms-title {
+  font-family: var(--serif);
+  font-size: 12px; font-weight: 700; color: var(--dark); line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+.ci-ms-desc {
+  font-size: 8px; color: var(--mid); line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+/* Progress bar */
+.ci-progress {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.ci-progress-bar {
+  flex: 1; height: 6px; background: #eee; border-radius: 3px;
+  overflow: hidden;
+}
+
+.ci-progress-fill {
+  height: 100%; border-radius: 3px;
+}
+
+.ci-progress-fill.low { width: 15%; background: var(--red); }
+.ci-progress-fill.med { width: 35%; background: var(--yellow); }
+
+.ci-progress-label {
+  font-size: 7px; letter-spacing: 1.5px; text-transform: uppercase;
+  font-weight: 700; white-space: nowrap;
+}
+.ci-progress-label.red { color: var(--red); }
+.ci-progress-label.yellow { color: var(--yellow); }
+
+/* Bottom section */
+.ci-bottom {
+  background: #f5f5f3; padding: 14px 20px;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.ci-bottom-label {
+  font-size: 7px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 4px;
+}
+
+.ci-bottom p {
+  font-family: var(--serif);
+  font-size: 12px; color: var(--dark); font-weight: 700; line-height: 1.3;
+}
+
+.ci-cta {
+  background: var(--red); padding: 12px 20px; text-align: center;
+}
+.ci-cta p { font-size: 10px; color: #fff; font-weight: 600; }
+
+.ci-footer {
+  background: #f0efec; padding: 8px 20px; text-align: center;
+  border-top: 1px solid #e0e0e0;
+}
+.ci-footer span { font-size: 7px; color: var(--soft); letter-spacing: 1px; }
+
+
+/* ========================================
+   TACTIC 2: LINKEDIN CAROUSEL
+   Status check slides with progress gauges
+   ======================================== */
+.carousel-wire {
+  display:flex; gap:16px; overflow-x:auto;
+  padding:8px 4px 16px; scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.carousel-wire::-webkit-scrollbar { height:4px; }
+.carousel-wire::-webkit-scrollbar-track { background:var(--wire-fill); border-radius:2px; }
+.carousel-wire::-webkit-scrollbar-thumb { background:var(--red); border-radius:2px; }
+
+.c-slide {
+  min-width:260px; max-width:260px; aspect-ratio:1/1.15;
+  border-radius:8px; overflow:hidden; scroll-snap-align:start;
+  flex-shrink:0; display:flex; flex-direction:column;
+  box-shadow:0 2px 12px rgba(0,0,0,.1); position:relative;
+}
+
+.c-slide-num {
+  position:absolute; bottom:8px; right:10px;
+  font-size:9px; font-weight:600; color:rgba(255,255,255,.15);
+}
+
+/* Slide: countdown hook */
+.cs-countdown {
+  flex: 1; background: var(--dark);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 24px; gap: 10px;
+  position: relative; overflow: hidden;
+}
+
+.cs-countdown::after {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, var(--red-glow) 0%, transparent 65%);
+}
+
+.cs-countdown .cs-year {
+  font-family: var(--sans);
+  font-size: 60px; font-weight: 700; color: #fff;
+  letter-spacing: -2px; line-height: 1;
+  position: relative; z-index: 2;
+}
+
+.cs-countdown .cs-stat {
+  font-family: var(--sans);
+  font-size: 13px; color: var(--red); font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.cs-countdown .cs-body {
+  font-size: 11px; color: rgba(255,255,255,.35); line-height: 1.5;
+  position: relative; z-index: 2;
+}
+
+/* Slide: status check */
+.cs-status {
+  flex: 1; background: var(--dark);
+  display: flex; flex-direction: column;
+  padding: 0;
+}
+
+.cs-status-header {
+  background: var(--panel);
+  padding: 14px 18px;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cs-status-badge {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--red); color: #fff;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+.cs-status-name {
+  font-size: 11px; font-weight: 700; color: #fff; line-height: 1.2;
+}
+
+.cs-status-tag {
+  margin-left: auto;
+  font-size: 7px; letter-spacing: 1.5px; text-transform: uppercase;
+  font-weight: 700; padding: 3px 8px; border-radius: 2px;
+}
+.cs-status-tag.not-ready { background: rgba(227,24,55,.15); color: var(--red); }
+.cs-status-tag.caution { background: rgba(212,149,43,.15); color: var(--yellow); }
+
+.cs-status-body {
+  flex: 1; padding: 14px 18px;
+  display: flex; flex-direction: column; justify-content: center; gap: 10px;
+}
+
+.cs-status-label {
+  font-size: 7px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); font-weight: 700;
+}
+
+.cs-status-text {
+  font-size: 10px; color: rgba(255,255,255,.45); line-height: 1.6;
+}
+
+/* Progress gauge in slide */
+.cs-gauge {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.cs-gauge-bar {
+  flex: 1; height: 8px; background: var(--panel-light); border-radius: 4px;
+  overflow: hidden;
+}
+
+.cs-gauge-fill {
+  height: 100%; border-radius: 4px;
+}
+.cs-gauge-fill.low { width: 12%; background: var(--red); }
+.cs-gauge-fill.med-low { width: 25%; background: var(--red); }
+.cs-gauge-fill.med { width: 40%; background: var(--yellow); }
+
+.cs-gauge-pct {
+  font-size: 11px; font-weight: 700; min-width: 28px; text-align: right;
+}
+.cs-gauge-pct.red { color: var(--red); }
+.cs-gauge-pct.yellow { color: var(--yellow); }
+
+/* Slide: transition / quote */
+.cs-mission {
+  flex: 1; background: var(--dark);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 24px; gap: 12px;
+}
+
+.cs-mission .cs-m-label {
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); font-weight: 600;
+}
+
+.cs-mission h4 {
+  font-family: var(--serif);
+  font-size: 16px; font-weight: 700; color: #fff; line-height: 1.3;
+}
+
+.cs-mission .cs-m-body {
+  font-size: 10px; color: rgba(255,255,255,.3); line-height: 1.5;
+}
+
+/* CTA slide */
+.cs-cta {
+  flex: 1; background: var(--dark);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 24px; gap: 14px;
+}
+.cs-cta .cc-label { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--red); font-weight:600; }
+.cs-cta h4 { font-family:var(--serif); color:#fff; font-size:16px; font-weight:700; line-height:1.3; }
+.cs-cta .cc-btn {
+  display:inline-block; background:var(--red); color:#fff;
+  font-size:9px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+  padding:8px 20px; border-radius:4px;
+}
+.cs-cta .cc-url { font-size:9px; color:rgba(255,255,255,.15); }
+
+
+/* ========================================
+   TACTIC 3: PPT
+   Mission brief — 3-column grid with
+   status indicators. 3-column layout for readability.
+   ======================================== */
+.ppt-brief {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.ppt-slide {
+  background: #fff; border-radius: 5px;
+  aspect-ratio: 16/9; overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  border: 1px solid #eee; position: relative;
+}
+
+.ppt-label {
+  position:absolute; top:-16px; left:0;
+  font-size:10px; color:var(--soft); font-weight:500; white-space:nowrap;
+}
+
+/* PPT types */
+.ppt-dark {
+  background:var(--dark); justify-content:center; align-items:center;
+  padding:12px; text-align:center;
+}
+.ppt-dark .pm-logo { width:24px; height:7px; background:var(--red); border-radius:1px; margin:0 auto 6px; }
+.ppt-dark h5 { font-family:var(--serif); color:#fff; font-size:14px; font-weight:700; line-height:1.3; }
+.ppt-dark .pm-mono { font-family:var(--sans); font-size:32px; font-weight:700; color:#fff; letter-spacing:-1px; }
+.ppt-dark .pm-sub { font-family:var(--sans); font-size:9px; color:rgba(255,255,255,.2); margin-top:3px; letter-spacing:1px; }
+.ppt-dark p { font-size:9px; color:rgba(255,255,255,.25); margin-top:3px; }
+
+.ppt-red {
+  background:var(--red); justify-content:center; align-items:center;
+  padding:10px; text-align:center;
+}
+.ppt-red h5 { font-family:var(--serif); font-size:14px; font-weight:700; color:#fff; line-height:1.25; }
+.ppt-red p { font-size:9px; color:rgba(255,255,255,.6); margin-top:2px; }
+
+.ppt-content { padding:12px 16px; }
+.ppt-content .pc-heading {
+  font-size:12px; font-weight:700; color:var(--dark);
+  margin-bottom:3px; padding-bottom:2px;
+  border-bottom:2px solid var(--red); display:inline-block;
+}
+.ppt-content .pc-sub { font-size:9px; color:var(--soft); line-height:1.4; }
+
+.ppt-lines { display:flex; flex-direction:column; gap:2px; margin-top:3px; }
+.ppt-line { height:4px; background:var(--wire-fill); border-radius:1px; }
+.ppt-line:nth-child(odd) { width:90%; }
+.ppt-line:nth-child(even) { width:65%; }
+
+/* PPT status slide */
+.ppt-status-slide {
+  padding: 10px 14px; display: flex; flex-direction: column;
+  border-top: 3px solid var(--red);
+}
+
+.ppt-status-slide .ps-head {
+  display: flex; align-items: center; gap: 4px; margin-bottom: 3px;
+}
+
+.ppt-status-slide .ps-badge {
+  width:18px; height:18px; border-radius:50%;
+  background:var(--red); color:#fff;
+  font-size:9px; font-weight:700; display:flex; align-items:center; justify-content:center;
+}
+
+.ppt-status-slide .ps-name { font-size:11px; font-weight:700; color:var(--dark); line-height: 1.2; }
+.ppt-status-slide .ps-label { font-size:9px; color:var(--red); font-weight:600; letter-spacing:.5px; }
+
+/* Mini progress bar in PPT */
+.ppt-gauge {
+  display: flex; align-items: center; gap: 4px; margin-top: 3px;
+}
+.ppt-gauge-bar { flex: 1; height: 5px; background: #eee; border-radius: 2px; overflow: hidden; }
+.ppt-gauge-fill { height: 100%; background: var(--red); border-radius: 2px; }
+.ppt-gauge-fill.w15 { width: 15%; }
+.ppt-gauge-fill.w25 { width: 25%; }
+.ppt-gauge-fill.w35 { width: 35%; }
+.ppt-gauge-tag { font-size: 8px; color: var(--red); font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+
+
+/* ========================================
+   TACTIC 4: WEBPAGE
+   Countdown timer + progress gauges
+   ======================================== */
+.web-wire {
+  max-width:640px; margin:0 auto;
+  background:#fff; border-radius:10px;
+  overflow:hidden; box-shadow:0 6px 32px rgba(0,0,0,.08);
+}
+
+.web-browser {
+  background:#e8e6e2; padding:8px 14px; display:flex; align-items:center; gap:10px;
+}
+.web-dots { display:flex; gap:5px; }
+.web-dot { width:8px; height:8px; border-radius:50%; background:#d4d2cd; }
+.web-url { font-size:9px; color:var(--soft); flex:1; background:#fff; padding:4px 10px; border-radius:4px; }
+
+/* Countdown hero */
+.web-countdown-hero {
+  background: var(--dark); padding: 24px 24px 18px; text-align: center;
+}
+.web-ch-label { font-size:8px; letter-spacing:3px; text-transform:uppercase; color:var(--red); font-weight:600; margin-bottom:8px; }
+.web-ch-number {
+  font-family: var(--sans); font-size: 48px; font-weight: 700; color: #fff;
+  letter-spacing: -2px; line-height: 1;
+}
+.web-ch-number .colon { color: var(--red); }
+.web-ch-title {
+  font-family: var(--serif); font-size: 16px; font-weight: 700;
+  color: rgba(255,255,255,.5); margin-top: 8px; line-height: 1.3;
+}
+.web-ch-sub { font-size: 9px; color: rgba(255,255,255,.2); margin-top: 4px; }
+
+/* Readiness score bar */
+.web-readiness {
+  background: var(--panel); padding: 10px 24px;
+  display: flex; align-items: center; gap: 12px;
+  border-top: 1px solid var(--border);
+}
+.web-readiness-label {
+  font-size: 7px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,.3); font-weight: 600; white-space: nowrap;
+}
+.web-readiness-bar {
+  flex: 1; height: 6px; background: var(--panel-light); border-radius: 3px; overflow: hidden;
+}
+.web-readiness-fill { width: 18%; height: 100%; background: var(--red); border-radius: 3px; }
+.web-readiness-pct {
+  font-size: 11px; font-weight: 700; color: var(--red);
+}
+
+/* Context section */
+.web-section {
+  padding:16px 24px; border-bottom:1px solid #f0efec;
+}
+.web-section .ws-label { font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--red); font-weight:700; margin-bottom:6px; }
+.web-section h4 { font-family:var(--serif); font-size:14px; font-weight:700; color:var(--dark); line-height:1.3; margin-bottom:6px; }
+.web-section p { font-size:10px; color:var(--mid); line-height:1.6; }
+
+/* Quote */
+.web-quote {
+  background:var(--dark); padding:16px 24px; text-align:center;
+}
+.web-quote blockquote { font-family:var(--serif); font-size:13px; color:var(--red); font-weight:600; font-style:italic; line-height:1.4; }
+.web-quote cite { display:block; margin-top:6px; font-size:8px; color:rgba(255,255,255,.2); font-style:normal; }
+
+/* Video */
+.web-video {
+  margin:12px 20px; border-radius:8px; overflow:hidden;
+  height:160px; background:var(--dark); position:relative;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  border:1px solid var(--border);
+  background-image: linear-gradient(135deg, rgba(255,255,255,.02) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.02) 50%, rgba(255,255,255,.02) 75%, transparent 75%);
+  background-size: 20px 20px;
+}
+.web-video::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at center, rgba(227,24,55,.08) 0%, transparent 60%);
+  pointer-events:none;
+}
+.web-video-btn {
+  width:48px; height:48px; border-radius:50%; background:var(--red);
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:#fff; position:relative; z-index:2;
+  box-shadow: 0 4px 20px rgba(227,24,55,.3);
+}
+.web-video span { font-size:9px; color:rgba(255,255,255,.4); letter-spacing:1.5px; text-transform:uppercase; font-weight:600; position:relative; z-index:2; }
+
+/* Principle status cards */
+.web-principles { padding:18px 24px; }
+.web-pr-header { margin-bottom:14px; }
+.web-pr-label { font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--red); font-weight:700; margin-bottom:4px; }
+.web-pr-title { font-family:var(--serif); font-size:16px; font-weight:700; color:var(--dark); line-height:1.25; }
+.web-pr-sub { font-size:10px; color:var(--soft); margin-top:4px; line-height:1.5; }
+
+.web-pr-grid { display:flex; flex-direction:column; gap:12px; }
+
+.web-pr-card {
+  background:#fff; border:1px solid #eee; border-radius:8px;
+  padding:14px 16px; overflow:hidden; position:relative;
+  display: grid; grid-template-columns: auto 1fr; gap: 0 14px;
+  border-left: 3px solid var(--red);
+}
+
+.web-pr-badge-col {
+  grid-row: 1 / 4;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding-top: 2px;
+}
+
+.web-pr-num {
+  width:24px; height:24px; border-radius:50%;
+  background:var(--dark); color:#fff;
+  font-size:11px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+
+.web-pr-status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red);
+}
+
+.web-pr-name { font-size:12px; font-weight:700; color:var(--dark); line-height:1.2; margin-bottom:4px; }
+.web-pr-desc { font-size:9px; color:var(--mid); line-height:1.55; margin-bottom:8px; }
+
+/* Gauge in card */
+.web-pr-gauge {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.web-pr-gauge-bar {
+  flex: 1; height: 6px; background: #f0efec; border-radius: 3px; overflow: hidden;
+}
+
+.web-pr-gauge-fill {
+  height: 100%; border-radius: 3px; background: var(--red);
+}
+
+.web-pr-gauge-tag {
+  font-size: 7px; letter-spacing: 1.5px; text-transform: uppercase;
+  font-weight: 700; color: var(--red); white-space: nowrap;
+}
+
+/* CTA */
+.web-cta {
+  background:var(--red); padding:14px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.web-cta p { font-size:11px; color:#fff; font-weight:600; }
+.web-cta-btns { display:flex; gap:8px; }
+.web-cta-btn {
+  display:inline-block; background:#fff; color:var(--red);
+  font-size:8px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+  padding:6px 14px; border-radius:3px; white-space:nowrap;
+}
+
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes bounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(6px); } }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.5; } }
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:1000px) {
+  .section { padding:60px 40px; }
+  .section-divider { margin:0 40px; }
+  .mission-timeline { flex-direction:column; }
+  .mt-phase::after { display:none; }
+  .ppt-brief { grid-template-columns:repeat(2,1fr); }
+  .disclaimer-bar { padding:16px 32px; }
+  .disclaimer-inner { flex-direction:column; gap:8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO — Countdown ==================== -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-label">Campaign 3 of 4</div>
+    <div class="hero-countdown">
+      
+      <span class="years">2050</span>
+    </div>
+    <div class="hero-title">Countdown to 2050. The time to act is now.</div>
+    <p class="hero-sub">By 2050, 1.6 billion people will be over 65. Geroscience breakthroughs are coming — but the systems to ensure they work for everyone don't exist yet. Six principles. Twenty-five years. The countdown has started.</p>
+
+    <div class="hero-status">
+      <div class="hero-status-item"><div class="status-dot red"></div><span>Access & Equity</span></div>
+      <div class="hero-status-item"><div class="status-dot red"></div><span>Affordability</span></div>
+      <div class="hero-status-item"><div class="status-dot yellow"></div><span>Healthspan</span></div>
+      <div class="hero-status-item"><div class="status-dot red"></div><span>Transparency</span></div>
+    </div>
+  </div>
+
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Source</span>
+      <span class="hero-meta-val">The Journal, Vol. 16</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Authors</span>
+      <span class="hero-meta-val">Debra Whitman & Dr. Erwin Tan</span>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll to explore</div>
+</section>
+
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-bar">
+  <div class="disclaimer-inner">
+    <div class="disclaimer-badge">For AARP Team</div>
+    <p>These are <strong>interactive concept wireframes only</strong> — not final designs. Colors, branding, fonts, and graphics are placeholders. All content, copy, photography, illustration, and iconography are representative and will be refined collaboratively with the AARP team. Best viewed on desktop or tablet.</p>
+  </div>
+</div>
+
+
+<!-- NARRATIVE ARC — Mission Timeline -->
+<section class="section" style="padding-bottom:40px;">
+  <div class="section-num">Narrative Structure</div>
+  <div class="section-title">The Mission Timeline</div>
+  <div class="section-desc">Every deliverable follows the same countdown arc — from the deadline, through the science, to the action plan. The audience understands the timeline first, then discovers the opportunity, then sees the principles as the mission checklist to complete by 2050.</div>
+
+  <div class="mission-timeline">
+    <div class="mt-phase active">
+      <div class="mt-phase-label">Phase 01</div>
+      <div class="mt-phase-title">The Deadline</div>
+      <div class="mt-phase-sub">2050: 1.6B people 65+</div>
+    </div>
+    <div class="mt-phase">
+      <div class="mt-phase-label">Phase 02</div>
+      <div class="mt-phase-title">The Science</div>
+      <div class="mt-phase-sub">Geroscience breakthroughs underway</div>
+    </div>
+    <div class="mt-phase">
+      <div class="mt-phase-label">Phase 03</div>
+      <div class="mt-phase-title">The Gap</div>
+      <div class="mt-phase-sub">Building the frameworks</div>
+    </div>
+    <div class="mt-phase">
+      <div class="mt-phase-label">Phase 04</div>
+      <div class="mt-phase-title">Status Check</div>
+      <div class="mt-phase-sub">Six principles — readiness audit</div>
+    </div>
+    <div class="mt-phase">
+      <div class="mt-phase-label">Phase 05</div>
+      <div class="mt-phase-title">The Mission</div>
+      <div class="mt-phase-sub">Start the clock on action</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 1: INFOGRAPHIC ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 01</div>
+  <div class="section-title">Infographic — "The Countdown"</div>
+  <div class="section-desc">A vertical countdown timeline from 2025 to 2050. Six milestones descend toward the deadline. Each milestone is a principle with a progress bar showing readiness. The format reads like a mission control checklist — clear, visual, and actionable.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — Countdown Timeline Infographic">
+    <div class="countdown-infographic">
+
+      <div class="ci-header">
+        <div class="ci-header-text">
+          <div class="ci-logo">AARP Logo</div>
+          <h3>The Countdown</h3>
+          <div class="sub">Six milestones. Twenty-five years. Are we ready?</div>
+        </div>
+        <div class="ci-header-img">
+          <div class="img-x">✕</div>
+          <span>Image</span>
+        </div>
+      </div>
+
+      <div class="ci-countdown-bar">
+        <div class="ci-cb-left">Countdown to</div>
+        <div class="ci-cb-countdown">2050</div>
+        <div class="ci-cb-right"><div class="status-dot red"></div><span>Not Ready</span></div>
+      </div>
+
+      <!-- Timeline milestones -->
+      <div class="ci-timeline">
+
+        <!-- Milestone 1 -->
+        <div class="ci-milestone">
+          <div class="ci-ms-marker"><div class="ci-ms-dot"><div class="ci-ms-dot-inner"></div></div></div>
+          <div class="ci-ms-content">
+            <div class="ci-ms-num">Milestone 01</div>
+            <div class="ci-ms-title">Recognize &amp; Affirm Aging as a Natural Process</div>
+            <div class="ci-ms-desc">Geroscience should recognize that aging is a natural process, not a disease. It should not contribute to ageism but should instead increase opportunities for people to live the way they want as they age.</div>
+            <div class="ci-progress"><div class="ci-progress-bar"><div class="ci-progress-fill med"></div></div><div class="ci-progress-label yellow">CAUTION</div></div>
+          </div>
+        </div>
+
+        <!-- Milestone 2 -->
+        <div class="ci-milestone">
+          <div class="ci-ms-marker"><div class="ci-ms-dot"><div class="ci-ms-dot-inner"></div></div></div>
+          <div class="ci-ms-content">
+            <div class="ci-ms-num">Milestone 02</div>
+            <div class="ci-ms-title">Increase Healthspan</div>
+            <div class="ci-ms-desc">The primary intention of geroscience is to increase healthspan — the years of life that a person is in good health — rather than just the total years of life. Potential increases in lifespan are a welcome secondary gain.</div>
+            <div class="ci-progress"><div class="ci-progress-bar"><div class="ci-progress-fill med"></div></div><div class="ci-progress-label yellow">CAUTION</div></div>
+          </div>
+        </div>
+
+        <!-- Milestone 3 -->
+        <div class="ci-milestone">
+          <div class="ci-ms-marker"><div class="ci-ms-dot"><div class="ci-ms-dot-inner"></div></div></div>
+          <div class="ci-ms-content">
+            <div class="ci-ms-num">Milestone 03</div>
+            <div class="ci-ms-title">Ensure Access &amp; Equity</div>
+            <div class="ci-ms-desc">Geroscience should help address the profound question of health disparities. Who will have access to and benefit from the emerging medical innovations of geroscience, and who will be left behind? Scientific advances must be inclusive and beneficial for all and must decrease rather than increase disparities.</div>
+            <div class="ci-progress"><div class="ci-progress-bar"><div class="ci-progress-fill low"></div></div><div class="ci-progress-label red">NOT READY</div></div>
+          </div>
+        </div>
+
+        <!-- Milestone 4 -->
+        <div class="ci-milestone">
+          <div class="ci-ms-marker"><div class="ci-ms-dot"><div class="ci-ms-dot-inner"></div></div></div>
+          <div class="ci-ms-content">
+            <div class="ci-ms-num">Milestone 04</div>
+            <div class="ci-ms-title">Ensure Affordability for Individuals &amp; the System</div>
+            <div class="ci-ms-desc">The costs of geroscience interventions should not be burdensome to consumers or limit access to care. Sufficient financial assistance should be available to ensure affordability for all. These interventions, if meaningful and accessible, should produce cost savings, or at least a good cost-benefit proposition, and improve the financial sustainability of health care systems.</div>
+            <div class="ci-progress"><div class="ci-progress-bar"><div class="ci-progress-fill low"></div></div><div class="ci-progress-label red">NOT READY</div></div>
+          </div>
+        </div>
+
+        <!-- Milestone 5 -->
+        <div class="ci-milestone">
+          <div class="ci-ms-marker"><div class="ci-ms-dot"><div class="ci-ms-dot-inner"></div></div></div>
+          <div class="ci-ms-content">
+            <div class="ci-ms-num">Milestone 05</div>
+            <div class="ci-ms-title">Ensure Transparency</div>
+            <div class="ci-ms-desc">Consumer voices must be elevated so the needs and concerns of all populations are taken into consideration when determining what constitutes a clinically relevant outcome. Policymaking must be transparent and engage the public to ensure that the outcomes represent meaningful changes in people's lives.</div>
+            <div class="ci-progress"><div class="ci-progress-bar"><div class="ci-progress-fill low"></div></div><div class="ci-progress-label red">NOT READY</div></div>
+          </div>
+        </div>
+
+        <!-- Milestone 6 -->
+        <div class="ci-milestone">
+          <div class="ci-ms-marker"><div class="ci-ms-dot"><div class="ci-ms-dot-inner"></div></div></div>
+          <div class="ci-ms-content">
+            <div class="ci-ms-num">Milestone 06</div>
+            <div class="ci-ms-title">Utilize an Integrated Approach</div>
+            <div class="ci-ms-desc">Achievements in geroscience must be fully integrated in, and remain part of, larger country-level efforts to address social determinants of health and longevity.</div>
+            <div class="ci-progress"><div class="ci-progress-bar"><div class="ci-progress-fill low"></div></div><div class="ci-progress-label red">NOT READY</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ci-bottom">
+        <div class="ci-bottom-label">Global Readiness</div>
+        <p>Countdown to 2050. The time to act is now. Are we?</p>
+      </div>
+
+      <div class="ci-cta"><p>Start the clock on action → aarpinternational.org/the-journal</p></div>
+      <div class="ci-footer"><span>By Debra Whitman & Dr. Erwin Tan · The Journal, Vol. 16 · AARP 2025</span></div>
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>Vertical countdown timeline</strong> — Milestones descend from 2025 toward 2050. Each principle is a checkpoint on the path forward. The format creates momentum: the reader sees a clear timeline and a clear set of actions to take.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>Progress bars with status labels</strong> — every principle gets a visual readiness indicator. RED = Not Ready, YELLOW = Caution. This is the core new component type — a gauge that says "we're not on track." Nothing in Campaign 1 or 2 uses progress bars.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>Full article text on every principle</strong> — no shortcuts. Each milestone carries the complete principle description from the source article.</div></div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 2: LINKEDIN CAROUSEL ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 02</div>
+  <div class="section-title">LinkedIn Carousel</div>
+  <div class="section-desc">A 12-slide carousel that opens with the deadline, runs a status check on each principle (with progress gauges), and closes with a call to action. New slide types: countdown hook, status-check cards with gauges and NOT READY tags. Scroll →</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — LinkedIn Carousel (12 slides)">
+    <div class="carousel-wire">
+
+      <!-- 1: Countdown hook -->
+      <div class="c-slide">
+        <div class="cs-countdown">
+          <div class="cs-year">2050</div>
+          <div class="cs-stat">1.6 BILLION PEOPLE OVER 65</div>
+          <div class="cs-body">Countdown to 2050.<br>The time to act is now.</div>
+        </div>
+        <span class="c-slide-num">1/12</span>
+      </div>
+
+      <!-- 2: The science -->
+      <div class="c-slide">
+        <div class="cs-mission">
+          <div class="cs-m-label">The Science</div>
+          <h4>Geroscience: delay, prevent, alleviate, or reverse diseases of aging</h4>
+          <div class="cs-m-body">The first clinical trials are already underway. The goal: more healthy years, not just more years. But the frameworks to govern these breakthroughs don't exist yet.</div>
+        </div>
+        <span class="c-slide-num">2/12</span>
+      </div>
+
+      <!-- 3: The gap -->
+      <div class="c-slide">
+        <div class="cs-mission">
+          <div class="cs-m-label">The Risk</div>
+          <h4>"Should not be limited to a wealthy few."</h4>
+          <div class="cs-m-body">Without frameworks for access, equity, and affordability, breakthroughs will only reach the privileged. We have 25 years to get this right.</div>
+        </div>
+        <span class="c-slide-num">3/12</span>
+      </div>
+
+      <!-- 4: Bridge -->
+      <div class="c-slide">
+        <div class="cs-countdown" style="gap:14px;">
+          <div class="cs-stat" style="font-size:10px;letter-spacing:3px;">STATUS CHECK</div>
+          <div class="cs-year" style="font-size:32px;">6 Principles</div>
+          <div class="cs-body">Are we on track?<br>A readiness audit.</div>
+        </div>
+        <span class="c-slide-num">4/12</span>
+      </div>
+
+      <!-- 5: P1 -->
+      <div class="c-slide">
+        <div class="cs-status">
+          <div class="cs-status-header">
+            <div class="cs-status-badge">1</div>
+            <div class="cs-status-name">Recognize &amp; Affirm Aging as a Natural Process</div>
+            <div class="cs-status-tag caution">Caution</div>
+          </div>
+          <div class="cs-status-body">
+            <div class="cs-status-label">Principle</div>
+            <div class="cs-status-text">Geroscience should recognize that aging is a natural process, not a disease. It should not contribute to ageism but should instead increase opportunities for people to live the way they want as they age.</div>
+            <div class="cs-gauge"><div class="cs-gauge-bar"><div class="cs-gauge-fill med"></div></div><div class="cs-gauge-pct yellow">35%</div></div>
+          </div>
+        </div>
+        <span class="c-slide-num">5/12</span>
+      </div>
+
+      <!-- 6: P2 -->
+      <div class="c-slide">
+        <div class="cs-status">
+          <div class="cs-status-header">
+            <div class="cs-status-badge">2</div>
+            <div class="cs-status-name">Increase Healthspan</div>
+            <div class="cs-status-tag caution">Caution</div>
+          </div>
+          <div class="cs-status-body">
+            <div class="cs-status-label">Principle</div>
+            <div class="cs-status-text">The primary intention of geroscience is to increase healthspan — the years of life that a person is in good health — rather than just the total years of life. Potential increases in lifespan are a welcome secondary gain.</div>
+            <div class="cs-gauge"><div class="cs-gauge-bar"><div class="cs-gauge-fill med"></div></div><div class="cs-gauge-pct yellow">40%</div></div>
+          </div>
+        </div>
+        <span class="c-slide-num">6/12</span>
+      </div>
+
+      <!-- 7: P3 -->
+      <div class="c-slide">
+        <div class="cs-status">
+          <div class="cs-status-header">
+            <div class="cs-status-badge">3</div>
+            <div class="cs-status-name">Ensure Access &amp; Equity</div>
+            <div class="cs-status-tag not-ready">Not Ready</div>
+          </div>
+          <div class="cs-status-body">
+            <div class="cs-status-label">Principle</div>
+            <div class="cs-status-text">Who will have access to and benefit from the emerging medical innovations of geroscience, and who will be left behind? Scientific advances must be inclusive and beneficial for all and must decrease rather than increase disparities.</div>
+            <div class="cs-gauge"><div class="cs-gauge-bar"><div class="cs-gauge-fill low"></div></div><div class="cs-gauge-pct red">12%</div></div>
+          </div>
+        </div>
+        <span class="c-slide-num">7/12</span>
+      </div>
+
+      <!-- 8: P4 -->
+      <div class="c-slide">
+        <div class="cs-status">
+          <div class="cs-status-header">
+            <div class="cs-status-badge">4</div>
+            <div class="cs-status-name">Ensure Affordability for Individuals &amp; the System</div>
+            <div class="cs-status-tag not-ready">Not Ready</div>
+          </div>
+          <div class="cs-status-body">
+            <div class="cs-status-label">Principle</div>
+            <div class="cs-status-text">Costs should not be burdensome to consumers or limit access to care. Financial assistance must ensure affordability for all. Interventions should produce cost savings and improve the financial sustainability of health care systems.</div>
+            <div class="cs-gauge"><div class="cs-gauge-bar"><div class="cs-gauge-fill low"></div></div><div class="cs-gauge-pct red">10%</div></div>
+          </div>
+        </div>
+        <span class="c-slide-num">8/12</span>
+      </div>
+
+      <!-- 9: P5 -->
+      <div class="c-slide">
+        <div class="cs-status">
+          <div class="cs-status-header">
+            <div class="cs-status-badge">5</div>
+            <div class="cs-status-name">Ensure Transparency</div>
+            <div class="cs-status-tag not-ready">Not Ready</div>
+          </div>
+          <div class="cs-status-body">
+            <div class="cs-status-label">Principle</div>
+            <div class="cs-status-text">Consumer voices must be elevated so the needs and concerns of all populations are taken into consideration when determining clinically relevant outcomes. Policymaking must be transparent and engage the public to ensure meaningful changes in people's lives.</div>
+            <div class="cs-gauge"><div class="cs-gauge-bar"><div class="cs-gauge-fill med-low"></div></div><div class="cs-gauge-pct red">15%</div></div>
+          </div>
+        </div>
+        <span class="c-slide-num">9/12</span>
+      </div>
+
+      <!-- 10: P6 -->
+      <div class="c-slide">
+        <div class="cs-status">
+          <div class="cs-status-header">
+            <div class="cs-status-badge">6</div>
+            <div class="cs-status-name">Utilize an Integrated Approach</div>
+            <div class="cs-status-tag not-ready">Not Ready</div>
+          </div>
+          <div class="cs-status-body">
+            <div class="cs-status-label">Principle</div>
+            <div class="cs-status-text">Achievements in geroscience must be fully integrated in, and remain part of, larger country-level efforts to address social determinants of health and longevity.</div>
+            <div class="cs-gauge"><div class="cs-gauge-bar"><div class="cs-gauge-fill low"></div></div><div class="cs-gauge-pct red">8%</div></div>
+          </div>
+        </div>
+        <span class="c-slide-num">10/12</span>
+      </div>
+
+      <!-- 11: Summary -->
+      <div class="c-slide">
+        <div class="cs-mission">
+          <div class="cs-m-label">Readiness Assessment</div>
+          <h4>4 of 6 principles: Not Ready. 2 of 6: Caution. 0 of 6: On Track.</h4>
+          <div class="cs-m-body">The breakthroughs are coming. The frameworks to ensure they work for everyone are not. We have 25 years.</div>
+        </div>
+        <span class="c-slide-num">11/12</span>
+      </div>
+
+      <!-- 12: CTA -->
+      <div class="c-slide">
+        <div class="cs-cta">
+          <div class="cc-label">Countdown to 2050</div>
+          <h4>Start the clock<br>on action.</h4>
+          <div class="cc-btn">Read the Framework</div>
+          <div class="cc-url">aarpinternational.org/the-journal</div>
+        </div>
+        <span class="c-slide-num">12/12</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>Status-check slides with gauges</strong> — Each principle gets a dashboard-style card: numbered badge, full name, NOT READY / CAUTION tag, full principle text, and a progress bar with percentage. A distinctive slide type that gives each principle a clear, measurable framing.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>"4 of 6: Not Ready" summary</strong> — Slide 11 aggregates the readiness assessment into a single clear summary. After seeing each principle individually, this slide gives the reader the full picture at a glance.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>Full article text on every principle</strong> — no shortcuts. Each status card carries the complete principle description from the source article.</div></div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 3: PPT ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 03</div>
+  <div class="section-title">PowerPoint Deck</div>
+  <div class="section-desc">A 15-slide mission briefing displayed as a 3-column grid. Opens with the deadline, establishes the science and risk, then runs a status check on each principle with readiness gauges. Closes with the mission mandate. Designed for policy audiences and international convenings.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — PPT Deck (15 slides, mission brief)">
+    <div class="ppt-brief">
+
+      <div class="ppt-slide ppt-dark"><span class="ppt-label">1 — Title</span><div class="pm-logo"></div><div class="pm-mono">2050</div><div class="pm-sub">COUNTDOWN TO 2050</div><p>Six milestones. Twenty-five years. Are we ready?</p></div>
+
+      <div class="ppt-slide ppt-dark"><span class="ppt-label">2 — Deadline</span><div class="pm-mono" style="font-size:18px;">2050</div><h5>1.6 billion people<br>over 65</h5><p>The largest aging population in human history</p></div>
+
+      <div class="ppt-slide ppt-content"><span class="ppt-label">3 — The Science</span><div class="pc-heading">What Is Geroscience?</div><div class="pc-sub">Delay, prevent, alleviate, or reverse diseases of aging. First trials underway.</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-content"><span class="ppt-label">4 — The Gap</span><div class="pc-heading">Current Trajectory</div><div class="pc-sub">80% of aging in LMICs. Research concentrated in wealthy nations. No pricing frameworks.</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-dark"><span class="ppt-label">5 — The Risk</span><h5>"Should not be<br>limited to a<br>wealthy few."</h5></div>
+
+      <div class="ppt-slide ppt-red"><span class="ppt-label">6 — Status Check</span><h5>6 Milestones.<br>How Ready Are We?</h5><p>A readiness audit of the world's preparedness.</p></div>
+
+      <!-- Principle status slides -->
+      <div class="ppt-slide ppt-status-slide"><span class="ppt-label">7 — P1</span><div class="ps-head"><div class="ps-badge">1</div><span class="ps-name">Aging as Natural Process</span></div><div class="ps-label">STATUS: CAUTION</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div><div class="ppt-gauge"><div class="ppt-gauge-bar"><div class="ppt-gauge-fill w35"></div></div><div class="ppt-gauge-tag">35%</div></div></div>
+
+      <div class="ppt-slide ppt-status-slide"><span class="ppt-label">8 — P2</span><div class="ps-head"><div class="ps-badge">2</div><span class="ps-name">Increase Healthspan</span></div><div class="ps-label">STATUS: CAUTION</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div><div class="ppt-gauge"><div class="ppt-gauge-bar"><div class="ppt-gauge-fill w35"></div></div><div class="ppt-gauge-tag">40%</div></div></div>
+
+      <div class="ppt-slide ppt-status-slide"><span class="ppt-label">9 — P3</span><div class="ps-head"><div class="ps-badge">3</div><span class="ps-name">Ensure Access & Equity</span></div><div class="ps-label">STATUS: NOT READY</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div><div class="ppt-gauge"><div class="ppt-gauge-bar"><div class="ppt-gauge-fill w15"></div></div><div class="ppt-gauge-tag">12%</div></div></div>
+
+      <div class="ppt-slide ppt-status-slide"><span class="ppt-label">10 — P4</span><div class="ps-head"><div class="ps-badge">4</div><span class="ps-name">Ensure Affordability</span></div><div class="ps-label">STATUS: NOT READY</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div><div class="ppt-gauge"><div class="ppt-gauge-bar"><div class="ppt-gauge-fill w15"></div></div><div class="ppt-gauge-tag">10%</div></div></div>
+
+      <div class="ppt-slide ppt-status-slide"><span class="ppt-label">11 — P5</span><div class="ps-head"><div class="ps-badge">5</div><span class="ps-name">Ensure Transparency</span></div><div class="ps-label">STATUS: NOT READY</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div><div class="ppt-gauge"><div class="ppt-gauge-bar"><div class="ppt-gauge-fill w25"></div></div><div class="ppt-gauge-tag">15%</div></div></div>
+
+      <div class="ppt-slide ppt-status-slide"><span class="ppt-label">12 — P6</span><div class="ps-head"><div class="ps-badge">6</div><span class="ps-name">Integrated Approach</span></div><div class="ps-label">STATUS: NOT READY</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div><div class="ppt-gauge"><div class="ppt-gauge-bar"><div class="ppt-gauge-fill w15"></div></div><div class="ppt-gauge-tag">8%</div></div></div>
+
+      <div class="ppt-slide ppt-dark"><span class="ppt-label">13 — Summary</span><h5>4 of 6: Not Ready<br>2 of 6: Caution<br>0 of 6: On Track</h5><p>The breakthroughs are coming. The frameworks are not.</p></div>
+
+      <div class="ppt-slide ppt-content"><span class="ppt-label">14 — Appendix</span><div class="pc-heading">Sources & Citations</div><div class="pc-sub">NAM Global Roadmap, AARP Geroscience Principles, The Journal Vol. 16</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-dark"><span class="ppt-label">15 — CTA</span><div style="font-size:5px;color:var(--red);letter-spacing:2px;font-weight:600;margin-bottom:4px;">COUNTDOWN TO 2050</div><h5>Start the clock<br>on action.</h5><div style="margin-top:6px;background:var(--red);padding:2px 6px;border-radius:2px;font-size:5px;color:#fff;font-weight:700;letter-spacing:1px;">READ THE FRAMEWORK</div></div>
+
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>3-column mission brief grid</strong> — this layout gives each slide more visual weight and room for the status indicators, progress bars, and principle text to be clearly legible.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>Readiness gauges on every principle slide</strong> — Each principle slide has a red top border, a status label (NOT READY / CAUTION), and a mini progress bar with percentage. The audience sees at a glance where progress is needed and where momentum is building.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>"4 of 6: Not Ready" summary slide</strong> — Slide 13 is a dark-background punch: the aggregated readiness score. In a live presentation, this is the moment the room goes quiet.</div></div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 4: WEBPAGE ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 04</div>
+  <div class="section-title">Webpage / Digital Experience</div>
+  <div class="section-desc">A countdown-driven webpage with an animated timer at the top and a "Global Readiness Score" bar. Each principle section has a horizontal progress gauge. New components: countdown display, readiness bar, status cards with gauges, and a "Start the clock" CTA.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — Webpage (countdown experience)">
+    <div class="web-wire">
+      <div class="web-browser">
+        <div class="web-dots"><div class="web-dot"></div><div class="web-dot"></div><div class="web-dot"></div></div>
+        <div class="web-url">aarpinternational.org/.../the-countdown</div>
+      </div>
+
+      <!-- Countdown hero -->
+      <div class="web-countdown-hero">
+        <div class="web-ch-label">AARP Geroscience Principles · Campaign 3 of 4 · COUNTDOWN TO</div>
+        <div class="web-ch-number">2050</div>
+        <div class="web-ch-title">Countdown to 2050. The time to act is now.</div>
+        <div class="web-ch-sub">By Debra Whitman and Dr. Erwin Tan</div>
+      </div>
+
+      <!-- Global readiness bar -->
+      <div class="web-readiness">
+        <div class="web-readiness-label">Global Readiness</div>
+        <div class="web-readiness-bar"><div class="web-readiness-fill"></div></div>
+        <div class="web-readiness-pct">18%</div>
+      </div>
+
+      <!-- Context -->
+      <div class="web-section">
+        <div class="ws-label">The Deadline</div>
+        <h4>By 2050, 1.6 billion people will be over 65</h4>
+        <p>The largest aging population in human history. The geroscience revolution promises to delay, prevent, alleviate, or reverse the diseases of aging. The first clinical trials are underway. But the frameworks to ensure these breakthroughs work for everyone — not just the wealthy few — do not yet exist.</p>
+      </div>
+
+      <!-- Quote -->
+      <div class="web-quote">
+        <blockquote>"Should not be limited to a wealthy few."</blockquote>
+        <cite>— AARP Geroscience Principles</cite>
+      </div>
+
+      <!-- Video -->
+      <div class="web-video">
+        <div class="web-video-btn">▶</div>
+        <span>Video: Debra Whitman & Dr. Erwin Tan on The Countdown</span>
+      </div>
+
+      <!-- Principles as status cards -->
+      <div class="web-principles">
+        <div class="web-pr-header">
+          <div class="web-pr-label">Status Check</div>
+          <div class="web-pr-title">Six Milestones the World Must Hit Before 2050</div>
+          <div class="web-pr-sub">Each principle is a readiness milestone. Here's where we stand.</div>
+        </div>
+        <div class="web-pr-grid">
+
+          <div class="web-pr-card">
+            <div class="web-pr-badge-col"><div class="web-pr-num">1</div><div class="web-pr-status-dot"></div></div>
+            <div class="web-pr-name">Recognize &amp; Affirm Aging as a Natural Process</div>
+            <div class="web-pr-desc">Geroscience should recognize that aging is a natural process, not a disease. It should not contribute to ageism but should instead increase opportunities for people to live the way they want as they age.</div>
+            <div class="web-pr-gauge"><div class="web-pr-gauge-bar"><div class="web-pr-gauge-fill" style="width:35%;background:var(--yellow);"></div></div><div class="web-pr-gauge-tag" style="color:var(--yellow);">Caution — 35%</div></div>
+          </div>
+
+          <div class="web-pr-card">
+            <div class="web-pr-badge-col"><div class="web-pr-num">2</div><div class="web-pr-status-dot"></div></div>
+            <div class="web-pr-name">Increase Healthspan</div>
+            <div class="web-pr-desc">The primary intention of geroscience is to increase healthspan — the years of life that a person is in good health — rather than just the total years of life. Potential increases in lifespan are a welcome secondary gain.</div>
+            <div class="web-pr-gauge"><div class="web-pr-gauge-bar"><div class="web-pr-gauge-fill" style="width:40%;background:var(--yellow);"></div></div><div class="web-pr-gauge-tag" style="color:var(--yellow);">Caution — 40%</div></div>
+          </div>
+
+          <div class="web-pr-card">
+            <div class="web-pr-badge-col"><div class="web-pr-num">3</div><div class="web-pr-status-dot"></div></div>
+            <div class="web-pr-name">Ensure Access &amp; Equity</div>
+            <div class="web-pr-desc">Geroscience should help address the profound question of health disparities. Who will have access to and benefit from the emerging medical innovations of geroscience, and who will be left behind? Scientific advances must be inclusive and beneficial for all and must decrease rather than increase disparities.</div>
+            <div class="web-pr-gauge"><div class="web-pr-gauge-bar"><div class="web-pr-gauge-fill" style="width:12%;"></div></div><div class="web-pr-gauge-tag">Not Ready — 12%</div></div>
+          </div>
+
+          <div class="web-pr-card">
+            <div class="web-pr-badge-col"><div class="web-pr-num">4</div><div class="web-pr-status-dot"></div></div>
+            <div class="web-pr-name">Ensure Affordability for Individuals &amp; the System</div>
+            <div class="web-pr-desc">The costs of geroscience interventions should not be burdensome to consumers or limit access to care. Sufficient financial assistance should be available to ensure affordability for all. These interventions, if meaningful and accessible, should produce cost savings, or at least a good cost-benefit proposition, and improve the financial sustainability of health care systems.</div>
+            <div class="web-pr-gauge"><div class="web-pr-gauge-bar"><div class="web-pr-gauge-fill" style="width:10%;"></div></div><div class="web-pr-gauge-tag">Not Ready — 10%</div></div>
+          </div>
+
+          <div class="web-pr-card">
+            <div class="web-pr-badge-col"><div class="web-pr-num">5</div><div class="web-pr-status-dot"></div></div>
+            <div class="web-pr-name">Ensure Transparency</div>
+            <div class="web-pr-desc">Consumer voices must be elevated so the needs and concerns of all populations are taken into consideration when determining what constitutes a clinically relevant outcome. Policymaking must be transparent and engage the public to ensure that the outcomes represent meaningful changes in people's lives.</div>
+            <div class="web-pr-gauge"><div class="web-pr-gauge-bar"><div class="web-pr-gauge-fill" style="width:15%;"></div></div><div class="web-pr-gauge-tag">Not Ready — 15%</div></div>
+          </div>
+
+          <div class="web-pr-card">
+            <div class="web-pr-badge-col"><div class="web-pr-num">6</div><div class="web-pr-status-dot"></div></div>
+            <div class="web-pr-name">Utilize an Integrated Approach</div>
+            <div class="web-pr-desc">Achievements in geroscience must be fully integrated in, and remain part of, larger country-level efforts to address social determinants of health and longevity.</div>
+            <div class="web-pr-gauge"><div class="web-pr-gauge-bar"><div class="web-pr-gauge-fill" style="width:8%;"></div></div><div class="web-pr-gauge-tag">Not Ready — 8%</div></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="web-cta">
+        <p>Countdown to 2050. Start the clock on action.</p>
+        <div class="web-cta-btns">
+          <div class="web-cta-btn">Take Action</div>
+          <div class="web-cta-btn" style="background:rgba(255,255,255,.15);color:#fff;">Download Assets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>Countdown timer hero</strong> — Giant "2050" countdown display. The reader immediately understands: 2050 is the deadline, and the principles are the milestones to hit along the way.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>Global Readiness bar</strong> — A persistent progress bar at 18% showing overall readiness. New component type — creates a single clear metric that summarizes where the world stands on geroscience readiness.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>Horizontal status cards with gauges</strong> — Each principle is a left-bordered card with numbered badge, red status dot, full article text, and a horizontal gauge. The stacked vertical format (not a 2-column grid like C2) lets each principle breathe with its complete text.</div></div>
+    <div class="annotation"><div class="ann-marker">4</div><div class="ann-text"><strong>Full article text on every principle</strong> — no shortcuts. Each card carries the complete principle description from the source article.</div></div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<section style="background:var(--dark);padding:60px 80px;text-align:center;">
+  <p style="font-family:var(--sans);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:12px;">Campaign 3 of 4</p>
+  <p style="font-family:var(--serif);font-size:28px;color:#fff;font-weight:700;margin-bottom:8px;">The Countdown</p>
+  <p style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,.6);max-width:500px;margin:0 auto;line-height:1.7;">Six milestones. Twenty-five years. Are we ready?<br>Countdown to 2050. The time to act is now.</p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campaign 4 — The Promise</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #E31837;
+  --red-light: #FDF0F2;
+  --red-glow: rgba(227,24,55,.10);
+  --blue: #3E9CC5;
+  --blue-light: #E5F1F7;
+  --navy: #1A1F36;
+  --navy-mid: #2D3352;
+  --parchment: #FAF8F3;
+  --parchment-dark: #F0EDE5;
+  --parchment-mid: #F5F2EB;
+  --ink: #1A1F36;
+  --ink-soft: #4A4E62;
+  --ink-faint: #8A8D9E;
+  --gold: #B8963E;
+  --gold-light: #F7F1E1;
+  --rule: #D8D4C8;
+  --rule-dark: #B5B0A3;
+  --dark: #0F0F11;
+  --serif: 'Fraunces', serif;
+  --sans: 'DM Sans', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--sans); background:var(--parchment); color:var(--ink); overflow-x:hidden; }
+
+
+/* ========================================
+   HERO — Open Letter Header
+   Warm, elegant, centered address.
+   "Dear 2050" — a letter to the future.
+   ======================================== */
+.hero {
+  min-height: 100vh;
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  padding: 80px 40px;
+}
+
+/* Subtle paper texture */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(184,150,62,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 2; max-width: 600px; }
+
+.hero-campaign {
+  font-family: var(--sans);
+  font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--red); font-weight: 600; margin-bottom: 48px;
+  opacity:0; animation: fadeUp .8s ease forwards .2s;
+}
+
+.hero-ornament {
+  width: 60px; height: 1px; background: rgba(255,255,255,.15);
+  margin: 0 auto 32px;
+  position: relative;
+  opacity:0; animation: fadeUp .8s ease forwards .3s;
+}
+.hero-ornament::before {
+  content: '✦'; position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 10px; color: var(--gold); background: var(--dark);
+  padding: 0 12px;
+}
+
+.hero-address {
+  font-family: var(--serif);
+  font-size: clamp(48px, 8vw, 80px);
+  font-weight: 300;
+  font-style: italic;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  opacity:0; animation: fadeUp .8s ease forwards .4s;
+}
+
+.hero-promise {
+  font-family: var(--serif);
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400;
+  color: rgba(255,255,255,.5);
+  line-height: 1.4;
+  margin-top: 24px;
+  opacity:0; animation: fadeUp .8s ease forwards .55s;
+}
+
+.hero-promise em {
+  color: var(--red); font-style: italic;
+}
+.hero-promise { color: rgba(255,255,255,.5); }
+
+.hero-context {
+  font-family: var(--sans);
+  font-size: 15px; color: rgba(255,255,255,.65);
+  line-height: 1.7; margin-top: 24px; max-width: 480px;
+  margin-left: auto; margin-right: auto;
+  opacity:0; animation: fadeUp .8s ease forwards .7s;
+}
+
+.hero-seal {
+  margin-top: 40px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity:0; animation: fadeUp .8s ease forwards .85s;
+}
+
+.hero-seal-line {
+  width: 140px; height: 1px; background: rgba(255,255,255,.15);
+}
+
+.hero-seal-text {
+  font-family: var(--serif); font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,.5); letter-spacing: 2px; text-transform: uppercase;
+}
+
+.hero-meta {
+  position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 32px;
+  opacity:0; animation: fadeUp .8s ease forwards 1s;
+}
+.hero-meta-item { text-align: center; }
+.hero-meta-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.5); font-weight: 500; }
+.hero-meta-val { font-size: 12px; color: rgba(255,255,255,.75); font-weight: 400; margin-top: 2px; }
+
+
+
+/* ===== DISCLAIMER ===== */
+.disclaimer-bar {
+  background: #000; padding: 28px 80px;
+  border-top: 3px solid var(--red);
+  border-bottom: 3px solid var(--red);
+}
+.disclaimer-inner { display:flex; align-items:flex-start; gap:20px; max-width:860px; }
+.disclaimer-badge { background:var(--red); color:#fff; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:7px 16px; border-radius:3px; white-space:nowrap; flex-shrink:0; }
+.disclaimer-bar p { font-size:13px; color:rgba(255,255,255,.7); line-height:1.7; font-family:var(--sans); }
+.disclaimer-bar strong { color:#fff; text-decoration:underline; text-decoration-color:var(--red); text-underline-offset:3px; }
+
+
+/* ===== SECTIONS ===== */
+.section { padding: 100px 80px; }
+.section-num { font-size:11px; letter-spacing:5px; text-transform:uppercase; color:var(--red); font-weight:600; margin-bottom:12px; font-family:var(--sans); }
+.section-title { font-family:var(--serif); font-size:clamp(28px,3.5vw,44px); font-weight:500; color:var(--ink); margin-bottom:12px; line-height:1.15; }
+.section-desc { font-size:14px; color:var(--ink-faint); max-width:640px; line-height:1.7; margin-bottom:48px; font-family:var(--sans); }
+.section-divider { height:1px; background:linear-gradient(90deg, transparent, var(--rule) 20%, var(--rule) 80%, transparent); margin:0 80px; }
+
+
+/* ===== NARRATIVE ARC — Letter Structure ===== */
+.letter-arc {
+  display: flex; align-items: stretch;
+  margin-bottom: 48px; border-radius: 12px; overflow: hidden;
+  background: #fff; border: 1px solid var(--rule);
+}
+
+.la-phase {
+  flex: 1; padding: 18px 14px; text-align: center;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  border-right: 1px solid var(--rule);
+}
+.la-phase:last-child { border-right: none; }
+
+.la-phase-label {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink); font-weight: 600; font-family:var(--sans);
+}
+
+.la-phase-title {
+  font-family: var(--serif);
+  font-size: 18px; font-weight: 600; color: var(--ink); line-height: 1.3;
+}
+
+.la-phase-sub { font-size: 12px; color: var(--ink-soft); line-height: 1.3; font-family:var(--sans); }
+
+.la-phase.active { background: var(--red-light); }
+.la-phase.active .la-phase-label { color: var(--red); }
+
+
+/* ===== WIREFRAME + ANNOTATIONS ===== */
+.wireframe-stage {
+  background:#f0efec; border-radius:16px;
+  padding:40px; position:relative; border:1px solid #d8d4c8;
+}
+.wireframe-stage::before {
+  content:attr(data-label);
+  position:absolute; top:-10px; left:24px;
+  background:var(--parchment); padding:2px 12px;
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--ink-faint); font-weight:600; font-family:var(--sans);
+}
+
+.annotations-panel {
+  margin-top:32px; padding:24px 28px;
+  background:#fff; border-radius:12px; border:1px solid #eee;
+}
+.annotations-panel h4 {
+  font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--ink-faint); font-weight:600; margin-bottom:16px; font-family:var(--sans);
+}
+.annotation { display:flex; align-items:flex-start; gap:12px; padding:8px 0; border-bottom:1px solid #f5f5f5; }
+.annotation:last-child { border-bottom:none; }
+.ann-marker {
+  width:22px; height:22px; border-radius:50%;
+  background:var(--red); color:#fff;
+  font-size:10px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.ann-text { font-size:13px; color:var(--ink-soft); line-height:1.6; font-family:var(--sans); }
+.ann-text strong { color:var(--ink); }
+
+
+/* ========================================
+   TACTIC 1: INFOGRAPHIC
+   Formal declaration / open letter format.
+   Numbered clauses, not charts.
+   ======================================== */
+.declaration-infographic {
+  max-width: 440px; margin: 0 auto;
+  background: #fff;
+  border-radius: 4px; overflow: hidden;
+  box-shadow: 0 2px 20px rgba(26,31,54,.06);
+  border: 1px solid var(--rule);
+}
+
+/* Formal header */
+.di-header {
+  padding: 24px 28px 16px;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+
+.di-logo {
+  display:inline-block; background:var(--red); border-radius:2px;
+  padding:3px 10px; font-size:7px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:#fff; margin-bottom:12px; font-family:var(--sans);
+}
+
+.di-ornament {
+  width: 40px; height: 1px; background: var(--rule-dark);
+  margin: 0 auto 12px; position: relative;
+}
+.di-ornament::before {
+  content: '✦'; position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 8px; color: var(--gold); background: #fff;
+  padding: 0 8px;
+}
+
+.di-header h3 {
+  font-family: var(--serif);
+  font-size: 22px; font-weight: 400; font-style: italic;
+  color: var(--ink); line-height: 1.2;
+}
+
+.di-header .di-sub {
+  font-family: var(--sans);
+  font-size: 9px; color: var(--ink-faint); margin-top: 6px; line-height: 1.5;
+}
+
+/* Preamble */
+.di-preamble {
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.di-preamble p {
+  font-family: var(--serif);
+  font-size: 12px; color: var(--ink-soft); line-height: 1.6;
+  font-style: italic;
+}
+
+/* Clauses */
+.di-clauses { padding: 8px 0; }
+
+.di-clause {
+  padding: 12px 28px 12px 28px;
+  border-bottom: 1px solid var(--parchment-dark);
+  position: relative;
+  display: flex; align-items: center; gap: 14px;
+}
+.di-clause:last-child { border-bottom: none; }
+.di-clause-body { flex: 1; }
+.di-clause-img {
+  width: 60px; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+.di-img-x {
+  width: 50px; height: 50px; border: 1px dashed var(--rule-dark); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-faint); font-size: 14px;
+}
+.di-clause-img span {
+  font-family: var(--sans); font-size: 6px; color: var(--ink-faint);
+  letter-spacing: 1px; text-transform: uppercase; font-weight: 600;
+}
+
+.di-clause-num {
+  font-family: var(--sans);
+  font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 4px;
+}
+
+.di-clause-pledge {
+  font-family: var(--serif);
+  font-size: 14px; font-weight: 600; color: var(--ink);
+  line-height: 1.3; margin-bottom: 6px;
+}
+
+.di-clause-pledge .we-will {
+  color: var(--red); font-style: italic;
+}
+
+.di-clause-text {
+  font-family: var(--sans);
+  font-size: 8.5px; color: var(--ink-faint); line-height: 1.6;
+}
+
+/* Red accent bar on left */
+.di-clause::before {
+  content: '';
+  position: absolute; left: 16px; top: 16px; bottom: 16px;
+  width: 2px; background: var(--red); border-radius: 1px;
+  opacity: .3;
+}
+
+/* Signature block */
+.di-signature {
+  padding: 20px 28px;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+}
+
+.di-sig-label {
+  font-family: var(--sans);
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 600; margin-bottom: 12px;
+}
+
+.di-sig-line {
+  width: 180px; height: 1px; background: var(--ink);
+  margin: 0 auto 4px; opacity: .2;
+}
+
+.di-sig-name {
+  font-family: var(--serif);
+  font-size: 11px; font-style: italic; color: var(--ink-faint);
+  margin-bottom: 16px;
+}
+
+.di-sig-line2 { width: 180px; height: 1px; background: var(--ink); margin: 0 auto 4px; opacity: .2; }
+.di-sig-name2 { font-family: var(--serif); font-size: 11px; font-style: italic; color: var(--ink-faint); }
+
+/* CTA */
+.di-cta {
+  background: var(--red); padding: 12px 28px; text-align: center;
+}
+.di-cta p { font-size: 10px; color: #fff; font-weight: 600; font-family:var(--sans); }
+
+.di-footer {
+  background: var(--parchment-mid); padding: 8px 28px; text-align: center;
+  border-top: 1px solid var(--rule);
+}
+.di-footer span { font-size: 7px; color: var(--ink-faint); letter-spacing: 1px; font-family:var(--sans); }
+
+
+/* ========================================
+   TACTIC 2: LINKEDIN CAROUSEL
+   Letter-to-the-future slides.
+   Each promise is a slide.
+   ======================================== */
+.carousel-wire {
+  display:flex; gap:16px; overflow-x:auto;
+  padding:8px 4px 16px; scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.carousel-wire::-webkit-scrollbar { height:4px; }
+.carousel-wire::-webkit-scrollbar-track { background:#e8e6e2; border-radius:2px; }
+.carousel-wire::-webkit-scrollbar-thumb { background:var(--red); border-radius:2px; }
+
+.c-slide {
+  min-width:260px; max-width:260px; aspect-ratio:1/1.15;
+  border-radius:8px; overflow:hidden; scroll-snap-align:start;
+  flex-shrink:0; display:flex; flex-direction:column;
+  box-shadow:0 2px 12px rgba(0,0,0,.08); position:relative;
+}
+
+.c-slide-num {
+  position:absolute; bottom:8px; right:10px;
+  font-size:9px; font-weight:500; color:var(--ink-faint); font-family:var(--sans);
+}
+.c-slide-num.light { color:rgba(255,255,255,.2); }
+
+/* Slide: Dear 2050 opener */
+.cs-open {
+  flex: 1; background: var(--parchment);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 28px; gap: 14px;
+}
+
+.cs-open .cs-orn {
+  width: 30px; height: 1px; background: var(--rule-dark); position: relative;
+}
+.cs-open .cs-orn::before {
+  content: '✦'; position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 7px; color: var(--gold); background: var(--parchment); padding: 0 6px;
+}
+
+.cs-open h3 {
+  font-family: var(--serif); font-size: 36px; font-weight: 300;
+  font-style: italic; color: var(--ink); line-height: 1.1;
+}
+
+.cs-open p {
+  font-family: var(--sans);
+  font-size: 11px; color: var(--ink-faint); line-height: 1.6;
+}
+
+/* Slide: context / the science */
+.cs-context {
+  flex: 1; background: #fff;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: 28px; gap: 12px;
+}
+
+.cs-context .cs-ctx-label {
+  font-family: var(--sans);
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); font-weight: 600;
+}
+
+.cs-context h4 {
+  font-family: var(--serif);
+  font-size: 18px; font-weight: 600; color: var(--ink); line-height: 1.3;
+}
+
+.cs-context p {
+  font-family: var(--sans);
+  font-size: 10px; color: var(--ink-faint); line-height: 1.6;
+}
+
+/* Slide: clause / principle */
+.cs-clause {
+  flex: 1; background: #fff;
+  display: flex; flex-direction: column;
+  padding: 0;
+}
+
+.cs-clause-header {
+  background: var(--parchment);
+  padding: 14px 20px 10px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.cs-clause-num {
+  font-family: var(--sans);
+  font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); font-weight: 700;
+}
+
+.cs-clause-pledge {
+  font-family: var(--serif);
+  font-size: 15px; font-weight: 600; color: var(--ink);
+  line-height: 1.25; margin-top: 4px;
+}
+
+.cs-clause-pledge .we-will { color: var(--red); font-style: italic; }
+
+.cs-clause-body {
+  flex: 1; padding: 14px 20px;
+  display: flex; flex-direction: column; justify-content: center; gap: 10px;
+}
+
+.cs-clause-label {
+  font-family: var(--sans);
+  font-size: 7px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); font-weight: 700;
+}
+
+.cs-clause-text {
+  font-family: var(--sans);
+  font-size: 10px; color: var(--ink-soft); line-height: 1.6;
+}
+
+.cs-clause-stakes {
+  font-family: var(--serif);
+  font-size: 11px; font-style: italic; color: var(--ink-faint); line-height: 1.4;
+  padding-top: 6px; border-top: 1px solid var(--parchment-dark);
+}
+
+/* Slide: CTA */
+.cs-cta {
+  flex: 1; background: var(--parchment);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 28px; gap: 14px;
+}
+.cs-cta .cc-orn { width: 30px; height: 1px; background: var(--rule-dark); position: relative; }
+.cs-cta .cc-orn::before { content: '✦'; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); font-size: 7px; color: var(--gold); background: var(--parchment); padding: 0 6px; }
+.cs-cta h4 { font-family:var(--serif); color:var(--ink); font-size:18px; font-weight:500; line-height:1.3; }
+.cs-cta h4 em { color:var(--red); }
+.cs-cta .cc-btn {
+  display:inline-block; background:var(--red); color:#fff;
+  font-size:9px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+  padding:8px 20px; border-radius:4px; font-family:var(--sans);
+}
+.cs-cta .cc-url { font-size:9px; color:var(--ink-faint); font-family:var(--sans); }
+
+
+/* ========================================
+   TACTIC 3: PPT
+   Formal pledge deck — 5-across layout.
+   Unique 4-column grid layout.
+   Formal declaration feel.
+   ======================================== */
+.ppt-pledge {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.ppt-slide {
+  background: #fff; border-radius: 4px;
+  aspect-ratio: 16/9; overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  border: 1px solid var(--rule); position: relative;
+}
+
+.ppt-label {
+  position:absolute; top:-16px; left:0;
+  font-size:10px; color:var(--ink-faint); font-weight:500; white-space:nowrap; font-family:var(--sans);
+}
+
+/* PPT types */
+.ppt-parchment {
+  background: var(--parchment); justify-content:center; align-items:center;
+  padding:10px; text-align:center;
+}
+.ppt-parchment .pm-logo { width:24px; height:7px; background:var(--red); border-radius:1px; margin:0 auto 6px; }
+.ppt-parchment h5 { font-family:var(--serif); font-size:14px; font-weight:500; font-style:italic; color:var(--ink); line-height:1.25; }
+.ppt-parchment p { font-family:var(--sans); font-size:9px; color:var(--ink-faint); margin-top:3px; }
+
+.ppt-dark {
+  background:var(--navy); justify-content:center; align-items:center;
+  padding:10px; text-align:center;
+}
+.ppt-dark h5 { font-family:var(--serif); color:#fff; font-size:14px; font-weight:500; font-style:italic; line-height:1.3; }
+.ppt-dark p { font-family:var(--sans); font-size:9px; color:rgba(255,255,255,.4); margin-top:2px; }
+
+.ppt-red {
+  background:var(--red); justify-content:center; align-items:center;
+  padding:10px; text-align:center;
+}
+.ppt-red h5 { font-family:var(--serif); font-size:14px; font-weight:500; color:#fff; line-height:1.25; }
+.ppt-red p { font-size:9px; color:rgba(255,255,255,.6); margin-top:2px; font-family:var(--sans); }
+
+.ppt-content { padding:12px 16px; }
+.ppt-content .pc-heading {
+  font-family:var(--serif); font-size:12px; font-weight:600; color:var(--ink);
+  margin-bottom:2px; padding-bottom:2px;
+  border-bottom:1px solid var(--rule); display:inline-block;
+}
+.ppt-content .pc-sub { font-family:var(--sans); font-size:9px; color:var(--ink-faint); line-height:1.4; }
+
+.ppt-lines { display:flex; flex-direction:column; gap:2px; margin-top:3px; }
+.ppt-line { height:4px; background:var(--parchment-dark); border-radius:1px; }
+.ppt-line:nth-child(odd) { width:90%; }
+.ppt-line:nth-child(even) { width:65%; }
+
+/* PPT promise slide */
+.ppt-clause-slide {
+  padding: 10px 14px; display: flex; flex-direction: column;
+  border-left: 3px solid var(--red);
+  background: #fff;
+}
+
+.ppt-clause-slide .pc-num {
+  font-family:var(--sans); font-size:9px; color:var(--red); font-weight:700;
+  letter-spacing:1px; text-transform:uppercase;
+}
+
+.ppt-clause-slide .pc-pledge {
+  font-family:var(--serif); font-size:11px; font-weight:600; color:var(--ink);
+  line-height:1.25; margin-top:2px;
+}
+.ppt-clause-slide .pc-pledge .we-will { color:var(--red); font-style:italic; }
+
+.ppt-clause-slide .pc-text {
+  font-family:var(--sans); font-size:8px; color:var(--ink-faint); line-height:1.45; margin-top:2px;
+}
+
+/* Signature slide */
+.ppt-signature {
+  background: var(--parchment); justify-content:center; align-items:center;
+  padding:10px; text-align:center;
+}
+.ppt-signature .ps-line { width:50px; height:1px; background:var(--ink); opacity:.2; margin:4px auto; }
+.ppt-signature .ps-name { font-family:var(--serif); font-size:10px; font-style:italic; color:var(--ink-faint); }
+
+
+/* ========================================
+   TACTIC 4: WEBPAGE
+   Open letter scroll with signature.
+   Elegant, typographic, minimal.
+   ======================================== */
+.web-wire {
+  max-width:640px; margin:0 auto;
+  background:#fff; border-radius:10px;
+  overflow:hidden; box-shadow:0 6px 32px rgba(0,0,0,.06);
+  border: 1px solid var(--rule);
+}
+
+.web-browser {
+  background:var(--parchment-dark); padding:8px 14px; display:flex; align-items:center; gap:10px;
+}
+.web-dots { display:flex; gap:5px; }
+.web-dot { width:8px; height:8px; border-radius:50%; background:var(--rule); }
+.web-url { font-size:9px; color:var(--ink-faint); flex:1; background:#fff; padding:4px 10px; border-radius:4px; font-family:var(--sans); }
+
+/* Letter hero */
+.web-letter-hero {
+  background: var(--parchment); padding: 32px 32px 24px; text-align: center;
+}
+.web-lh-label { font-family:var(--sans); font-size:8px; letter-spacing:3px; text-transform:uppercase; color:var(--red); font-weight:600; margin-bottom:12px; }
+.web-lh-ornament { width:30px; height:1px; background:var(--rule-dark); margin:0 auto 14px; position:relative; }
+.web-lh-ornament::before { content:'✦'; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); font-size:7px; color:var(--gold); background:var(--parchment); padding:0 6px; }
+.web-lh-address {
+  font-family: var(--serif); font-size: 36px; font-weight: 300;
+  font-style: italic; color: var(--ink); line-height: 1.1;
+}
+.web-lh-promise {
+  font-family: var(--serif); font-size: 15px; font-weight: 400;
+  color: var(--ink-soft); line-height: 1.4; margin-top: 10px;
+}
+.web-lh-promise em { color: var(--red); }
+.web-lh-byline { font-family:var(--sans); font-size:9px; color:var(--ink-faint); margin-top:10px; }
+
+/* Preamble */
+.web-preamble {
+  padding: 16px 32px; border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.web-preamble p {
+  font-family: var(--serif); font-size: 12px; font-style: italic;
+  color: var(--ink-soft); line-height: 1.6;
+}
+
+/* Quote */
+.web-quote {
+  background:var(--navy); padding:18px 32px; text-align:center;
+}
+.web-quote blockquote { font-family:var(--serif); font-size:14px; color:rgba(255,255,255,.7); font-weight:400; font-style:italic; line-height:1.4; }
+.web-quote cite { display:block; margin-top:6px; font-family:var(--sans); font-size:8px; color:rgba(255,255,255,.25); font-style:normal; }
+
+/* Video */
+.web-video {
+  margin:12px 20px; border-radius:8px; overflow:hidden;
+  height:160px; background:var(--navy); position:relative;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  border:1px solid rgba(255,255,255,.08);
+  background-image: linear-gradient(135deg, rgba(255,255,255,.02) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.02) 50%, rgba(255,255,255,.02) 75%, transparent 75%);
+  background-size: 20px 20px;
+}
+.web-video::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at center, rgba(227,24,55,.08) 0%, transparent 60%);
+  pointer-events:none;
+}
+.web-video-btn {
+  width:48px; height:48px; border-radius:50%; background:var(--red);
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:#fff; position:relative; z-index:2;
+  box-shadow: 0 4px 20px rgba(227,24,55,.3);
+}
+.web-video span { font-family:var(--sans); font-size:9px; color:rgba(255,255,255,.4); letter-spacing:1.5px; text-transform:uppercase; font-weight:600; position:relative; z-index:2; }
+
+/* Clauses section */
+.web-clauses { padding: 24px 32px; }
+.web-cl-header { margin-bottom: 18px; text-align: center; }
+.web-cl-label { font-family:var(--sans); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--red); font-weight:700; margin-bottom:4px; }
+.web-cl-title { font-family:var(--serif); font-size:18px; font-weight:500; color:var(--ink); line-height:1.25; }
+.web-cl-sub { font-family:var(--sans); font-size:10px; color:var(--ink-faint); margin-top:4px; line-height:1.5; }
+
+.web-cl-grid { display: flex; flex-direction: column; gap: 16px; }
+
+.web-cl-card {
+  padding: 16px 20px; position: relative;
+  border: 1px solid var(--rule); border-radius: 6px;
+  border-left: 3px solid var(--red);
+  background: #fff;
+}
+
+.web-cl-num {
+  font-family: var(--sans);
+  font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 4px;
+}
+
+.web-cl-pledge {
+  font-family: var(--serif);
+  font-size: 15px; font-weight: 600; color: var(--ink);
+  line-height: 1.3; margin-bottom: 6px;
+}
+
+.web-cl-pledge .we-will { color: var(--red); font-style: italic; }
+
+.web-cl-text {
+  font-family: var(--sans);
+  font-size: 10px; color: var(--ink-soft); line-height: 1.6;
+}
+
+.web-cl-stakes {
+  font-family: var(--serif);
+  font-size: 10px; font-style: italic; color: var(--ink-faint);
+  line-height: 1.4; margin-top: 8px; padding-top: 8px;
+  border-top: 1px solid var(--parchment-dark);
+}
+
+/* Signature section */
+.web-signature {
+  padding: 24px 32px; text-align: center;
+  border-top: 1px solid var(--rule);
+  background: var(--parchment);
+}
+
+.web-sig-label {
+  font-family: var(--sans);
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 600; margin-bottom: 14px;
+}
+
+.web-sig-ornament { width:30px; height:1px; background:var(--rule-dark); margin:0 auto 14px; position:relative; }
+.web-sig-ornament::before { content:'✦'; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); font-size:7px; color:var(--gold); background:var(--parchment); padding:0 6px; }
+
+.web-sig-line { width: 220px; height: 1px; background: var(--ink); margin: 0 auto 4px; opacity: .2; }
+.web-sig-name { font-family: var(--serif); font-size: 11px; font-style: italic; color: var(--ink-faint); margin-bottom: 16px; }
+
+.web-sig-field {
+  width: 260px; margin: 0 auto;
+  padding: 8px 14px; border: 1px dashed var(--rule-dark); border-radius: 4px;
+  background: #fff;
+}
+.web-sig-field-label { font-family:var(--sans); font-size:8px; color:var(--ink-faint); letter-spacing:1px; text-transform:uppercase; }
+
+/* CTA */
+.web-cta {
+  background:var(--red); padding:14px 32px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.web-cta p { font-family:var(--serif); font-size:13px; color:#fff; font-weight:500; font-style:italic; }
+.web-cta-btns { display:flex; gap:8px; }
+.web-cta-btn {
+  display:inline-block; background:#fff; color:var(--red);
+  font-size:8px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+  padding:6px 14px; border-radius:3px; white-space:nowrap; font-family:var(--sans);
+}
+
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes bounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(4px); } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:1000px) {
+  .section { padding:60px 40px; }
+  .section-divider { margin:0 40px; }
+  .letter-arc { flex-direction:column; }
+  .la-phase { border-right:none; border-bottom:1px solid var(--rule); }
+  .la-phase:last-child { border-bottom:none; }
+  .ppt-pledge { grid-template-columns:repeat(2,1fr); }
+  .disclaimer-bar { padding:16px 32px; }
+  .disclaimer-inner { flex-direction:column; gap:8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO — Open Letter ==================== -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-campaign">Campaign 4 of 4</div>
+    <div class="hero-ornament"></div>
+    <div class="hero-address">Dear 2050,</div>
+    <div class="hero-promise">We will not leave you behind.<br>This is <em>our promise.</em></div>
+    <p class="hero-context">By 2050, 1.6 billion people will be over 65. The geroscience revolution promises to transform aging — but only if the breakthroughs reach everyone. Six principles. One promise. From this generation to the next.</p>
+    <div class="hero-seal">
+      <div class="hero-seal-line"></div>
+      <div class="hero-seal-text">A Declaration</div>
+      <div class="hero-seal-line"></div>
+    </div>
+  </div>
+
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Source</span>
+      <span class="hero-meta-val">The Journal, Vol. 16</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Authors</span>
+      <span class="hero-meta-val">Debra Whitman & Dr. Erwin Tan</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-bar">
+  <div class="disclaimer-inner">
+    <div class="disclaimer-badge">For AARP Team</div>
+    <p>These are <strong>interactive concept wireframes only</strong> — not final designs. Colors, branding, fonts, and graphics are placeholders. All content, copy, photography, illustration, and iconography are representative and will be refined collaboratively with the AARP team. Best viewed on desktop or tablet.</p>
+  </div>
+</div>
+
+
+<!-- NARRATIVE ARC — Letter Structure -->
+<section class="section" style="padding-bottom:40px;">
+  <div class="section-num">Narrative Structure</div>
+  <div class="section-title">The Letter</div>
+  <div class="section-desc">Every deliverable follows the structure of an open letter — an address, a preamble, six promises, and a signature. The audience reads a promise to the future, not a policy brief. The principles become personal commitments, not abstract frameworks.</div>
+
+  <div class="letter-arc">
+    <div class="la-phase active">
+      <div class="la-phase-label">I</div>
+      <div class="la-phase-title">Address</div>
+      <div class="la-phase-sub">"Dear 2050"</div>
+    </div>
+    <div class="la-phase">
+      <div class="la-phase-label">II</div>
+      <div class="la-phase-title">Preamble</div>
+      <div class="la-phase-sub">The science, the stakes, the risk</div>
+    </div>
+    <div class="la-phase">
+      <div class="la-phase-label">III</div>
+      <div class="la-phase-title">Six Promises</div>
+      <div class="la-phase-sub">"We will..." — one per principle</div>
+    </div>
+    <div class="la-phase">
+      <div class="la-phase-label">IV</div>
+      <div class="la-phase-title">Signature</div>
+      <div class="la-phase-sub">"Signed by everyone who acts"</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 1: INFOGRAPHIC ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 01</div>
+  <div class="section-title">Infographic — "The Promise"</div>
+  <div class="section-desc">A formal declaration. The infographic reads like a founding document: address, preamble, six numbered promises each beginning with "We will...", and a signature block. The format itself IS the message: this is a commitment, not a report.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — Declaration Infographic">
+    <div class="declaration-infographic">
+
+      <div class="di-header">
+        <div class="di-logo">AARP Logo</div>
+        <div class="di-ornament"></div>
+        <h3>Dear 2050,</h3>
+        <div class="di-sub">A promise from this generation to the next</div>
+      </div>
+
+      <div class="di-preamble">
+        <p>To the 1.6 billion people who will be over 65 in 2050: The geroscience revolution promises to transform aging. But breakthroughs mean nothing if they don't reach everyone. Six promises to ensure they do.</p>
+      </div>
+
+      <div class="di-clauses">
+
+        <div class="di-clause">
+          <div class="di-clause-body">
+            <div class="di-clause-num">Promise I</div>
+            <div class="di-clause-pledge"><span class="we-will">We will</span> recognize and affirm aging as a natural process</div>
+            <div class="di-clause-text">Not a disease. Should not contribute to ageism but increase opportunities for people to live the way they want as they age.</div>
+          </div>
+          <div class="di-clause-img"><div class="di-img-x">✕</div><span>Image</span></div>
+        </div>
+
+        <div class="di-clause">
+          <div class="di-clause-body">
+            <div class="di-clause-num">Promise II</div>
+            <div class="di-clause-pledge"><span class="we-will">We will</span> prioritize healthspan over lifespan</div>
+            <div class="di-clause-text">Increase the years of life in good health — not just total years. Lifespan gains are a welcome secondary benefit.</div>
+          </div>
+          <div class="di-clause-img"><div class="di-img-x">✕</div><span>Image</span></div>
+        </div>
+
+        <div class="di-clause">
+          <div class="di-clause-body">
+            <div class="di-clause-num">Promise III</div>
+            <div class="di-clause-pledge"><span class="we-will">We will</span> ensure access and equity for all</div>
+            <div class="di-clause-text">Who benefits and who is left behind? Advances must be inclusive and beneficial for all — decreasing, not increasing, disparities.</div>
+          </div>
+          <div class="di-clause-img"><div class="di-img-x">✕</div><span>Image</span></div>
+        </div>
+
+        <div class="di-clause">
+          <div class="di-clause-body">
+            <div class="di-clause-num">Promise IV</div>
+            <div class="di-clause-pledge"><span class="we-will">We will</span> ensure affordability for individuals and the system</div>
+            <div class="di-clause-text">Costs must not be burdensome or limit access. Must produce savings and improve the financial sustainability of health care systems.</div>
+          </div>
+          <div class="di-clause-img"><div class="di-img-x">✕</div><span>Image</span></div>
+        </div>
+
+        <div class="di-clause">
+          <div class="di-clause-body">
+            <div class="di-clause-num">Promise V</div>
+            <div class="di-clause-pledge"><span class="we-will">We will</span> ensure transparency in all decisions</div>
+            <div class="di-clause-text">Consumer voices elevated. All populations considered. Policymaking transparent. Outcomes must represent meaningful changes in lives.</div>
+          </div>
+          <div class="di-clause-img"><div class="di-img-x">✕</div><span>Image</span></div>
+        </div>
+
+        <div class="di-clause">
+          <div class="di-clause-body">
+            <div class="di-clause-num">Promise VI</div>
+            <div class="di-clause-pledge"><span class="we-will">We will</span> utilize an integrated approach</div>
+            <div class="di-clause-text">Achievements must be fully integrated into country-level efforts addressing social determinants of health and longevity.</div>
+          </div>
+          <div class="di-clause-img"><div class="di-img-x">✕</div><span>Image</span></div>
+        </div>
+
+      </div>
+
+      <div class="di-signature">
+        <div class="di-sig-label">Signed</div>
+        <div style="display:flex;gap:40px;justify-content:center;">
+          <div style="text-align:center;">
+            <div class="di-sig-line" style="margin:0 auto 4px;"></div>
+            <div class="di-sig-name" style="margin-bottom:0;">Debra Whitman, AARP</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="di-sig-line2" style="margin:0 auto 4px;"></div>
+            <div class="di-sig-name2">Everyone who acts today</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="di-cta"><p>Keep the promise → aarpinternational.org/the-journal</p></div>
+      <div class="di-footer"><span>The Journal, Vol. 16 · AARP Geroscience Principles · 2025</span></div>
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>Declaration format</strong> — the infographic IS a document: address, preamble, numbered promises, signature. The format itself communicates: this is a commitment. The declaration structure turns policy language into something personal and actionable.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>"We will..." promise openings</strong> — Every principle starts with a pledge in red italic, transforming policy language into first-person commitment. The reader experiences the principles as promises, not abstractions.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>Signature block</strong> — The declaration ends with signature lines. This is the emotional payoff: the reader is implicitly invited to sign. The second line — "Everyone who acts today" — makes the ask.</div></div>
+    <div class="annotation"><div class="ann-marker">4</div><div class="ann-text"><strong>Full article text</strong> — Every clause carries the complete principle description from the source article, no shortcuts.</div></div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 2: LINKEDIN CAROUSEL ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 02</div>
+  <div class="section-title">LinkedIn Carousel</div>
+  <div class="section-desc">A 12-slide carousel written as a letter to the future. Opens with "Dear 2050." Each principle is a promise of the promise. Closes with: "This is our promise. Will you keep it?" New slide type: promise cards with "We will..." pledge headers + full article text + stakes if the promise is broken. Scroll →</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — LinkedIn Carousel (12 slides)">
+    <div class="carousel-wire">
+
+      <!-- 1: Dear 2050 -->
+      <div class="c-slide">
+        <div class="cs-open">
+          <div class="cs-orn"></div>
+          <h3>Dear 2050,</h3>
+          <p>To the 1.6 billion people who will be over 65 — we will not leave you behind.</p>
+        </div>
+        <span class="c-slide-num">1/12</span>
+      </div>
+
+      <!-- 2: The preamble -->
+      <div class="c-slide">
+        <div class="cs-context">
+          <div class="cs-ctx-label">The Preamble</div>
+          <h4>The geroscience revolution promises to transform aging.</h4>
+          <p>The first clinical trials are underway. But without frameworks for access, equity, and affordability, breakthroughs will reach only a wealthy few.</p>
+        </div>
+        <span class="c-slide-num">2/12</span>
+      </div>
+
+      <!-- 3: The commitment -->
+      <div class="c-slide">
+        <div class="cs-context">
+          <div class="cs-ctx-label">The Commitment</div>
+          <h4>Six principles. Six commitments. From this generation to the next.</h4>
+          <p>Together they form a promise the world must keep.</p>
+        </div>
+        <span class="c-slide-num">3/12</span>
+      </div>
+
+      <!-- 4: Promise I -->
+      <div class="c-slide">
+        <div class="cs-clause">
+          <div class="cs-clause-header">
+            <div class="cs-clause-num">Promise I</div>
+            <div class="cs-clause-pledge"><span class="we-will">We will</span> recognize aging as a natural process</div>
+          </div>
+          <div class="cs-clause-body">
+            <div class="cs-clause-label">The Principle</div>
+            <div class="cs-clause-text">Aging is a natural process, not a disease. Geroscience should increase opportunities for people to live as they want — not contribute to ageism.</div>
+            <div class="cs-clause-stakes">Break this promise → aging treated as pathology. Ageism deepens.</div>
+          </div>
+        </div>
+        <span class="c-slide-num">4/12</span>
+      </div>
+
+      <!-- 5: Promise II -->
+      <div class="c-slide">
+        <div class="cs-clause">
+          <div class="cs-clause-header">
+            <div class="cs-clause-num">Promise II</div>
+            <div class="cs-clause-pledge"><span class="we-will">We will</span> prioritize healthspan</div>
+          </div>
+          <div class="cs-clause-body">
+            <div class="cs-clause-label">The Principle</div>
+            <div class="cs-clause-text">The primary goal: increase the years of life in good health — not just total years. Lifespan gains are a welcome secondary benefit.</div>
+            <div class="cs-clause-stakes">Break this promise → more years, but not healthier ones.</div>
+          </div>
+        </div>
+        <span class="c-slide-num">5/12</span>
+      </div>
+
+      <!-- 6: Promise III -->
+      <div class="c-slide">
+        <div class="cs-clause">
+          <div class="cs-clause-header">
+            <div class="cs-clause-num">Promise III</div>
+            <div class="cs-clause-pledge"><span class="we-will">We will</span> ensure access and equity</div>
+          </div>
+          <div class="cs-clause-body">
+            <div class="cs-clause-label">The Principle</div>
+            <div class="cs-clause-text">Who benefits and who is left behind? Advances must be inclusive and beneficial for all — decreasing, not increasing, disparities.</div>
+            <div class="cs-clause-stakes">Break this promise → breakthroughs for the few. 80% left behind.</div>
+          </div>
+        </div>
+        <span class="c-slide-num">6/12</span>
+      </div>
+
+      <!-- 7: Promise IV -->
+      <div class="c-slide">
+        <div class="cs-clause">
+          <div class="cs-clause-header">
+            <div class="cs-clause-num">Promise IV</div>
+            <div class="cs-clause-pledge"><span class="we-will">We will</span> ensure affordability</div>
+          </div>
+          <div class="cs-clause-body">
+            <div class="cs-clause-label">The Principle</div>
+            <div class="cs-clause-text">Costs must not be burdensome or limit access. Must produce savings and improve the sustainability of health care systems.</div>
+            <div class="cs-clause-stakes">Break this promise → therapies become luxury goods for the wealthy.</div>
+          </div>
+        </div>
+        <span class="c-slide-num">7/12</span>
+      </div>
+
+      <!-- 8: Promise V -->
+      <div class="c-slide">
+        <div class="cs-clause">
+          <div class="cs-clause-header">
+            <div class="cs-clause-num">Promise V</div>
+            <div class="cs-clause-pledge"><span class="we-will">We will</span> ensure transparency</div>
+          </div>
+          <div class="cs-clause-body">
+            <div class="cs-clause-label">The Principle</div>
+            <div class="cs-clause-text">Consumer voices elevated. All populations considered. Policymaking transparent. Outcomes must represent meaningful changes.</div>
+            <div class="cs-clause-stakes">Break this promise → decisions made behind closed doors.</div>
+          </div>
+        </div>
+        <span class="c-slide-num">8/12</span>
+      </div>
+
+      <!-- 9: Promise VI -->
+      <div class="c-slide">
+        <div class="cs-clause">
+          <div class="cs-clause-header">
+            <div class="cs-clause-num">Promise VI</div>
+            <div class="cs-clause-pledge"><span class="we-will">We will</span> integrate with social determinants</div>
+          </div>
+          <div class="cs-clause-body">
+            <div class="cs-clause-label">The Principle</div>
+            <div class="cs-clause-text">Achievements must be integrated into country-level efforts addressing social determinants of health and longevity.</div>
+            <div class="cs-clause-stakes">Break this promise → science siloed. Inequality decides who ages well.</div>
+          </div>
+        </div>
+        <span class="c-slide-num">9/12</span>
+      </div>
+
+      <!-- 10: Summary -->
+      <div class="c-slide">
+        <div class="cs-context" style="background:var(--parchment);">
+          <div class="cs-ctx-label">The Promise</div>
+          <h4>Six commitments. One declaration. For 1.6 billion people.</h4>
+          <p>Not aspirations. Obligations. Keep the promise — or breakthroughs serve the few and fail the many.</p>
+        </div>
+        <span class="c-slide-num">10/12</span>
+      </div>
+
+      <!-- 11: Signature -->
+      <div class="c-slide">
+        <div class="cs-open" style="gap:12px;">
+          <div class="cs-orn"></div>
+          <h3 style="font-size:22px;">Signed,</h3>
+          <div style="width:120px;height:1px;background:var(--ink);opacity:.2;"></div>
+          <p style="font-style:italic;color:var(--ink-faint);">Everyone who acts today.</p>
+        </div>
+        <span class="c-slide-num">11/12</span>
+      </div>
+
+      <!-- 12: CTA -->
+      <div class="c-slide">
+        <div class="cs-cta">
+          <div class="cc-orn"></div>
+          <h4>This is our promise.<br><em>Will you keep it?</em></h4>
+          <div class="cc-btn">Read the Framework</div>
+          <div class="cc-url">aarpinternational.org/the-journal</div>
+        </div>
+        <span class="c-slide-num">12/12</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>Promise cards with "We will..." headers</strong> — Each principle slide opens with a red italic pledge, then delivers the full article text, then adds a "If we break this promise..." stakes line. Three layers per slide: commitment, substance, consequence. New slide type unique to this campaign.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>"If we break this promise" stakes</strong> — Every clause card ends with a concrete consequence. This gives each principle emotional weight beyond the policy language — the reader feels what's lost if the promise is broken.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>Signature slide</strong> — Slide 11 is a standalone signature moment. The reader swipes to find: "Signed, everyone who acts today." It's an invitation disguised as a closing.</div></div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 3: PPT ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 03</div>
+  <div class="section-title">PowerPoint Deck</div>
+  <div class="section-desc">A 15-slide pledge deck in a 3-column grid. Opens with "Dear 2050," establishes the science and stakes, presents each principle as a promise with "We will..." language, and closes with a signature block. Designed as a formal commitment document for convenings and policy presentations.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — PPT Deck (15 slides, pledge format)">
+    <div class="ppt-pledge">
+
+      <div class="ppt-slide ppt-parchment"><span class="ppt-label">1 — Title</span><div class="pm-logo"></div><h5>Dear 2050,</h5><p>A promise from this generation to the next</p></div>
+
+      <div class="ppt-slide ppt-dark"><span class="ppt-label">2 — Stat</span><h5>1.6 billion<br>people over 65<br>by 2050</h5></div>
+
+      <div class="ppt-slide ppt-content"><span class="ppt-label">3 — Science</span><div class="pc-heading">The Geroscience Revolution</div><div class="pc-sub">Delay, prevent, alleviate, or reverse diseases of aging. First trials underway.</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-dark"><span class="ppt-label">4 — Stakes</span><h5>"Benefits should not<br>be limited to<br>a wealthy few."</h5></div>
+
+      <div class="ppt-slide ppt-red"><span class="ppt-label">5 — Promise</span><h5>One Promise.<br>Six Commitments.</h5><p>From this generation to the next.</p></div>
+
+      <!-- Clause slides -->
+      <div class="ppt-slide ppt-clause-slide"><span class="ppt-label">6 — Promise I</span><div class="pc-num">Promise I</div><div class="pc-pledge"><span class="we-will">We will</span> recognize aging as natural</div><div class="pc-text">Not a disease. Should not contribute to ageism but increase opportunities for people to live as they want.</div><div class="ppt-lines"><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-clause-slide"><span class="ppt-label">7 — Promise II</span><div class="pc-num">Promise II</div><div class="pc-pledge"><span class="we-will">We will</span> prioritize healthspan</div><div class="pc-text">Increase the years in good health, not just total years. Lifespan gains are a welcome secondary benefit.</div><div class="ppt-lines"><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-clause-slide"><span class="ppt-label">8 — Promise III</span><div class="pc-num">Promise III</div><div class="pc-pledge"><span class="we-will">We will</span> ensure access & equity</div><div class="pc-text">Who benefits and who is left behind? Advances must be inclusive and decrease, not increase, disparities.</div><div class="ppt-lines"><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-clause-slide"><span class="ppt-label">9 — Promise IV</span><div class="pc-num">Promise IV</div><div class="pc-pledge"><span class="we-will">We will</span> ensure affordability</div><div class="pc-text">Costs must not be burdensome or limit access. Must produce savings and improve system sustainability.</div><div class="ppt-lines"><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-clause-slide"><span class="ppt-label">10 — Promise V</span><div class="pc-num">Promise V</div><div class="pc-pledge"><span class="we-will">We will</span> ensure transparency</div><div class="pc-text">Consumer voices elevated. Policymaking transparent. Outcomes must represent meaningful changes in lives.</div><div class="ppt-lines"><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-clause-slide"><span class="ppt-label">11 — Promise VI</span><div class="pc-num">Promise VI</div><div class="pc-pledge"><span class="we-will">We will</span> integrate fully</div><div class="pc-text">Achievements integrated into country-level efforts addressing social determinants of health and longevity.</div><div class="ppt-lines"><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-parchment"><span class="ppt-label">12 — Summary</span><h5>One promise.<br>Six commitments.<br>1.6 billion lives.</h5></div>
+
+      <div class="ppt-slide ppt-signature"><span class="ppt-label">13 — Signature</span><h5 style="font-family:var(--serif);font-size:12px;font-style:italic;color:var(--ink-soft);">Signed,</h5><div class="ps-line"></div><div class="ps-name">Everyone who acts today</div></div>
+
+      <div class="ppt-slide ppt-content"><span class="ppt-label">14 — Sources</span><div class="pc-heading">Sources & Citations</div><div class="pc-sub">NAM Roadmap, AARP Geroscience Principles, The Journal Vol. 16</div><div class="ppt-lines"><div class="ppt-line"></div><div class="ppt-line"></div><div class="ppt-line"></div></div></div>
+
+      <div class="ppt-slide ppt-red"><span class="ppt-label">15 — CTA</span><h5>This is our promise.<br>Will you keep it?</h5><div style="margin-top:4px;background:#fff;padding:2px 6px;border-radius:2px;font-size:5px;color:var(--red);font-weight:700;letter-spacing:1px;font-family:var(--sans);">READ THE FRAMEWORK</div></div>
+
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>3-column pledge grid</strong> — this layout gives each slide enough room for the pledge text to be clearly readable while maintaining a formal, document-like feel.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>Red left border on promise slides</strong> — Each principle slide has a 3px red left border (like a legal document margin line) and opens with "We will..." in red italic. The visual language says: this is a binding clause, not a suggestion.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>Dedicated signature slide</strong> — Slide 13 is a standalone signature moment on parchment background. In a live presentation, this is where the speaker pauses and asks: "Will you sign?"</div></div>
+  </div>
+</section>
+
+
+<!-- ==================== TACTIC 4: WEBPAGE ==================== -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 04</div>
+  <div class="section-title">Webpage / Digital Experience</div>
+  <div class="section-desc">An open letter as a webpage. Elegant, typographic, minimal. The page opens with "Dear 2050," scrolls through a preamble and six promises, and ends with a signature section where the reader can add their name. The page functions as a living declaration — part content, part petition.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — Webpage (open letter scroll)">
+    <div class="web-wire">
+      <div class="web-browser">
+        <div class="web-dots"><div class="web-dot"></div><div class="web-dot"></div><div class="web-dot"></div></div>
+        <div class="web-url">aarpinternational.org/.../the-promise</div>
+      </div>
+
+      <!-- Letter hero -->
+      <div class="web-letter-hero">
+        <div class="web-lh-label">AARP Geroscience Principles · Campaign 4 of 4</div>
+        <div class="web-lh-ornament"></div>
+        <div class="web-lh-address">Dear 2050,</div>
+        <div class="web-lh-promise">We will not leave you behind. This is <em>our promise.</em></div>
+        <div class="web-lh-byline">By Debra Whitman and Dr. Erwin Tan</div>
+      </div>
+
+      <!-- Hero image -->
+      <div style="height:90px;background:var(--parchment-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-bottom:1px solid var(--rule);">
+        <div style="width:40px;height:40px;border:1px dashed var(--rule-dark);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--ink-faint);font-size:14px;">✕</div>
+        <span style="font-family:var(--sans);font-size:7px;color:var(--ink-faint);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;">Hero Image / Illustration</span>
+      </div>
+
+      <!-- Preamble -->
+      <div class="web-preamble">
+        <p>To the 1.6 billion people who will be over 65 in 2050: The geroscience revolution promises to delay, prevent, and reverse the diseases of aging. But breakthroughs without frameworks for access, equity, and affordability will reach only a wealthy few. This cannot stand. What follows are six promises — clauses of a promise from this generation to the next.</p>
+      </div>
+
+      <!-- Quote -->
+      <div class="web-quote">
+        <blockquote>"The benefits of geroscience should not be limited to a wealthy few."</blockquote>
+        <cite>— AARP Geroscience Principles</cite>
+      </div>
+
+      <!-- Video -->
+      <div class="web-video">
+        <div class="web-video-btn">▶</div>
+        <span>Video: Debra Whitman & Dr. Erwin Tan on The Promise</span>
+      </div>
+
+      <!-- Clauses -->
+      <div class="web-clauses">
+        <div class="web-cl-header">
+          <div class="web-cl-label">The Promises</div>
+          <div class="web-cl-title">Six Promises to the Future</div>
+          <div class="web-cl-sub">One for each principle. Together, a commitment to 1.6 billion people.</div>
+        </div>
+        <div class="web-cl-grid">
+
+          <div class="web-cl-card">
+            <div style="height:50px;background:var(--parchment-mid);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:8px;border:1px dashed var(--rule);">
+              <span style="color:var(--ink-faint);font-size:12px;">✕</span>
+              <span style="font-family:var(--sans);font-size:6px;color:var(--ink-faint);letter-spacing:1px;text-transform:uppercase;font-weight:600;">Image / Illustration</span>
+            </div>
+            <div class="web-cl-num">Promise I</div>
+            <div class="web-cl-pledge"><span class="we-will">We will</span> recognize and affirm aging as a natural process</div>
+            <div class="web-cl-text">Geroscience should recognize that aging is a natural process, not a disease. It should not contribute to ageism but should instead increase opportunities for people to live the way they want as they age.</div>
+
+          </div>
+
+          <div class="web-cl-card">
+            <div style="height:50px;background:var(--parchment-mid);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:8px;border:1px dashed var(--rule);">
+              <span style="color:var(--ink-faint);font-size:12px;">✕</span>
+              <span style="font-family:var(--sans);font-size:6px;color:var(--ink-faint);letter-spacing:1px;text-transform:uppercase;font-weight:600;">Image / Illustration</span>
+            </div>
+            <div class="web-cl-num">Promise II</div>
+            <div class="web-cl-pledge"><span class="we-will">We will</span> prioritize healthspan over lifespan</div>
+            <div class="web-cl-text">The primary intention of geroscience is to increase healthspan — the years of life that a person is in good health — rather than just the total years of life. Potential increases in lifespan are a welcome secondary gain.</div>
+
+          </div>
+
+          <div class="web-cl-card">
+            <div style="height:50px;background:var(--parchment-mid);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:8px;border:1px dashed var(--rule);">
+              <span style="color:var(--ink-faint);font-size:12px;">✕</span>
+              <span style="font-family:var(--sans);font-size:6px;color:var(--ink-faint);letter-spacing:1px;text-transform:uppercase;font-weight:600;">Image / Illustration</span>
+            </div>
+            <div class="web-cl-num">Promise III</div>
+            <div class="web-cl-pledge"><span class="we-will">We will</span> ensure access and equity for all</div>
+            <div class="web-cl-text">Geroscience should help address the profound question of health disparities. Who will have access to and benefit from the emerging medical innovations of geroscience, and who will be left behind? Scientific advances must be inclusive and beneficial for all and must decrease rather than increase disparities.</div>
+
+          </div>
+
+          <div class="web-cl-card">
+            <div style="height:50px;background:var(--parchment-mid);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:8px;border:1px dashed var(--rule);">
+              <span style="color:var(--ink-faint);font-size:12px;">✕</span>
+              <span style="font-family:var(--sans);font-size:6px;color:var(--ink-faint);letter-spacing:1px;text-transform:uppercase;font-weight:600;">Image / Illustration</span>
+            </div>
+            <div class="web-cl-num">Promise IV</div>
+            <div class="web-cl-pledge"><span class="we-will">We will</span> ensure affordability for individuals and the system</div>
+            <div class="web-cl-text">The costs of geroscience interventions should not be burdensome to consumers or limit access to care. Sufficient financial assistance should be available to ensure affordability for all. These interventions, if meaningful and accessible, should produce cost savings, or at least a good cost-benefit proposition, and improve the financial sustainability of health care systems.</div>
+
+          </div>
+
+          <div class="web-cl-card">
+            <div style="height:50px;background:var(--parchment-mid);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:8px;border:1px dashed var(--rule);">
+              <span style="color:var(--ink-faint);font-size:12px;">✕</span>
+              <span style="font-family:var(--sans);font-size:6px;color:var(--ink-faint);letter-spacing:1px;text-transform:uppercase;font-weight:600;">Image / Illustration</span>
+            </div>
+            <div class="web-cl-num">Promise V</div>
+            <div class="web-cl-pledge"><span class="we-will">We will</span> ensure transparency in all decisions</div>
+            <div class="web-cl-text">Consumer voices must be elevated so the needs and concerns of all populations are taken into consideration when determining what constitutes a clinically relevant outcome. Policymaking must be transparent and engage the public to ensure that the outcomes represent meaningful changes in people's lives.</div>
+
+          </div>
+
+          <div class="web-cl-card">
+            <div style="height:50px;background:var(--parchment-mid);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:8px;border:1px dashed var(--rule);">
+              <span style="color:var(--ink-faint);font-size:12px;">✕</span>
+              <span style="font-family:var(--sans);font-size:6px;color:var(--ink-faint);letter-spacing:1px;text-transform:uppercase;font-weight:600;">Image / Illustration</span>
+            </div>
+            <div class="web-cl-num">Promise VI</div>
+            <div class="web-cl-pledge"><span class="we-will">We will</span> utilize an integrated approach</div>
+            <div class="web-cl-text">Achievements in geroscience must be fully integrated in, and remain part of, larger country-level efforts to address social determinants of health and longevity.</div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Signature -->
+      <div class="web-signature">
+        <div class="web-sig-label">Sign the Promise</div>
+        <div class="web-sig-ornament"></div>
+        <div style="display:flex;gap:40px;justify-content:center;margin-top:8px;">
+          <div style="text-align:center;">
+            <div class="web-sig-line" style="margin:0 auto 4px;"></div>
+            <div class="web-sig-name" style="margin-bottom:0;">Debra Whitman, AARP</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="web-sig-line" style="margin:0 auto 4px;"></div>
+            <div class="web-sig-name" style="margin-bottom:0;">Dr. Erwin Tan, AARP</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;"></div>
+        <div class="web-sig-field">
+          <div class="web-sig-field-label">Add your name to the promise ↓</div>
+        </div>
+      </div>
+
+      <div class="web-cta">
+        <p>This is our promise. Will you keep it?</p>
+        <div class="web-cta-btns">
+          <div class="web-cta-btn">Sign the Promise</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation"><div class="ann-marker">1</div><div class="ann-text"><strong>Open letter scroll</strong> — The page IS a letter: address → preamble → promises → signature. The user reads a promise, not a report. The open letter format creates an intimate, direct connection with the audience.</div></div>
+    <div class="annotation"><div class="ann-marker">2</div><div class="ann-text"><strong>Red-bordered promise cards with "If we break this promise" stakes</strong> — Each card has three layers: the pledge ("We will..."), the full article text, and the consequence of failure. The stakes line transforms each principle from policy into personal accountability.</div></div>
+    <div class="annotation"><div class="ann-marker">3</div><div class="ann-text"><strong>Interactive signature section</strong> — The page ends with actual author signatures and a dashed input field: "Add your name to the promise." This transforms the webpage from content into action — the reader becomes a signatory.</div></div>
+    <div class="annotation"><div class="ann-marker">4</div><div class="ann-text"><strong>Full article text</strong> — Every clause carries the complete principle description from the source article, no shortcuts.</div></div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<section style="background:var(--navy);padding:60px 80px;text-align:center;">
+  <p style="font-family:var(--sans);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:12px;">Campaign 4 of 4</p>
+  <p style="font-family:var(--serif);font-size:32px;color:#fff;font-weight:400;font-style:italic;margin-bottom:8px;">The Promise</p>
+  <p style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,.6);max-width:460px;margin:0 auto;line-height:1.7;">Six promises. One promise. From this generation to the next. We will not leave you behind.</p>
+</section>
+
+</body>
+</html>

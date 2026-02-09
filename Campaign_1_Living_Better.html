@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campaign 1 — Living Better, Not Just Longer (v2)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #E31837;
+  --red-light: #FDF0F2;
+  --red-glow: rgba(227,24,55,0.12);
+  --dark: #1a1a1a;
+  --mid: #4a4a4a;
+  --soft: #888;
+  --light: #f7f7f5;
+  --cream: #faf9f6;
+  --wire-bg: #f0efec;
+  --wire-stroke: #c8c6c1;
+  --wire-fill: #e8e6e2;
+  --wire-accent: #d4d2cd;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 80px;
+  background: var(--dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp .8s ease forwards .2s;
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.05;
+  max-width: 800px;
+  opacity: 0;
+  animation: fadeUp .8s ease forwards .4s;
+}
+
+.hero h1 em { color: var(--red); font-style: italic; }
+
+.hero-sub {
+  font-size: 18px;
+  color: #999;
+  margin-top: 24px;
+  max-width: 560px;
+  line-height: 1.6;
+  margin-left: auto; margin-right: auto;
+  opacity: 0;
+  animation: fadeUp .8s ease forwards .6s;
+}
+
+.hero-meta {
+  position: absolute;
+  bottom: 60px; left: 50%; transform: translateX(-50%);
+  display: flex;
+  gap: 40px;
+  opacity: 0;
+  animation: fadeUp .8s ease forwards .8s;
+}
+
+.hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+.hero-meta-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #555; }
+.hero-meta-val { font-size: 14px; color: #ccc; font-weight: 500; }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 60px; right: 80px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #555;
+  opacity: 0; animation: fadeUp .8s ease forwards 1s;
+}
+.scroll-hint::after { content: '↓'; font-size: 16px; animation: bounce 2s ease infinite; }
+
+/* ===== SECTIONS ===== */
+.section { padding: 100px 80px; }
+
+/* ===== DISCLAIMER ===== */
+.disclaimer-bar {
+  background: #000;
+  border-top: 3px solid var(--red);
+  border-bottom: 3px solid var(--red);
+  padding: 28px 80px;
+  position: relative;
+}
+
+.disclaimer-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 860px;
+}
+
+.disclaimer-badge {
+  background: var(--red);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.disclaimer-bar p {
+  font-size: 13px;
+  color: #fff;
+  line-height: 1.7;
+}
+
+.disclaimer-bar strong {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-underline-offset: 3px;
+}
+
+.section-num {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--red); font-weight: 600; margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 700; color: var(--dark); margin-bottom: 12px; line-height: 1.15;
+}
+
+.section-desc {
+  font-size: 16px; color: var(--soft); max-width: 640px; line-height: 1.65; margin-bottom: 48px;
+}
+
+/* ===== NARRATIVE ARC DIAGRAM ===== */
+.narrative-arc {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  margin-bottom: 48px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,.04);
+  border: 1px solid #eee;
+}
+
+.arc-step {
+  flex: 1;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  position: relative;
+  min-height: 100px;
+}
+
+.arc-step::after {
+  content: '→';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--red);
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.arc-step:last-child::after { display: none; }
+
+.arc-step-num {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--soft); font-weight: 600;
+}
+
+.arc-step-label {
+  font-size: 12px; font-weight: 700; color: var(--dark); line-height: 1.3;
+}
+
+.arc-step-sub {
+  font-size: 10px; color: var(--soft); line-height: 1.35;
+}
+
+.arc-step.highlight {
+  background: var(--red-light);
+}
+
+.arc-step.highlight .arc-step-label { color: var(--red); }
+
+/* ===== WIREFRAME CONTAINERS ===== */
+.wireframe-stage {
+  background: var(--wire-bg);
+  border-radius: 16px;
+  padding: 40px;
+  position: relative;
+  border: 1px solid var(--wire-stroke);
+}
+
+.wireframe-stage::before {
+  content: attr(data-label);
+  position: absolute;
+  top: -10px; left: 24px;
+  background: var(--cream);
+  padding: 2px 12px;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--soft); font-weight: 600;
+}
+
+/* ===== INFOGRAPHIC v2 ===== */
+.infographic-wire {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 440px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,.06);
+}
+
+.info-section {
+  width: 100%;
+  padding: 0;
+}
+
+/* Header */
+.info-header {
+  width: 100%;
+  background: var(--dark);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+.info-header-text {
+  flex: 1;
+  padding: 28px 24px 20px;
+}
+
+.info-header-img {
+  width: 200px;
+  background: #2a2a2a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-left: 1px dashed #444;
+}
+
+.info-header-img .img-x {
+  width: 60px; height: 60px;
+  border: 1px dashed #555;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-size: 20px;
+}
+
+.info-header-img span {
+  font-size: 7px;
+  color: #555;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.info-header-logo {
+  display: inline-block;
+  background: var(--red);
+  border-radius: 2px;
+  margin-bottom: 12px;
+  padding: 4px 10px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.info-header h3 {
+  font-family: 'Fraunces', serif;
+  color: #fff; font-size: 18px; font-weight: 700; line-height: 1.25;
+}
+
+.info-header .sub {
+  font-size: 10px; color: #777; margin-top: 4px;
+}
+
+/* Act 1: The reality */
+.info-act {
+  width: 100%;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0efec;
+}
+
+.info-act-label {
+  font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 8px;
+}
+
+.info-act-headline {
+  font-family: 'Fraunces', serif;
+  font-size: 14px; font-weight: 700; color: var(--dark); line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.info-act-body {
+  font-size: 10px; color: var(--mid); line-height: 1.55;
+}
+
+.info-stat-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.info-stat-box {
+  flex: 1;
+  background: var(--light);
+  border-radius: 6px;
+  padding: 12px 10px;
+  text-align: center;
+}
+
+.info-stat-num {
+  font-family: 'Fraunces', serif;
+  font-size: 20px; font-weight: 900; color: var(--red);
+}
+
+.info-stat-label {
+  font-size: 8px; color: var(--soft); letter-spacing: 1px;
+  text-transform: uppercase; margin-top: 2px;
+}
+
+/* The shift visual */
+.info-shift {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.info-shift-side {
+  flex: 1;
+  padding: 18px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.info-shift-left { background: #d5d2cc; }
+.info-shift-right { background: var(--red-light); }
+
+.info-shift-label {
+  font-size: 8px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+}
+.info-shift-left .info-shift-label { color: #999; }
+.info-shift-right .info-shift-label { color: var(--red); }
+
+.info-shift-icon { font-size: 22px; }
+
+.info-shift-desc {
+  font-size: 10px; line-height: 1.35;
+}
+.info-shift-left .info-shift-desc { color: #999; }
+.info-shift-right .info-shift-desc { color: var(--mid); font-weight: 500; }
+
+.info-shift-arrow {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 6px;
+  font-size: 18px; color: var(--red); font-weight: 700;
+  background: linear-gradient(90deg, #eae8e4 0%, var(--red-light) 100%);
+}
+
+/* The problem */
+.info-problem {
+  width: 100%;
+  background: var(--dark);
+  padding: 18px 24px;
+}
+
+.info-problem .ip-label {
+  font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 6px;
+}
+
+.info-problem p {
+  font-size: 10px; color: #aaa; line-height: 1.55;
+}
+
+.info-problem .ip-highlight {
+  font-family: 'Fraunces', serif;
+  font-size: 13px; color: #fff; font-weight: 700;
+  display: block; margin-top: 8px; line-height: 1.35;
+}
+
+/* The answer: principles */
+.info-answer-header {
+  width: 100%;
+  padding: 18px 24px 10px;
+  text-align: center;
+}
+
+.info-answer-header .iah-label {
+  font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 4px;
+}
+
+.info-answer-header h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 14px; font-weight: 700; color: var(--dark); line-height: 1.3;
+}
+
+.info-answer-header p {
+  font-size: 9px; color: var(--soft); margin-top: 4px; line-height: 1.4;
+}
+
+.info-principles {
+  width: 100%;
+  padding: 4px 20px 20px;
+}
+
+.info-principle-step {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid #f0efec;
+}
+.info-principle-step:last-child { border-bottom: none; }
+
+.step-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--red); color: #fff;
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+
+.step-content { flex: 1; }
+
+.step-title {
+  font-size: 10px; font-weight: 700; color: var(--dark); margin-bottom: 1px;
+}
+
+.step-desc {
+  font-size: 9px; color: var(--soft); line-height: 1.4;
+}
+
+/* CTA */
+.info-cta {
+  width: 100%;
+  background: var(--red);
+  padding: 14px 24px;
+  text-align: center;
+}
+
+.info-cta p {
+  font-size: 10px; color: rgba(255,255,255,.85); line-height: 1.4;
+}
+
+.info-cta strong { color: #fff; }
+
+.info-footer {
+  width: 100%;
+  background: var(--dark);
+  padding: 10px 24px;
+  text-align: center;
+}
+
+.info-footer span {
+  font-size: 8px; color: #555; letter-spacing: 1px;
+}
+
+/* ===== CAROUSEL v2 ===== */
+.carousel-wire {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px 4px 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-wire::-webkit-scrollbar { height: 4px; }
+.carousel-wire::-webkit-scrollbar-track { background: var(--wire-accent); border-radius: 2px; }
+.carousel-wire::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+.c-slide {
+  min-width: 260px; max-width: 260px;
+  aspect-ratio: 1/1.15;
+  border-radius: 8px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  position: relative;
+}
+
+.c-slide-num {
+  position: absolute; bottom: 8px; right: 10px;
+  font-size: 9px; color: rgba(255,255,255,.25); font-weight: 600;
+}
+
+.c-slide-num.dark { color: rgba(0,0,0,.12); }
+
+/* Slide types */
+.cs-full-dark {
+  background: var(--dark); flex: 1;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 28px 24px; text-align: center;
+  position: relative; overflow: hidden;
+}
+
+.cs-full-dark::after {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(227,24,55,.1) 0%, transparent 70%);
+}
+
+.cs-full-dark .cs-label {
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); font-weight: 600; margin-bottom: 10px;
+}
+
+.cs-full-dark h4 {
+  font-family: 'Fraunces', serif;
+  color: #fff; font-size: 18px; font-weight: 700; line-height: 1.3;
+}
+
+.cs-full-dark h4 em { color: var(--red); font-style: italic; }
+
+.cs-full-dark .cs-body {
+  font-size: 11px; color: #888; margin-top: 10px; line-height: 1.5;
+}
+
+.cs-stat-slide {
+  background: var(--dark); flex: 1;
+  display: flex; flex-direction: column;
+}
+
+.cs-stat-top {
+  flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.cs-stat-top .big {
+  font-family: 'Fraunces', serif;
+  font-size: 44px; font-weight: 900; color: var(--red);
+}
+
+.cs-stat-top .big-sub {
+  font-size: 11px; color: #888; margin-top: 4px; line-height: 1.4;
+}
+
+.cs-stat-bottom {
+  background: rgba(255,255,255,.04);
+  padding: 14px 20px;
+  font-size: 10px; color: #666; line-height: 1.5;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+/* story slide */
+.cs-story {
+  background: #fff; flex: 1;
+  display: flex; flex-direction: column;
+}
+
+.cs-story-top {
+  background: var(--red-light);
+  padding: 16px 20px;
+  flex: .4;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.cs-story-top .cst-label {
+  font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 4px;
+}
+
+.cs-story-top .cst-text {
+  font-family: 'Fraunces', serif;
+  font-size: 13px; font-weight: 700; color: var(--dark); line-height: 1.3;
+}
+
+.cs-story-bottom {
+  flex: .6;
+  padding: 16px 20px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.cs-story-bottom p {
+  font-size: 10px; color: var(--mid); line-height: 1.6;
+}
+
+/* Problem slide */
+.cs-problem {
+  background: var(--dark); flex: 1;
+  display: flex; flex-direction: column;
+  padding: 24px;
+  justify-content: center;
+}
+
+.cs-problem .cp-label {
+  font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 10px;
+}
+
+.cs-problem .cp-q {
+  font-family: 'Fraunces', serif;
+  font-size: 16px; font-weight: 700; color: #fff; line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.cs-problem .cp-body {
+  font-size: 10px; color: #888; line-height: 1.6;
+}
+
+/* Principle slide v2 */
+.cs-principle {
+  background: #fff; flex: 1;
+  display: flex; flex-direction: column;
+}
+
+.cs-principle-header {
+  background: var(--red);
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.cs-p-num {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.2); color: #fff;
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.cs-p-title {
+  font-size: 12px; font-weight: 700; color: #fff; line-height: 1.25;
+}
+
+.cs-principle-body {
+  flex: 1; padding: 16px 20px;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 10px;
+}
+
+.cs-p-why-label {
+  font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); font-weight: 700;
+}
+
+.cs-p-why-text {
+  font-size: 11px; color: var(--mid); line-height: 1.55;
+}
+
+.cs-p-means-label {
+  font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--soft); font-weight: 600;
+}
+
+.cs-p-means-text {
+  font-size: 10px; color: var(--soft); line-height: 1.5;
+  padding-left: 10px;
+  border-left: 2px solid var(--red-light);
+}
+
+/* CTA slide */
+.cs-cta {
+  background: var(--dark); flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 24px; text-align: center; gap: 12px;
+}
+
+.cs-cta .cc-label {
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); font-weight: 600;
+}
+
+.cs-cta h4 {
+  font-family: 'Fraunces', serif;
+  color: #fff; font-size: 15px; font-weight: 700; line-height: 1.3;
+}
+
+.cs-cta .cc-btn {
+  display: inline-block;
+  background: var(--red); color: #fff;
+  font-size: 9px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px 20px; border-radius: 4px; margin-top: 4px;
+}
+
+.cs-cta .cc-url {
+  font-size: 9px; color: #555;
+}
+
+/* ===== PPT v2 ===== */
+.ppt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ppt-slide {
+  background: #fff;
+  border-radius: 6px;
+  aspect-ratio: 16/9;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid #eee;
+}
+
+.ppt-label {
+  position: absolute; top: -18px; left: 0;
+  font-size: 10px; color: var(--soft); font-weight: 500;
+}
+
+.ppt-footer-num {
+  position: absolute; bottom: 3px; right: 6px;
+  font-size: 8px; color: #ccc;
+}
+
+/* PPT slide types */
+.ppt-dark {
+  background: var(--dark);
+  justify-content: center; align-items: center;
+  padding: 16px; text-align: center;
+}
+
+.ppt-dark .pm-logo {
+  width: 30px; height: 9px;
+  background: var(--red); border-radius: 1px;
+  margin: 0 auto 8px;
+}
+
+.ppt-dark h5 {
+  font-family: 'Fraunces', serif;
+  color: #fff; font-size: 16px; font-weight: 700; line-height: 1.25;
+}
+
+.ppt-dark p { font-size: 10px; color: #666; margin-top: 4px; }
+
+.ppt-red {
+  background: var(--red);
+  justify-content: center; align-items: center;
+  padding: 14px; text-align: center;
+}
+
+.ppt-red .pr-num {
+  font-family: 'Fraunces', serif;
+  font-size: 32px; font-weight: 900; color: #fff;
+}
+
+.ppt-red .pr-sub {
+  font-size: 11px; color: rgba(255,255,255,.8); margin-top: 2px;
+}
+
+.ppt-content {
+  padding: 14px 18px;
+}
+
+.ppt-content .pc-heading {
+  font-size: 12px; font-weight: 700; color: var(--dark);
+  margin-bottom: 5px; padding-bottom: 3px;
+  border-bottom: 2px solid var(--red); display: inline-block;
+}
+
+.ppt-content .pc-sub {
+  font-size: 10px; color: var(--soft); margin-top: 2px; line-height: 1.4;
+}
+
+.ppt-lines {
+  display: flex; flex-direction: column; gap: 3px; margin-top: 5px;
+}
+
+.ppt-line {
+  height: 4px; background: var(--wire-fill); border-radius: 2px;
+}
+
+.ppt-line:nth-child(odd) { width: 90%; }
+.ppt-line:nth-child(even) { width: 70%; }
+
+.ppt-split {
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+
+.ppt-split-vis {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; opacity: .6;
+}
+
+.ppt-split-text {
+  padding: 12px 14px;
+  display: flex; flex-direction: column; justify-content: center; gap: 3px;
+}
+
+.ppt-split-text .pst-title {
+  font-size: 12px; font-weight: 700; color: var(--dark);
+}
+
+.ppt-principle-slide {
+  padding: 12px 16px;
+  display: flex; flex-direction: column;
+}
+
+.ppt-principle-slide .pp-head {
+  display: flex; align-items: center; gap: 5px; margin-bottom: 5px;
+}
+
+.ppt-principle-slide .pp-badge {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--red); color: #fff;
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.ppt-principle-slide .pp-name {
+  font-size: 12px; font-weight: 700; color: var(--dark);
+}
+
+.ppt-principle-slide .pp-why {
+  font-size: 10px; color: var(--red); font-weight: 600;
+  letter-spacing: .5px; margin-bottom: 2px;
+}
+
+.ppt-summary-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;
+}
+
+.ppt-sum-cell {
+  background: var(--red-light); border-radius: 3px;
+  padding: 5px 4px; text-align: center;
+}
+
+.ppt-sum-cell .psc-num {
+  font-size: 14px; font-weight: 700; color: var(--red);
+}
+
+.ppt-sum-cell .psc-name {
+  font-size: 9px; color: var(--mid); margin-top: 1px; line-height: 1.2;
+}
+
+/* ===== WEBPAGE v2 ===== */
+.web-wire {
+  max-width: 820px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,.06);
+  border: 1px solid #eee;
+}
+
+.web-browser {
+  background: #f5f5f5;
+  padding: 8px 16px;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.web-dots { display: flex; gap: 5px; }
+.web-dot { width: 8px; height: 8px; border-radius: 50%; }
+.web-dot:nth-child(1) { background: #ff5f57; }
+.web-dot:nth-child(2) { background: #ffbd2e; }
+.web-dot:nth-child(3) { background: #28c940; }
+
+.web-url {
+  flex: 1; background: #fff; border-radius: 4px;
+  padding: 4px 12px; font-size: 9px; color: #999; border: 1px solid #eee;
+}
+
+/* Web sections */
+.web-hero {
+  background: var(--dark);
+  padding: 0;
+  position: relative; overflow: hidden;
+}
+
+.web-hero-inner {
+  display: flex;
+  align-items: stretch;
+}
+
+.web-hero-text {
+  flex: 1;
+  padding: 36px 36px 28px;
+}
+
+.web-hero-img {
+  width: 280px;
+  background: #2a2a2a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-left: 1px dashed #444;
+}
+
+.web-hero-img .whi-x {
+  width: 70px; height: 70px;
+  border: 1px dashed #555;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-size: 22px;
+}
+
+.web-hero-img span {
+  font-size: 8px;
+  color: #555;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.web-hero .wh-label {
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); font-weight: 600; margin-bottom: 8px;
+}
+
+.web-hero h3 {
+  font-family: 'Fraunces', serif;
+  color: #fff; font-size: 22px; font-weight: 700; line-height: 1.2; max-width: 380px;
+}
+
+.web-hero .wh-sub {
+  font-size: 10px; color: #777; margin-top: 6px;
+}
+
+.web-story-section {
+  padding: 24px 36px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.web-story-section .wss-label {
+  font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 8px;
+}
+
+.web-story-section h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 15px; font-weight: 700; color: var(--dark); line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.web-story-section p {
+  font-size: 10px; color: var(--mid); line-height: 1.6;
+}
+
+.web-stats-row {
+  display: flex; gap: 12px; margin-top: 14px;
+}
+
+.web-stat-card {
+  flex: 1; background: var(--light); border-radius: 6px;
+  padding: 12px 10px; text-align: center;
+}
+
+.web-stat-card .wsc-num {
+  font-family: 'Fraunces', serif;
+  font-size: 22px; font-weight: 900; color: var(--red);
+}
+
+.web-stat-card .wsc-label {
+  font-size: 7px; color: var(--soft); letter-spacing: 1px;
+  text-transform: uppercase; margin-top: 2px;
+}
+
+/* Web shift visual */
+.web-shift {
+  display: flex; align-items: stretch;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.web-shift-side {
+  flex: 1; padding: 20px 24px;
+  text-align: center;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+}
+
+.web-shift-left { background: #dddbd6; }
+.web-shift-right { background: var(--red-light); }
+
+.web-shift-label {
+  font-size: 8px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+}
+
+.web-shift-left .web-shift-label { color: #999; }
+.web-shift-right .web-shift-label { color: var(--red); }
+
+.web-shift-icon { font-size: 20px; }
+
+.web-shift-desc { font-size: 10px; }
+.web-shift-left .web-shift-desc { color: #999; }
+.web-shift-right .web-shift-desc { color: var(--mid); font-weight: 500; }
+
+.web-shift-arrow {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 12px;
+  font-size: 18px; color: var(--red); font-weight: 700;
+  background: linear-gradient(90deg, #f0efec 0%, var(--red-light) 100%);
+}
+
+/* Web problem */
+.web-problem {
+  background: var(--dark);
+  padding: 24px 36px;
+}
+
+.web-problem .wp-label {
+  font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 6px;
+}
+
+.web-problem .wp-q {
+  font-family: 'Fraunces', serif;
+  font-size: 14px; font-weight: 700; color: #fff; line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.web-problem p {
+  font-size: 10px; color: #888; line-height: 1.6;
+}
+
+/* Web principles */
+.web-principles {
+  padding: 24px 36px;
+}
+
+.web-principles .wpr-header {
+  text-align: center; margin-bottom: 16px;
+}
+
+.web-principles .wpr-label {
+  font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--red); font-weight: 700; margin-bottom: 4px;
+}
+
+.web-principles .wpr-title {
+  font-family: 'Fraunces', serif;
+  font-size: 15px; font-weight: 700; color: var(--dark); line-height: 1.3;
+}
+
+.web-principles .wpr-sub {
+  font-size: 9px; color: var(--soft); margin-top: 4px;
+}
+
+/* Web principles grid */
+.web-acc-num {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--red); color: #fff;
+  font-size: 9px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.web-principles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.web-p-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 14px 16px;
+  transition: all .3s ease;
+}
+
+.web-p-card:hover {
+  border-color: var(--red);
+  box-shadow: 0 2px 12px var(--red-glow);
+}
+
+.wpc-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.wpc-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--dark);
+  flex: 1;
+}
+
+.wpc-share {
+  font-size: 7px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.web-p-card:hover .wpc-share { opacity: 1; }
+
+.wpc-img {
+  width: 100%;
+  height: 70px;
+  background: #f5f4f1;
+  border-bottom: 1px dashed #d4d2cd;
+  border-radius: 7px 7px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: -14px -16px 12px -16px;
+  width: calc(100% + 32px);
+}
+
+.wpc-img .wpc-img-x {
+  width: 28px; height: 28px;
+  border: 1px dashed #c8c6c1;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbb;
+  font-size: 14px;
+}
+
+.wpc-img span {
+  font-size: 7px;
+  color: #bbb;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.wpc-why {
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.wpc-why-text {
+  font-size: 9px;
+  color: var(--mid);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.wpc-detail {
+  font-size: 8px;
+  color: var(--soft);
+  line-height: 1.5;
+  padding-left: 8px;
+  border-left: 2px solid var(--red-light);
+}
+
+.web-cta-bar {
+  padding: 16px 36px;
+  background: var(--red);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.web-cta-bar p { font-size: 10px; color: rgba(255,255,255,.85); }
+.web-cta-bar .wc-btn {
+  background: #fff; color: var(--red);
+  font-size: 8px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 14px; border-radius: 3px;
+}
+
+/* ===== ANNOTATIONS ===== */
+.annotations-panel {
+  margin-top: 32px;
+  padding: 24px 28px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+.annotations-panel h4 {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); font-weight: 600; margin-bottom: 12px;
+}
+
+.annotation {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.annotation:last-child { border-bottom: none; }
+
+.ann-marker {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--red); color: #fff;
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.ann-text {
+  font-size: 13px; color: var(--mid); line-height: 1.55;
+}
+
+.ann-text strong { color: var(--dark); font-weight: 600; }
+
+/* ===== DIVIDER ===== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #ddd 20%, #ddd 80%, transparent 100%);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+@media (max-width: 900px) {
+  .section { padding: 60px 32px; }
+  .hero { padding: 40px 32px; }
+  .ppt-grid { grid-template-columns: repeat(2, 1fr); }
+  .narrative-arc { flex-wrap: wrap; }
+  .arc-step::after { display: none; }
+  .disclaimer-bar { padding: 16px 32px; }
+  .disclaimer-inner { flex-direction: column; gap: 8px; }
+  .web-principles-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Campaign 1 of 4</div>
+  <h1>Living <em>Better,</em><br>Not Just Longer</h1>
+  <p class="hero-sub">A cohesive campaign concept for AARP's Geroscience Principles — telling the story of why healthspan matters before presenting the framework to achieve it.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Source</span>
+      <span class="hero-meta-val">The Journal, Vol. 16</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Authors</span>
+      <span class="hero-meta-val">Debra Whitman & Dr. Erwin Tan</span>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll to explore</div>
+</section>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-bar">
+  <div class="disclaimer-inner">
+    <div class="disclaimer-badge">For AARP Team</div>
+    <p>These are <strong>interactive concept wireframes only</strong> — not final designs. Colors, branding, fonts, and graphics are placeholders. All content, copy, photography, illustration, and iconography are representative and will be refined collaboratively with the AARP team. Click through to see each proposed interaction. Best viewed on desktop or tablet.</p>
+  </div>
+</div>
+
+
+
+<!-- NARRATIVE ARC -->
+<section class="section" style="padding-bottom: 40px;">
+  <div class="section-num">Narrative Structure</div>
+  <div class="section-title">The Story Every Deliverable Tells</div>
+  <div class="section-desc">Each deliverable follows the same storytelling structure — building understanding and urgency before presenting the principles:</div>
+
+  <div class="narrative-arc">
+    <div class="arc-step">
+      <div class="arc-step-num">Act 1</div>
+      <div class="arc-step-label">The Hook</div>
+      <div class="arc-step-sub">Grab attention with a human question or surprising stat</div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-step-num">Act 2</div>
+      <div class="arc-step-label">The Stakes</div>
+      <div class="arc-step-sub">1 in 6 people will be 65+ by 2050. This is happening NOW.</div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-step-num">Act 3</div>
+      <div class="arc-step-label">The Shift</div>
+      <div class="arc-step-sub">Lifespan → Healthspan. It's not about more years. It's about better years.</div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-step-num">Act 4</div>
+      <div class="arc-step-label">The Problem</div>
+      <div class="arc-step-sub">Without action, only the wealthy benefit. Disparities grow. Who gets left behind?</div>
+    </div>
+    <div class="arc-step highlight">
+      <div class="arc-step-num">Act 5</div>
+      <div class="arc-step-label">The Answer</div>
+      <div class="arc-step-sub">AARP's 6 Principles — the roadmap to make healthspan work for everyone.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TACTIC 1: INFOGRAPHIC -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 01</div>
+  <div class="section-title">Infographic</div>
+  <div class="section-desc">A vertical, single-page infographic for print, digital embedding, and PDF download. Walks the reader through the full story — from the global aging challenge to the principles as AARP's framework for action. Designed to be understood with zero prior context.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — Vertical Infographic">
+    <div class="infographic-wire">
+
+      <!-- HEADER -->
+      <div class="info-header">
+        <div class="info-header-text">
+          <div class="info-header-logo">AARP Logo</div>
+          <h3>Living Better,<br>Not Just Longer</h3>
+          <div class="sub">AARP's Geroscience Principles</div>
+        </div>
+        <div class="info-header-img">
+          <div class="img-x">✕</div>
+          <span>Image</span>
+        </div>
+      </div>
+
+      <!-- ACT 1: THE REALITY -->
+      <div class="info-act">
+        <div class="info-act-label">The Reality</div>
+        <div class="info-act-headline">The world is aging — fast.</div>
+        <div class="info-act-body">Global population aging is accelerating rapidly. The question is no longer how long we live — but how well we age as we live.</div>
+        <div class="info-stat-row">
+          <div class="info-stat-box">
+            <div class="info-stat-num">1 in 6</div>
+            <div class="info-stat-label">People 65+ by 2050</div>
+          </div>
+          <div class="info-stat-box">
+            <div class="info-stat-num">1B+</div>
+            <div class="info-stat-label">Older adults worldwide</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACT 2: THE SHIFT -->
+      <div class="info-act" style="padding:0;">
+        <div style="padding:14px 24px 6px;">
+          <div class="info-act-label">The Shift</div>
+          <div class="info-act-headline">From living longer to living better</div>
+          <div class="info-act-body">A new field called geroscience seeks to delay, prevent, alleviate, or reverse diseases of aging. Its goal: more healthy years, not just more years.</div>
+        </div>
+        <div class="info-shift" style="margin-top:10px;">
+          <div class="info-shift-side info-shift-left">
+            <div class="info-shift-label">Lifespan</div>
+            <div class="info-shift-icon">📏</div>
+            <div class="info-shift-desc">How long<br>we live</div>
+          </div>
+          <div class="info-shift-arrow">→</div>
+          <div class="info-shift-side info-shift-right">
+            <div class="info-shift-label">Healthspan</div>
+            <div class="info-shift-icon">✨</div>
+            <div class="info-shift-desc">How well<br>we live</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACT 3: THE PROBLEM -->
+      <div class="info-problem">
+        <div class="ip-label">The Problem</div>
+        <p>Most geroscience research is concentrated in wealthy nations. But the vast majority of aging will happen in low- and middle-income countries. Without action, these breakthroughs will only reach the few.</p>
+        <span class="ip-highlight">"Should not be limited to a wealthy few."</span>
+      </div>
+
+      <!-- ACT 4: THE ANSWER -->
+      <div class="info-answer-header">
+        <div class="iah-label">The Answer</div>
+        <h4>AARP's 6 Geroscience Principles</h4>
+        <p>A practical, equitable framework to ensure the promise of geroscience benefits all — not just the privileged.</p>
+      </div>
+
+      <div class="info-principles">
+        <div class="info-principle-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Recognize Aging as Natural</div>
+            <div class="step-desc">Aging is not a disease. Expand opportunities, don't fuel ageism.</div>
+          </div>
+        </div>
+        <div class="info-principle-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Increase Healthspan</div>
+            <div class="step-desc">More years in good health — not just more years alive.</div>
+          </div>
+        </div>
+        <div class="info-principle-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Ensure Access & Equity</div>
+            <div class="step-desc">Decrease health disparities. Inclusive for all, everywhere.</div>
+          </div>
+        </div>
+        <div class="info-principle-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Ensure Affordability</div>
+            <div class="step-desc">Not burdensome. Produce savings, not barriers.</div>
+          </div>
+        </div>
+        <div class="info-principle-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">Ensure Transparency</div>
+            <div class="step-desc">Elevate consumer voices. Meaningful outcomes for real lives.</div>
+          </div>
+        </div>
+        <div class="info-principle-step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">Integrated Approach</div>
+            <div class="step-desc">Part of larger efforts on social determinants of health.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="info-cta">
+        <p><strong>The future is in the making today.</strong> Read the full framework at aarpinternational.org/the-journal</p>
+      </div>
+
+      <div class="info-footer">
+        <span>By Debra Whitman & Dr. Erwin Tan &nbsp;|&nbsp; The Journal, Vol. 16 &nbsp;|&nbsp; AARP 2025</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation">
+      <div class="ann-marker">1</div>
+      <div class="ann-text"><strong>"The Reality" section</strong> — Establishes the global context before anything else. A reader with zero background immediately understands: the world is aging fast, and the numbers are staggering.</div>
+    </div>
+    <div class="annotation">
+      <div class="ann-marker">2</div>
+      <div class="ann-text"><strong>"The Shift" with geroscience explained</strong> — Introduces what geroscience is and what healthspan means. The lifespan→healthspan visual earns its place because it's preceded by context.</div>
+    </div>
+    <div class="annotation">
+      <div class="ann-marker">3</div>
+      <div class="ann-text"><strong>"The Problem" dark band</strong> — The emotional pivot. The reader feels the tension: this science could change everything, but without guardrails it'll only help the wealthy. This creates the need for the principles.</div>
+    </div>
+    <div class="annotation">
+      <div class="ann-marker">4</div>
+      <div class="ann-text"><strong>Principles arrive as "The Answer"</strong> — By this point, the six principles aren't a list — they're the solution to a problem the reader already cares about. The framing makes clear: these are practical, equitable guardrails.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TACTIC 2: LINKEDIN CAROUSEL -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 02</div>
+  <div class="section-title">LinkedIn Carousel</div>
+  <div class="section-desc">A 10-slide carousel for LinkedIn. The first four slides build the story — hook, stakes, the healthspan shift, and the equity gap — so by the time the principles appear, the audience understands why they matter. Scroll →</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — LinkedIn Carousel (10 slides)">
+    <div class="carousel-wire">
+
+      <!-- Slide 1: HOOK -->
+      <div class="c-slide">
+        <div class="cs-full-dark">
+          <div class="cs-label">AARP Geroscience</div>
+          <h4>What if science could help you age <em>better</em> — not just <em>longer?</em></h4>
+          <div class="cs-body">A new field is rewriting what aging looks like. But who will benefit?</div>
+        </div>
+        <span class="c-slide-num">1/10</span>
+      </div>
+
+      <!-- Slide 2: THE STAKES -->
+      <div class="c-slide">
+        <div class="cs-stat-slide">
+          <div class="cs-stat-top">
+            <div class="big">1 in 6</div>
+            <div class="big-sub">people worldwide will be<br>65 or older by 2050</div>
+          </div>
+          <div class="cs-stat-bottom">That's over 1 billion people. The world is aging at a pace we've never seen. This is both a triumph — and an urgent challenge.</div>
+        </div>
+        <span class="c-slide-num">2/10</span>
+      </div>
+
+      <!-- Slide 3: THE SHIFT -->
+      <div class="c-slide">
+        <div class="cs-story">
+          <div class="cs-story-top">
+            <div class="cst-label">The New Question</div>
+            <div class="cst-text">It's no longer about how long we live. It's about how well.</div>
+          </div>
+          <div class="cs-story-bottom">
+            <p>A field called <strong>geroscience</strong> aims to delay, prevent, alleviate, or reverse diseases of aging. Its north star isn't lifespan — it's <strong>healthspan</strong>: the years you live in good health. Clinical trials are already underway.</p>
+          </div>
+        </div>
+        <span class="c-slide-num dark">3/10</span>
+      </div>
+
+      <!-- Slide 4: THE PROBLEM -->
+      <div class="c-slide">
+        <div class="cs-problem">
+          <div class="cp-label">But Here's the Problem</div>
+          <div class="cp-q">Who gets to age well — and who gets left behind?</div>
+          <div class="cp-body">Most research is in wealthy nations. But the vast majority of aging will happen in low- and middle-income countries. Without action, these breakthroughs serve only the privileged few.</div>
+        </div>
+        <span class="c-slide-num">4/10</span>
+      </div>
+
+      <!-- Slide 5: THE ANSWER INTRO -->
+      <div class="c-slide">
+        <div class="cs-full-dark">
+          <div class="cs-label">AARP's Response</div>
+          <h4>Six principles to make <em>healthspan</em> work for <em>everyone</em></h4>
+          <div class="cs-body">A practical, equitable framework grounded in AARP's mission to empower people to choose how they live as they age.</div>
+        </div>
+        <span class="c-slide-num">5/10</span>
+      </div>
+
+      <!-- Slides 6-9: SELECT PRINCIPLES (showing 4, referencing all 6) -->
+      <div class="c-slide">
+        <div class="cs-principle">
+          <div class="cs-principle-header">
+            <div class="cs-p-num">1</div>
+            <div class="cs-p-title">Aging Is Natural,<br>Not a Disease</div>
+          </div>
+          <div class="cs-principle-body">
+            <div class="cs-p-why-label">Why it matters</div>
+            <div class="cs-p-why-text">When aging is treated as a disease, it fuels ageism. Geroscience should expand how you live — not stigmatize the process of getting older.</div>
+            <div class="cs-p-means-label">The principle</div>
+            <div class="cs-p-means-text">Recognize and affirm aging as natural. Increase opportunities for people to live the way they want.</div>
+          </div>
+        </div>
+        <span class="c-slide-num dark">6/10</span>
+      </div>
+
+      <div class="c-slide">
+        <div class="cs-principle">
+          <div class="cs-principle-header">
+            <div class="cs-p-num">3</div>
+            <div class="cs-p-title">Access & Equity<br>For All</div>
+          </div>
+          <div class="cs-principle-body">
+            <div class="cs-p-why-label">Why it matters</div>
+            <div class="cs-p-why-text">Life expectancy already varies enormously by income, race, and geography. Without intentional design, geroscience could make these gaps even wider.</div>
+            <div class="cs-p-means-label">The principle</div>
+            <div class="cs-p-means-text">Scientific advances must be inclusive and beneficial for all. Decrease — not increase — health disparities.</div>
+          </div>
+        </div>
+        <span class="c-slide-num dark">7/10</span>
+      </div>
+
+      <div class="c-slide">
+        <div class="cs-principle">
+          <div class="cs-principle-header">
+            <div class="cs-p-num">4</div>
+            <div class="cs-p-title">Affordable for People<br>& Systems</div>
+          </div>
+          <div class="cs-principle-body">
+            <div class="cs-p-why-label">Why it matters</div>
+            <div class="cs-p-why-text">Breakthrough therapies mean nothing if people can't afford them — or if they bankrupt health care systems in the process.</div>
+            <div class="cs-p-means-label">The principle</div>
+            <div class="cs-p-means-text">Costs should not be burdensome. These interventions should produce savings, not barriers to care.</div>
+          </div>
+        </div>
+        <span class="c-slide-num dark">8/10</span>
+      </div>
+
+      <div class="c-slide">
+        <div class="cs-principle">
+          <div class="cs-principle-header" style="background: var(--dark);">
+            <div class="cs-p-num" style="background:rgba(255,255,255,.12);">6</div>
+            <div class="cs-p-title">An Integrated<br>Approach</div>
+          </div>
+          <div class="cs-principle-body">
+            <div class="cs-p-why-label">Why it matters</div>
+            <div class="cs-p-why-text">Healthspan isn't just about medicine. Poverty, racism, and social conditions shape how we age. Science must connect to these larger realities.</div>
+            <div class="cs-p-means-label">The principle</div>
+            <div class="cs-p-means-text">Integrate geroscience into country-level efforts to address social determinants of health and longevity.</div>
+          </div>
+        </div>
+        <span class="c-slide-num dark">9/10</span>
+      </div>
+
+      <!-- Slide 10: CTA -->
+      <div class="c-slide">
+        <div class="cs-cta">
+          <div class="cc-label">All 6 Principles</div>
+          <h4>Read the full framework<br>in The Journal →</h4>
+          <div class="cc-btn">Read Article</div>
+          <div class="cc-url">aarpinternational.org/the-journal</div>
+        </div>
+        <span class="c-slide-num">10/10</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation">
+      <div class="ann-marker">1</div>
+      <div class="ann-text"><strong>4 story slides before any principle</strong> — Hook → Stakes → The Shift (what is geroscience/healthspan?) → The Problem (equity gap). Even if someone only swipes through slides 1–4, they walk away with context and understanding.</div>
+    </div>
+    <div class="annotation">
+      <div class="ann-marker">2</div>
+      <div class="ann-text"><strong>"Why it matters" on every principle slide</strong> — Each principle leads with the human reason it exists before stating the formal language. The reader sees the problem the principle solves, not just the principle itself.</div>
+    </div>
+    <div class="annotation">
+      <div class="ann-marker">3</div>
+      <div class="ann-text"><strong>Slide 5 is a bridge</strong> — "Six principles to make healthspan work for everyone" frames the principles as AARP's answer to the problem just stated. This transition connects the story to the framework.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TACTIC 3: PPT -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 03</div>
+  <div class="section-title">PowerPoint Deck</div>
+  <div class="section-desc">A 14-slide narrative deck for keynotes, briefings, and partner meetings. The first third builds context — global aging, geroscience, the healthspan shift, and the equity gap — before introducing the principles as AARP's framework. Each principle slide leads with "why this matters." Speaker notes included.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — PPT Deck (14 slides)">
+    <div class="ppt-grid">
+
+      <!-- 1: Title -->
+      <div class="ppt-slide ppt-dark">
+        <span class="ppt-label">1 — Title</span>
+        <div class="pm-logo"></div>
+        <h5>Living Better,<br>Not Just Longer</h5>
+        <p>AARP's Geroscience Principles</p>
+      </div>
+
+      <!-- 2: The reality stat -->
+      <div class="ppt-slide ppt-red">
+        <span class="ppt-label">2 — The Reality</span>
+        <div class="pr-num">1 in 6</div>
+        <div class="pr-sub">people 65+ by 2050 — over 1B</div>
+      </div>
+
+      <!-- 3: What is geroscience -->
+      <div class="ppt-slide ppt-content">
+        <span class="ppt-label">3 — What Is Geroscience?</span>
+        <div class="pc-heading">A New Science of Aging</div>
+        <div class="pc-sub">The emerging field aiming to delay, prevent, alleviate, or reverse diseases of aging</div>
+        <div class="ppt-lines">
+          <div class="ppt-line"></div><div class="ppt-line"></div>
+          <div class="ppt-line" style="width:55%;"></div>
+        </div>
+      </div>
+
+      <!-- 4: Lifespan → Healthspan -->
+      <div class="ppt-slide ppt-split">
+        <span class="ppt-label">4 — The Shift</span>
+        <div class="ppt-split-vis" style="background:#eee;">📏→✨</div>
+        <div class="ppt-split-text">
+          <div class="pst-title">From Lifespan to Healthspan</div>
+          <div class="ppt-lines">
+            <div class="ppt-line"></div><div class="ppt-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5: The equity problem -->
+      <div class="ppt-slide ppt-dark" style="text-align:left;align-items:flex-start;padding:10px 12px;">
+        <span class="ppt-label">5 — The Problem</span>
+        <div style="font-size:10px;color:var(--red);font-weight:700;letter-spacing:1px;margin-bottom:4px;">THE EQUITY GAP</div>
+        <h5 style="font-size:13px;text-align:left;line-height:1.35;">Who gets to age well — and who gets left behind?</h5>
+        <div class="ppt-lines" style="margin-top:6px;">
+          <div class="ppt-line" style="background:rgba(255,255,255,.08);"></div>
+          <div class="ppt-line" style="background:rgba(255,255,255,.08);"></div>
+        </div>
+      </div>
+
+      <!-- 6: Bridge to answer -->
+      <div class="ppt-slide ppt-dark">
+        <span class="ppt-label">6 — AARP's Response</span>
+        <div style="font-size:10px;color:var(--red);letter-spacing:2px;font-weight:600;margin-bottom:6px;">AARP'S RESPONSE</div>
+        <h5 style="font-size:14px;">Six Principles to<br>Guide the Way</h5>
+        <p>A practical, equitable framework</p>
+      </div>
+
+      <!-- 7: Principle 1 -->
+      <div class="ppt-slide ppt-principle-slide">
+        <span class="ppt-label">7 — Principle 1</span>
+        <div class="pp-head">
+          <div class="pp-badge">1</div>
+          <span class="pp-name">Aging as Natural</span>
+        </div>
+        <div class="pp-why">WHY THIS MATTERS</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line"></div><div class="ppt-line"></div>
+        </div>
+        <div style="font-size:8px;color:#ccc;margin-top:auto;padding-top:3px;border-top:1px solid #f5f5f5;">THE PRINCIPLE</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line" style="background:#fdf0f2;"></div>
+        </div>
+      </div>
+
+      <!-- 8: Principle 2 -->
+      <div class="ppt-slide ppt-principle-slide">
+        <span class="ppt-label">8 — Principle 2</span>
+        <div class="pp-head">
+          <div class="pp-badge">2</div>
+          <span class="pp-name">Increase Healthspan</span>
+        </div>
+        <div class="pp-why">WHY THIS MATTERS</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line"></div><div class="ppt-line"></div>
+        </div>
+        <div style="font-size:8px;color:#ccc;margin-top:auto;padding-top:3px;border-top:1px solid #f5f5f5;">THE PRINCIPLE</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line" style="background:#fdf0f2;"></div>
+        </div>
+      </div>
+
+      <!-- 9: Principle 3 -->
+      <div class="ppt-slide ppt-principle-slide">
+        <span class="ppt-label">9 — Principle 3</span>
+        <div class="pp-head">
+          <div class="pp-badge">3</div>
+          <span class="pp-name">Access & Equity</span>
+        </div>
+        <div class="pp-why">WHY THIS MATTERS</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line"></div><div class="ppt-line"></div>
+        </div>
+        <div style="font-size:8px;color:#ccc;margin-top:auto;padding-top:3px;border-top:1px solid #f5f5f5;">THE PRINCIPLE</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line" style="background:#fdf0f2;"></div>
+        </div>
+      </div>
+
+      <!-- 10: Principle 4 -->
+      <div class="ppt-slide ppt-principle-slide">
+        <span class="ppt-label">10 — Principle 4</span>
+        <div class="pp-head">
+          <div class="pp-badge">4</div>
+          <span class="pp-name">Affordability</span>
+        </div>
+        <div class="pp-why">WHY THIS MATTERS</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line"></div><div class="ppt-line"></div>
+        </div>
+        <div style="font-size:8px;color:#ccc;margin-top:auto;padding-top:3px;border-top:1px solid #f5f5f5;">THE PRINCIPLE</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line" style="background:#fdf0f2;"></div>
+        </div>
+      </div>
+
+      <!-- 11: Principle 5 -->
+      <div class="ppt-slide ppt-principle-slide">
+        <span class="ppt-label">11 — Principle 5</span>
+        <div class="pp-head">
+          <div class="pp-badge">5</div>
+          <span class="pp-name">Transparency</span>
+        </div>
+        <div class="pp-why">WHY THIS MATTERS</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line"></div><div class="ppt-line"></div>
+        </div>
+        <div style="font-size:8px;color:#ccc;margin-top:auto;padding-top:3px;border-top:1px solid #f5f5f5;">THE PRINCIPLE</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line" style="background:#fdf0f2;"></div>
+        </div>
+      </div>
+
+      <!-- 12: Principle 6 -->
+      <div class="ppt-slide ppt-principle-slide">
+        <span class="ppt-label">12 — Principle 6</span>
+        <div class="pp-head">
+          <div class="pp-badge">6</div>
+          <span class="pp-name">Integrated Approach</span>
+        </div>
+        <div class="pp-why">WHY THIS MATTERS</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line"></div><div class="ppt-line"></div>
+        </div>
+        <div style="font-size:8px;color:#ccc;margin-top:auto;padding-top:3px;border-top:1px solid #f5f5f5;">THE PRINCIPLE</div>
+        <div class="ppt-lines" style="margin-top:2px;">
+          <div class="ppt-line" style="background:#fdf0f2;"></div>
+        </div>
+      </div>
+
+      <!-- 13: Summary -->
+      <div class="ppt-slide" style="padding:8px 10px;">
+        <span class="ppt-label">13 — Summary</span>
+        <div style="font-size:10px;font-weight:700;color:var(--dark);margin-bottom:6px;">All Six Principles</div>
+        <div class="ppt-summary-grid">
+          <div class="ppt-sum-cell"><div class="psc-num">1</div><div class="psc-name">Natural Process</div></div>
+          <div class="ppt-sum-cell"><div class="psc-num">2</div><div class="psc-name">Healthspan</div></div>
+          <div class="ppt-sum-cell"><div class="psc-num">3</div><div class="psc-name">Access & Equity</div></div>
+          <div class="ppt-sum-cell"><div class="psc-num">4</div><div class="psc-name">Affordability</div></div>
+          <div class="ppt-sum-cell"><div class="psc-num">5</div><div class="psc-name">Transparency</div></div>
+          <div class="ppt-sum-cell"><div class="psc-num">6</div><div class="psc-name">Integrated</div></div>
+        </div>
+      </div>
+
+      <!-- 14: CTA / Close -->
+      <div class="ppt-slide ppt-dark">
+        <span class="ppt-label">14 — Call to Action</span>
+        <div style="font-size:10px;color:var(--red);letter-spacing:2px;font-weight:600;margin-bottom:6px;">THE FUTURE IS IN THE MAKING</div>
+        <h5 style="font-size:8px;">Read the Full Framework</h5>
+        <p style="margin-top:4px;">aarpinternational.org/the-journal</p>
+        <div style="margin-top:8px;background:var(--red);padding:3px 8px;border-radius:2px;font-size:5px;color:#fff;font-weight:600;letter-spacing:1px;">LEARN MORE</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation">
+      <div class="ann-marker">1</div>
+      <div class="ann-text"><strong>Slides 2–5 build the story</strong> — The reality, what geroscience is, the lifespan→healthspan shift, and the equity problem. A presenter can spend 3–4 minutes on context before touching a single principle.</div>
+    </div>
+    <div class="annotation">
+      <div class="ann-marker">2</div>
+      <div class="ann-text"><strong>Slide 6 is a bridge slide</strong> — "AARP's Response: Six Principles to Guide the Way" positions the principles as a direct response to the challenge just presented. This connects the story to the framework.</div>
+    </div>
+    <div class="annotation">
+      <div class="ann-marker">3</div>
+      <div class="ann-text"><strong>Each principle slide leads with "Why This Matters"</strong> — The human stakes come first, then the formal principle language. The audience understands the reason before the framework.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TACTIC 4: WEBPAGE -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="section-num">Tactic 04</div>
+  <div class="section-title">Webpage / Digital Experience</div>
+  <div class="section-desc">Enhancements to the article's online presentation. The page becomes a guided scroll experience — walking visitors through the global aging challenge, the geroscience shift, and the equity gap before presenting the principles. Each principle expands to show both "why it matters" and the formal language.</div>
+
+  <div class="wireframe-stage" data-label="Wireframe — Enhanced Webpage (scroll experience)">
+    <div class="web-wire">
+      <div class="web-browser">
+        <div class="web-dots"><div class="web-dot"></div><div class="web-dot"></div><div class="web-dot"></div></div>
+        <div class="web-url">aarpinternational.org/.../aarp-geroscience-principles</div>
+      </div>
+
+      <!-- Hero -->
+      <div class="web-hero">
+        <div class="web-hero-inner">
+          <div class="web-hero-text">
+            <div class="wh-label">AARP Geroscience Principles</div>
+            <h3>Living Better,<br>Not Just Longer</h3>
+            <div class="wh-sub">By Debra Whitman and Dr. Erwin Tan</div>
+          </div>
+          <div class="web-hero-img">
+            <div class="whi-x">✕</div>
+            <span>Image</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Act 1: The Reality -->
+      <div class="web-story-section">
+        <div class="wss-label">The Reality</div>
+        <h4>The world is aging at an unprecedented pace</h4>
+        <p>Global population aging is accelerating rapidly. By 2050, one in six people will be 65 or older — more than 1 billion people. This is both a triumph of modern medicine and an urgent challenge.</p>
+        <div class="web-stats-row">
+          <div class="web-stat-card">
+            <div class="wsc-num">1 in 6</div>
+            <div class="wsc-label">People 65+ by 2050</div>
+          </div>
+          <div class="web-stat-card">
+            <div class="wsc-num">1B+</div>
+            <div class="wsc-label">Older adults globally</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Act 2: The Shift -->
+      <div class="web-story-section" style="padding-bottom:20px;border-bottom:none;">
+        <div class="wss-label">The Shift</div>
+        <h4>From living longer to living better</h4>
+        <p>A new scientific discipline called geroscience aims to delay, prevent, alleviate, or reverse diseases of aging. The first clinical trials are underway. Its north star isn't just adding years — it's adding <strong>healthy</strong> years.</p>
+      </div>
+
+      <div class="web-shift">
+        <div class="web-shift-side web-shift-left">
+          <div class="web-shift-label">Lifespan</div>
+          <div class="web-shift-icon">📏</div>
+          <div class="web-shift-desc">How long we live</div>
+        </div>
+        <div class="web-shift-arrow">→</div>
+        <div class="web-shift-side web-shift-right">
+          <div class="web-shift-label">Healthspan</div>
+          <div class="web-shift-icon">✨</div>
+          <div class="web-shift-desc">How well we live</div>
+        </div>
+      </div>
+
+      <!-- Act 3: The Problem -->
+      <div class="web-problem">
+        <div class="wp-label">The Problem</div>
+        <div class="wp-q">Who gets to age well — and who gets left behind?</div>
+        <p>Most geroscience research is concentrated in wealthy, developed nations. But the vast majority of global aging will happen in low- and middle-income countries. Without intentional action, these breakthroughs will only reach the privileged few — widening disparities that already exist.</p>
+      </div>
+
+      <!-- Act 4: The Answer — Principles -->
+      <div class="web-principles">
+        <div class="wpr-header">
+          <div class="wpr-label">AARP's Answer</div>
+          <div class="wpr-title">Six Principles for Healthspan — For All</div>
+          <div class="wpr-sub">A practical, equitable framework grounded in AARP's mission to empower people to choose how they live as they age.</div>
+        </div>
+
+        <div class="web-principles-grid">
+          <div class="web-p-card">
+            <div class="wpc-img"><div class="wpc-img-x">✕</div><span>Image</span></div>
+            <div class="wpc-head">
+              <div class="web-acc-num">1</div>
+              <div class="wpc-title">Recognize & Affirm Aging as Natural</div>
+              <span class="wpc-share">Share ↗</span>
+            </div>
+            <div class="wpc-why">Why this matters</div>
+            <div class="wpc-why-text">When aging is treated as a disease, it fuels ageism and stigma. Science should expand how you live — not define getting older as something broken.</div>
+            <div class="wpc-detail">Geroscience should recognize that aging is a natural process, not a disease. It should increase opportunities for people to live the way they want as they age.</div>
+          </div>
+          <div class="web-p-card">
+            <div class="wpc-img"><div class="wpc-img-x">✕</div><span>Image</span></div>
+            <div class="wpc-head">
+              <div class="web-acc-num">2</div>
+              <div class="wpc-title">Increase Healthspan</div>
+              <span class="wpc-share">Share ↗</span>
+            </div>
+            <div class="wpc-why">Why this matters</div>
+            <div class="wpc-why-text">Adding years without adding health creates burden, not benefit. The goal is more time feeling well — not just more time.</div>
+            <div class="wpc-detail">The primary intention of geroscience is to increase healthspan — the years of life in good health — rather than just the total years of life.</div>
+          </div>
+          <div class="web-p-card">
+            <div class="wpc-img"><div class="wpc-img-x">✕</div><span>Image</span></div>
+            <div class="wpc-head">
+              <div class="web-acc-num">3</div>
+              <div class="wpc-title">Ensure Access & Equity</div>
+              <span class="wpc-share">Share ↗</span>
+            </div>
+            <div class="wpc-why">Why this matters</div>
+            <div class="wpc-why-text">Life expectancy already varies enormously by income, race, and geography. Without intention, geroscience could make these gaps even wider.</div>
+            <div class="wpc-detail">Scientific advances must be inclusive and beneficial for all and must decrease rather than increase health disparities.</div>
+          </div>
+          <div class="web-p-card">
+            <div class="wpc-img"><div class="wpc-img-x">✕</div><span>Image</span></div>
+            <div class="wpc-head">
+              <div class="web-acc-num">4</div>
+              <div class="wpc-title">Ensure Affordability</div>
+              <span class="wpc-share">Share ↗</span>
+            </div>
+            <div class="wpc-why">Why this matters</div>
+            <div class="wpc-why-text">Breakthrough therapies mean nothing if people can't afford them — or if they bankrupt health care systems in the process.</div>
+            <div class="wpc-detail">Costs should not be burdensome to consumers or limit access to care. These interventions should produce cost savings and improve financial sustainability.</div>
+          </div>
+          <div class="web-p-card">
+            <div class="wpc-img"><div class="wpc-img-x">✕</div><span>Image</span></div>
+            <div class="wpc-head">
+              <div class="web-acc-num">5</div>
+              <div class="wpc-title">Ensure Transparency</div>
+              <span class="wpc-share">Share ↗</span>
+            </div>
+            <div class="wpc-why">Why this matters</div>
+            <div class="wpc-why-text">The people affected most by these decisions need a seat at the table — not just researchers and policymakers.</div>
+            <div class="wpc-detail">Consumer voices must be elevated. Policymaking must be transparent and engage the public to ensure outcomes represent meaningful changes in people's lives.</div>
+          </div>
+          <div class="web-p-card">
+            <div class="wpc-img"><div class="wpc-img-x">✕</div><span>Image</span></div>
+            <div class="wpc-head">
+              <div class="web-acc-num">6</div>
+              <div class="wpc-title">Utilize an Integrated Approach</div>
+              <span class="wpc-share">Share ↗</span>
+            </div>
+            <div class="wpc-why">Why this matters</div>
+            <div class="wpc-why-text">Healthspan isn't just about medicine. Poverty, racism, and social conditions shape how we age. Science must connect to these larger realities.</div>
+            <div class="wpc-detail">Achievements in geroscience must be fully integrated in larger country-level efforts to address social determinants of health and longevity.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="web-cta-bar">
+        <p>The future is in the making today. Download the infographic or share these principles.</p>
+        <div class="wc-btn">Download PDF</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations-panel">
+    <h4>Design Notes</h4>
+    <div class="annotation">
+      <div class="ann-marker">1</div>
+      <div class="ann-text"><strong>Three story sections before the principles</strong> — "The Reality," "The Shift," and "The Problem" build context as the visitor scrolls. By the time they reach the principles, they understand what geroscience is, why healthspan matters, and why equity is at risk.</div>
+    </div>
+    <div class="annotation">
+      <div class="ann-marker">2</div>
+      <div class="ann-text"><strong>"The Problem" dark section</strong> — The emotional pivot point. The dark background creates visual contrast and signals urgency. The question "Who gets to age well?" makes it personal.</div>
+    </div>
+    <div class="annotation">
+      <div class="ann-marker">3</div>
+      <div class="ann-text"><strong>Principles framed as "AARP's Answer"</strong> — The section header positions the principles as a direct response to the challenge. The subtitle reinforces that this is practical and equitable — not abstract.</div>
+    </div>
+    <div class="annotation">
+      <div class="ann-marker">4</div>
+      <div class="ann-text"><strong>Principle cards with images and "Why this matters"</strong> — Each card leads with an image placeholder, followed by the human reason, then the formal language. All six are always visible in a 2-column grid — no hidden content. "Share" buttons appear on hover.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section style="background:var(--dark);padding:60px 80px;text-align:center;">
+  <p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:12px;">Campaign 1 of 4</p>
+  <p style="font-family:'Fraunces',serif;font-size:28px;color:#fff;font-weight:700;margin-bottom:8px;">Living Better, Not Just Longer</p>
+  <p style="font-size:14px;color:#666;max-width:500px;margin:0 auto;line-height:1.6;">One story. Four formats. Complete cohesion.</p>
+</section>
+
+
+</body>
+</html>
